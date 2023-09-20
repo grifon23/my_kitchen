@@ -1,6 +1,7 @@
 import React from 'react'
 import { FC } from 'react'
 import { StyleSheet, TextInput, View, ViewStyle } from 'react-native'
+import { colors } from '~modules/common/theme'
 import { ErrorTxt } from '../typography'
 import { Txt } from '../typography/txt.component'
 
@@ -10,6 +11,7 @@ interface IProps {
 	label?: string
 	error?: string
 	styleContainer?: ViewStyle
+	placeholder?: string
 }
 export const TxtInput: FC<IProps> = ({
 	value,
@@ -17,6 +19,7 @@ export const TxtInput: FC<IProps> = ({
 	label,
 	error,
 	styleContainer,
+	placeholder,
 }) => {
 	return (
 		<View style={styleContainer}>
@@ -27,6 +30,7 @@ export const TxtInput: FC<IProps> = ({
 			) : null}
 
 			<TextInput
+				placeholder={placeholder}
 				value={value}
 				onChangeText={onChange}
 				style={styles.input}
@@ -39,14 +43,17 @@ export const TxtInput: FC<IProps> = ({
 const styles = StyleSheet.create({
 	label: {
 		marginBottom: 10,
+		color: colors.primaryTxt,
 	},
 	input: {
 		height: 60,
 		width: '100%',
 		borderRadius: 10,
 		borderWidth: 1,
+		borderColor: colors.primary,
 		fontSize: 20,
 		lineHeight: 24,
 		paddingLeft: 10,
+		color: colors.primaryTxt,
 	},
 })

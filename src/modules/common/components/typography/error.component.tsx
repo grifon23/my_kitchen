@@ -9,7 +9,7 @@ interface IProps {
 export const ErrorTxt: FC<IProps> = ({ error }) => {
 	return (
 		<Txt mod="s" color="red">
-			error
+			{error}
 		</Txt>
 	)
 }
