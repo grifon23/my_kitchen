@@ -1,10 +1,19 @@
-// prettier-ignore
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
-  "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
-    /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
+	"extends": "@tsconfig/react-native/tsconfig.json" /* Recommended React Native TSConfig base */,
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": { "~*": ["./src/*"] },
+		"strictNullChecks": false
+		// "jsx": "react-native" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+	},
+	"include": [
+		"src",
+		".eslintrc.js",
+		"index.js",
+		"babel.config.js",
+		".prettierrc.js",
+		"metro.config.js"
+	],
+	/* Completeness */
+	"skipLibCheck": true
 }
