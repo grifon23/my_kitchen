@@ -1,6 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Button, colors, Txt, TxtInput, useForm } from '~modules/common'
+import {
+	BaseHeader,
+	Button,
+	colors,
+	Txt,
+	TxtInput,
+	useForm,
+} from '~modules/common'
 
 interface IForm {
 	email: string
@@ -11,6 +18,7 @@ export const UIKitScreen = () => {
 	const form = useForm<IForm>({}, () => null)
 	return (
 		<View style={styles.container}>
+			<BaseHeader label="Base Header" goBack={() => {}} />
 			<TxtInput
 				placeholder="Enter email"
 				onChange={val => form.setFormField('email', val)}

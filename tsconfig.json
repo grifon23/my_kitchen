@@ -12,7 +12,8 @@
 		"index.js",
 		"babel.config.js",
 		".prettierrc.js",
-		"metro.config.js"
+		"metro.config.js",
+		"react-native.config.js"
 	],
 	/* Completeness */
 	"skipLibCheck": true
