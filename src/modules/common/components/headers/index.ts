@@ -1,1 +1,1 @@
-export * from './base-header'
+export * from './primary-header'

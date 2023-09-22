@@ -1,13 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import {
-	BaseHeader,
 	Button,
 	colors,
-	Txt,
 	TxtInput,
 	useForm,
+	PrimaryHeader,
 } from '~modules/common'
+import { ScreenLayout } from '~modules/common/components/layouts'
 
 interface IForm {
 	email: string
@@ -17,8 +17,21 @@ interface IForm {
 export const UIKitScreen = () => {
 	const form = useForm<IForm>({}, () => null)
 	return (
-		<View style={styles.container}>
-			<BaseHeader label="Base Header" goBack={() => {}} />
+		<ScreenLayout
+			needScroll={true}
+			horizontalPadding={20}
+			bottomSafeArea={true}
+			topPadding={20}
+			stutusBarBg={colors.secondary}
+			headerComponent={
+				<PrimaryHeader
+					label="UI Kit screen"
+					rightIcon="menu-1"
+					colorLeftIcon={colors.primary}
+					colorRightIcon={colors.primary}
+					leftIcon={'left-open-big'}
+				/>
+			}>
 			<TxtInput
 				placeholder="Enter email"
 				onChange={val => form.setFormField('email', val)}
@@ -42,16 +55,6 @@ export const UIKitScreen = () => {
 				style={{ marginBottom: 20 }}
 			/>
 			<Button onPress={() => {}} mod="primary" txtContent="Continue" />
-		</View>
+		</ScreenLayout>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		width: '100%',
-		paddingHorizontal: 20,
-		backgroundColor: colors.bgLayout,
-	},
-})
