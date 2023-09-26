@@ -1,22 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import {
 	Button,
 	colors,
 	LinkTxt,
 	ScreenLayout,
 	Txt,
-	TxtInput,
 	useForm,
 } from '~modules/common'
 import { useNav } from '~modules/common/components/hooks'
 import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
-import { SignInForm } from '../components'
-import { ISignInForm } from '../typing'
+import { SignUpForm } from '../components/sign-up-form.component'
+import { ISignUpForm } from '../typing'
 import { signInValidator } from '../validators'
 
-export const SignInScreen = () => {
-	const form = useForm<ISignInForm>({}, signInValidator)
+export const SignUpScreen = () => {
+	const form = useForm<ISignUpForm>({}, signInValidator)
 	const nav = useNav()
 
 	const submit = async () => {
@@ -31,10 +30,10 @@ export const SignInScreen = () => {
 		<ScreenLayout viewStyle={styles.container} bottomSafeArea={true}>
 			<View style={styles.formContainer}>
 				<Txt style={styles.label} mod="xl" color={colors.primary}>
-					Sign in
+					Sign Up
 				</Txt>
 
-				<SignInForm
+				<SignUpForm
 					values={form.values}
 					onChange={form.setFormField}
 					errors={form.errors}
@@ -55,9 +54,9 @@ export const SignInScreen = () => {
 						justifyContent: 'center',
 						marginVertical: 20,
 					}}>
-					<Txt>Dont have account go to </Txt>
-					<LinkTxt onPress={() => nav.navigate(AuthRouteKey.SignUp)}>
-						Sign Up
+					<Txt>You have account go to </Txt>
+					<LinkTxt onPress={() => nav.navigate(AuthRouteKey.SignIn)}>
+						Sign In
 					</LinkTxt>
 				</View>
 			</View>

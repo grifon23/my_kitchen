@@ -5,4 +5,5 @@ export const colors = {
 	errorTxt: 'red',
 	primaryTxt: '#121212',
 	secondaryTxt: '#555555',
+	linkTxt: '#3571FD',
 }

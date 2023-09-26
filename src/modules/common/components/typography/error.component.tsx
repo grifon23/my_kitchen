@@ -8,7 +8,7 @@ interface IProps {
 
 export const ErrorTxt: FC<IProps> = ({ error }) => {
 	return (
-		<Txt mod="s" color="red">
+		<Txt mod="es" color="red">
 			{error}
 		</Txt>
 	)

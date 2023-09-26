@@ -6,6 +6,7 @@ import {
 	TxtInput,
 	useForm,
 	PrimaryHeader,
+	appEvents,
 } from '~modules/common'
 import { ScreenLayout } from '~modules/common/components/layouts'
 
@@ -16,6 +17,16 @@ interface IForm {
 
 export const UIKitScreen = () => {
 	const form = useForm<IForm>({}, () => null)
+	const openAlert = () => {
+		console.log('press')
+		appEvents.emit('alert', {
+			onPress: () => console.log('press event alert'),
+			btnText: 'Close',
+			icon: 'user',
+			buttonType: 'primary',
+			message: 'Alert modal',
+		})
+	}
 	return (
 		<ScreenLayout
 			needScroll={true}
@@ -54,7 +65,7 @@ export const UIKitScreen = () => {
 				txtContent="Sign Up"
 				style={{ marginBottom: 20 }}
 			/>
-			<Button onPress={() => {}} mod="primary" txtContent="Continue" />
+			<Button onPress={openAlert} mod="primary" txtContent="Open alert" />
 		</ScreenLayout>
 	)
 }

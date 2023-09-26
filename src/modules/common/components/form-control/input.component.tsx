@@ -1,6 +1,12 @@
 import React from 'react'
 import { FC } from 'react'
-import { StyleSheet, TextInput, View, ViewStyle } from 'react-native'
+import {
+	StyleSheet,
+	TextInput,
+	TextInputProps,
+	View,
+	ViewStyle,
+} from 'react-native'
 import { colors } from '~modules/common/theme'
 import { ErrorTxt } from '../typography'
 import { Txt } from '../typography/txt.component'
@@ -12,6 +18,9 @@ interface IProps {
 	error?: string
 	styleContainer?: ViewStyle
 	placeholder?: string
+	inputProps?: Omit<TextInputProps, 'value' | 'onChange' | 'placeholder'>
+
+	rightElement?: JSX.Element
 }
 export const TxtInput: FC<IProps> = ({
 	value,
@@ -20,6 +29,8 @@ export const TxtInput: FC<IProps> = ({
 	error,
 	styleContainer,
 	placeholder,
+	rightElement,
+	inputProps = {},
 }) => {
 	return (
 		<View style={styleContainer}>
@@ -28,22 +39,33 @@ export const TxtInput: FC<IProps> = ({
 					{label}
 				</Txt>
 			) : null}
+			<View style={styles.container}>
+				<TextInput
+					placeholder={placeholder}
+					value={value}
+					onChangeText={onChange}
+					style={styles.input}
+					{...inputProps}
+				/>
+				{rightElement ? (
+					<View style={styles.rightElement}>{rightElement}</View>
+				) : null}
+			</View>
 
-			<TextInput
-				placeholder={placeholder}
-				value={value}
-				onChangeText={onChange}
-				style={styles.input}
-			/>
 			{error ? <ErrorTxt error={error} /> : null}
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		position: 'relative',
+	},
 	label: {
 		marginBottom: 10,
-		color: colors.primaryTxt,
+		color: colors.primary,
 	},
 	input: {
 		height: 60,
@@ -55,5 +77,9 @@ const styles = StyleSheet.create({
 		lineHeight: 24,
 		paddingLeft: 10,
 		color: colors.primaryTxt,
+	},
+	rightElement: {
+		position: 'absolute',
+		right: 20,
 	},
 })
