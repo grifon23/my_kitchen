@@ -5,6 +5,6 @@ const constraints = {
 	password: { presence: presenceCost },
 	confirmPassword: { presence: presenceCost, equality: 'password' },
 }
-export const validateSignUp = (data: ISignUpForm) => {
+export const signUpValidator = (data: ISignUpForm) => {
 	return validate<any>(data, constraints)
 }

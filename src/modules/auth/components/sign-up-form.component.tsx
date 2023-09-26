@@ -44,7 +44,7 @@ export const SignUpForm: FC<IProps> = ({ values, onChange, errors, style }) => {
 				inputProps={{ secureTextEntry: showPassword }}
 				label="Confirm password"
 				placeholder="Enter password"
-				value={values.password}
+				value={values.confirmPassword}
 				onChange={val => onChange('confirmPassword', val)}
 				error={errors?.confirmPassword}
 				rightElement={
