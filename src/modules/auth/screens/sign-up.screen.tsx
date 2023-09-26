@@ -12,10 +12,10 @@ import { useNav } from '~modules/common/components/hooks'
 import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignUpForm } from '../components/sign-up-form.component'
 import { ISignUpForm } from '../typing'
-import { signInValidator } from '../validators'
+import { signUpValidator } from '../validators'
 
 export const SignUpScreen = () => {
-	const form = useForm<ISignUpForm>({}, signInValidator)
+	const form = useForm<ISignUpForm>({}, signUpValidator)
 	const nav = useNav()
 
 	const submit = async () => {
