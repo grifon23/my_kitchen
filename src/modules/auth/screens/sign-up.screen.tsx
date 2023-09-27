@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import {
+	appEvents,
 	Button,
 	colors,
 	LinkTxt,
@@ -11,6 +12,8 @@ import {
 import { useNav } from '~modules/common/components/hooks'
 import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignUpForm } from '../components/sign-up-form.component'
+import { exeptionsConfig } from '../config'
+import { authService } from '../service'
 import { ISignUpForm } from '../typing'
 import { signUpValidator } from '../validators'
 
@@ -18,14 +21,37 @@ export const SignUpScreen = () => {
 	const form = useForm<ISignUpForm>({}, signUpValidator)
 	const nav = useNav()
 
+	const resetForm = () =>
+		form.setForm({ email: null, password: null, confirmPassword: null })
+
+	const resetErrors = () =>
+		form.setFormErrors({
+			email: null,
+			password: null,
+			confirmPassword: null,
+		})
+
 	const submit = async () => {
 		try {
-			console.log('submit form', form.values)
-		} catch (error) {
-			console.log('error submit', error)
+			await authService.signUp(form.values)
+			resetForm()
+			resetErrors()
+		} catch (error: any) {
+			error.name = ''
+			const message = exeptionsConfig[error?.toString()]
+			if (message) {
+				appEvents.emit('alert', {
+					onPress: () => {},
+					buttonType: 'primary',
+					btnText: 'Close',
+					message: message,
+					icon: 'cancel-1',
+					colorIcon: colors.errorTxt,
+				})
+			}
 		}
 	}
-	console.log('error', form.errors)
+
 	return (
 		<ScreenLayout viewStyle={styles.container} bottomSafeArea={true}>
 			<View style={styles.formContainer}>

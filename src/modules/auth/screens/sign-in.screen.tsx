@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native'
 import {
+	appEvents,
 	Button,
 	colors,
 	LinkTxt,
@@ -14,19 +15,43 @@ import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignInForm } from '../components'
 import { ISignInForm } from '../typing'
 import { signInValidator } from '../validators'
+import auth from '@react-native-firebase/auth'
+import { authService } from '../service'
+import { exeptionsConfig } from '../config'
 
 export const SignInScreen = () => {
 	const form = useForm<ISignInForm>({}, signInValidator)
 	const nav = useNav()
 
+	const resetForm = () => form.setForm({ email: null, password: null })
+
+	const resetErrors = () =>
+		form.setFormErrors({
+			email: null,
+			password: null,
+		})
+
 	const submit = async () => {
 		try {
-			console.log('submit form', form.values)
-		} catch (error) {
-			console.log('error submit', error)
+			await authService.signIn(form.values)
+			resetErrors()
+			resetForm()
+		} catch (error: any) {
+			error.name = ''
+			const message = exeptionsConfig[error?.toString()]
+			if (message) {
+				appEvents.emit('alert', {
+					onPress: () => {},
+					buttonType: 'primary',
+					btnText: 'Close',
+					message: message,
+					icon: 'cancel-1',
+					colorIcon: colors.errorTxt,
+				})
+			}
 		}
 	}
-	console.log('error', form.errors)
+
 	return (
 		<ScreenLayout viewStyle={styles.container} bottomSafeArea={true}>
 			<View style={styles.formContainer}>
