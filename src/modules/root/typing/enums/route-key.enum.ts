@@ -3,3 +3,8 @@ export enum AuthRouteKey {
 	SignUp = 'sign-up',
 	Onboarding = 'onboarding',
 }
+
+
+export enum UserRouteKey {
+	Home = 'Home',
+}

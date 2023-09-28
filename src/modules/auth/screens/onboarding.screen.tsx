@@ -1,21 +1,38 @@
 import React from 'react'
-import { Button, ScreenLayout } from '~modules/common'
-import { View } from 'react-native'
-import { useNav } from '~modules/common'
+import { Button, ScreenLayout, useNav } from '~modules/common'
+import { Image, View } from 'react-native'
 import { AuthRouteKey } from '~modules/root/typing/'
 export const OnboardingScreen = () => {
 	const nav = useNav()
 	return (
-		<ScreenLayout>
+		<ScreenLayout
+			horizontalPadding={20}
+			viewStyle={{
+				justifyContent: 'space-between',
+			}}
+			bottomSafeArea={true}>
+			<View
+				style={{
+					flex: 1,
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}>
+				<Image
+					source={require('../../../assets/images/myKitche.png')}
+					style={{ height: '35%', width: '90%' }}
+				/>
+			</View>
+
 			<View>
 				<Button
 					txtContent="Login"
 					onPress={() => nav.navigate(AuthRouteKey.SignIn)}
-					mod="primary"
+					mod="outline"
+					style={{ marginBottom: 20 }}
 				/>
 
 				<Button
-					txtContent="Login"
+					txtContent="Sign up"
 					onPress={() => nav.navigate(AuthRouteKey.SignUp)}
 					mod="primary"
 				/>

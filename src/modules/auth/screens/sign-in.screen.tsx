@@ -17,6 +17,7 @@ import { ISignInForm } from '../typing'
 import { signInValidator } from '../validators'
 import { authApiService } from '../api'
 import { exeptionsConfig } from '../config'
+import { authService } from '../services'
 
 export const SignInScreen = () => {
 	const form = useForm<ISignInForm>({}, signInValidator)
@@ -32,7 +33,7 @@ export const SignInScreen = () => {
 
 	const submit = async () => {
 		try {
-			await authApiService.signIn(form.values)
+			await authService.signIn(form.values)
 			resetErrors()
 			resetForm()
 		} catch (error: any) {
@@ -52,7 +53,11 @@ export const SignInScreen = () => {
 	}
 
 	return (
-		<ScreenLayout viewStyle={styles.container} bottomSafeArea={true}>
+		<ScreenLayout
+			scrollStyle={styles.container}
+			bottomSafeArea={true}
+			needScroll={true}
+			horizontalPadding={20}>
 			<View style={styles.formContainer}>
 				<Txt style={styles.label} mod="xl" color={colors.primary}>
 					Sign in
@@ -64,26 +69,17 @@ export const SignInScreen = () => {
 					errors={form.errors}
 				/>
 			</View>
-
-			<View>
-				<Button
-					onPress={() => form.onSubmit(submit)}
-					mod="primary"
-					txtContent="Sign In"
-					style={{ width: 200 }}
-				/>
-				<View
-					style={{
-						flexDirection: 'row',
-						alignItems: 'center',
-						justifyContent: 'center',
-						marginVertical: 20,
-					}}>
-					<Txt>Dont have account go to </Txt>
-					<LinkTxt onPress={() => nav.navigate(AuthRouteKey.SignUp)}>
-						Sign Up
-					</LinkTxt>
-				</View>
+			<Button
+				onPress={() => form.onSubmit(submit)}
+				mod="primary"
+				txtContent="Login"
+				style={{ width: 200 }}
+			/>
+			<View style={styles.linkContainer}>
+				<Txt>Dont have account go to </Txt>
+				<LinkTxt onPress={() => nav.navigate(AuthRouteKey.SignUp)}>
+					Sign Up
+				</LinkTxt>
 			</View>
 		</ScreenLayout>
 	)
@@ -91,11 +87,15 @@ export const SignInScreen = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: 'column',
+		flexGrow: 1,
 		justifyContent: 'space-between',
-		width: '100%',
-		paddingHorizontal: 20,
 	},
-	formContainer: { flex: 1, justifyContent: 'center' },
+	formContainer: { flexGrow: 1, justifyContent: 'center' },
 	label: { textAlign: 'center', marginBottom: 60 },
+	linkContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginVertical: 20,
+	},
 })
