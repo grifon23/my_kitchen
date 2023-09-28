@@ -53,7 +53,11 @@ export const SignUpScreen = () => {
 	}
 
 	return (
-		<ScreenLayout viewStyle={styles.container} bottomSafeArea={true}>
+		<ScreenLayout
+			scrollStyle={styles.container}
+			bottomSafeArea={true}
+			needScroll={true}
+			horizontalPadding={20}>
 			<View style={styles.formContainer}>
 				<Txt style={styles.label} mod="xl" color={colors.primary}>
 					Sign Up
@@ -70,7 +74,7 @@ export const SignUpScreen = () => {
 				<Button
 					onPress={() => form.onSubmit(submit)}
 					mod="primary"
-					txtContent="Sign In"
+					txtContent="Create account"
 					style={{ width: 200 }}
 				/>
 				<View
@@ -95,7 +99,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		width: '100%',
-		paddingHorizontal: 20,
+		flexGrow: 1,
 	},
 	formContainer: { flex: 1, justifyContent: 'center' },
 	label: { textAlign: 'center', marginBottom: 60 },

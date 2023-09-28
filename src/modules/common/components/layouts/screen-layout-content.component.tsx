@@ -39,6 +39,7 @@ export const ScreenLayoutContent: FC<ScreenLayoutContentProps> = ({
 					ref={scrollRef}
 					enableAutomaticScroll={true}
 					keyboardShouldPersistTaps="handled"
+					enableOnAndroid={false}
 					extraHeight={extraHeight}
 					scrollEventThrottle={20}
 					pointerEvents={pointerEvents}
@@ -46,6 +47,7 @@ export const ScreenLayoutContent: FC<ScreenLayoutContentProps> = ({
 						{
 							paddingTop: 16,
 							paddingHorizontal: $size(horizontalPadding),
+							justifyContent: 'space-between',
 						},
 						scrollStyle,
 					]}>

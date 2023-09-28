@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
+import { authService } from '~modules/auth/services'
 import {
 	Button,
 	colors,
@@ -60,9 +61,9 @@ export const UIKitScreen = () => {
 				styleContainer={{ width: '100%', marginBottom: 20 }}
 			/>
 			<Button
-				onPress={() => {}}
+				onPress={async () => await authService.logOut()}
 				mod="outline"
-				txtContent="Sign Up"
+				txtContent="LogOut"
 				style={{ marginBottom: 20 }}
 			/>
 			<Button onPress={openAlert} mod="primary" txtContent="Open alert" />

@@ -3,7 +3,7 @@ import { colors } from '~modules/common/theme'
 export const styleModConfig = {
 	primary: {
 		container: { backgroundColor: colors.primary },
-		txt: { color: colors.secondary },
+		txt: { color: colors.secondary, fontWeight: '500' },
 	},
 	outline: {
 		container: {
@@ -11,6 +11,6 @@ export const styleModConfig = {
 			borderWidth: 1,
 			borderColor: colors.primary,
 		},
-		txt: { color: colors.primary },
+		txt: { color: colors.primary, fontWeight: '500' },
 	},
 }
