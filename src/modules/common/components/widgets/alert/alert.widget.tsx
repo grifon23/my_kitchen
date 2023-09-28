@@ -4,10 +4,10 @@ import { StyleSheet, View } from 'react-native'
 import { Txt } from '../../typography'
 import _ from 'lodash'
 import { Icon } from '../../elements'
-import { useEventsListener } from '../../hooks'
 import { colors } from '~modules/common/theme'
 import { Button } from '../../buttons'
 import { appEvents, AppEvents } from '~modules/common/events'
+import { useEventsListener } from '~modules/common/hooks'
 interface IContent {
 	icon: string
 	colorIcon: string

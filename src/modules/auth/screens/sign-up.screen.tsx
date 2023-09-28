@@ -8,12 +8,12 @@ import {
 	ScreenLayout,
 	Txt,
 	useForm,
+	useNav,
 } from '~modules/common'
-import { useNav } from '~modules/common/components/hooks'
 import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignUpForm } from '../components/sign-up-form.component'
 import { exeptionsConfig } from '../config'
-import { authService } from '../service'
+import { authApiService } from '../api'
 import { ISignUpForm } from '../typing'
 import { signUpValidator } from '../validators'
 
@@ -33,7 +33,7 @@ export const SignUpScreen = () => {
 
 	const submit = async () => {
 		try {
-			await authService.signUp(form.values)
+			await authApiService.signUp(form.values)
 			resetForm()
 			resetErrors()
 		} catch (error: any) {

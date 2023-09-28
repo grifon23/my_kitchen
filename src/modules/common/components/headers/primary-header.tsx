@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { ColorValue, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { colors } from '~modules/common/theme'
 import { Icon } from '../elements'
-import { $size } from '../helpers'
+import { $size } from '../../helpers'
 import { Txt } from '../typography'
 
 interface IProps {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Text, StyleSheet, TextStyle, TextProps } from 'react-native'
-import { $size } from '../helpers';
+import { $size } from '../../helpers'
 const sizes = {
   s: $size(10, 8),
   es: $size(12, 10),
