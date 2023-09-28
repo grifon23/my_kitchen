@@ -11,8 +11,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ScreenLayoutContent } from './screen-layout-content.component'
 import _ from 'lodash'
 import { colors } from '~modules/common/theme'
-import { $size } from '../helpers'
-import { gcService } from '../tools'
+import { $size } from '../../helpers'
+import { gcService } from '../../tools'
 
 export interface ScreenLayoutProps {
 	children: JSX.Element | JSX.Element[]

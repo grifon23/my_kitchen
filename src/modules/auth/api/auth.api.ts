@@ -1,29 +1,25 @@
 import auth from '@react-native-firebase/auth'
-import { appEvents, colors } from '~modules/common'
-import { exeptionsConfig } from '../config'
-import { ErrorKeysEnum } from '../typing'
+import { ISignInPayload, ISignUpPayload } from './interfaces'
 
-export class AuthService {
-	public async signIn(payload: { email: string; password: string }) {
+export class AuthRequestsService {
+	public async signIn(payload: ISignInPayload) {
 		try {
 			const resp = await auth().signInWithEmailAndPassword(
 				payload.email,
 				payload.password,
 			)
-			console.log('resp', resp)
 		} catch (error: any) {
 			const code = await error.code
 			throw new Error(code)
 		}
 	}
 
-	public async signUp(payload: { email: string; password: string }) {
+	public async signUp(payload: ISignUpPayload) {
 		try {
 			const resp = await auth().createUserWithEmailAndPassword(
 				payload.email,
 				payload.password,
 			)
-			console.log('resp', resp)
 		} catch (error: any) {
 			const code = await error.code
 			throw new Error(code)
@@ -31,4 +27,4 @@ export class AuthService {
 	}
 }
 
-export const authService = new AuthService()
+export const authApiService = new AuthRequestsService()

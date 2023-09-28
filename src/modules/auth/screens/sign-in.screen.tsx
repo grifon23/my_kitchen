@@ -9,14 +9,13 @@ import {
 	Txt,
 	TxtInput,
 	useForm,
+	useNav,
 } from '~modules/common'
-import { useNav } from '~modules/common/components/hooks'
 import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignInForm } from '../components'
 import { ISignInForm } from '../typing'
 import { signInValidator } from '../validators'
-import auth from '@react-native-firebase/auth'
-import { authService } from '../service'
+import { authApiService } from '../api'
 import { exeptionsConfig } from '../config'
 
 export const SignInScreen = () => {
@@ -33,7 +32,7 @@ export const SignInScreen = () => {
 
 	const submit = async () => {
 		try {
-			await authService.signIn(form.values)
+			await authApiService.signIn(form.values)
 			resetErrors()
 			resetForm()
 		} catch (error: any) {

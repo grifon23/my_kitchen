@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { createIconSetFromFontello } from 'react-native-vector-icons'
 import { ColorValue, TouchableOpacity, ViewStyle } from 'react-native'
-import fontelloConfig from '../../../config/fontello.json'
+import fontelloConfig from '../../../../config/fontello.json'
 const FontelloIcon = createIconSetFromFontello(fontelloConfig)
 
 interface IProps {

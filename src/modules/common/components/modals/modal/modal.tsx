@@ -1,6 +1,6 @@
 import React from 'react'
 import RNModal from 'react-native-modal'
-import { getDimentions } from '../../helpers'
+import { getDimentions } from '../../../helpers'
 import {
 	ModalBodyAtom,
 	ModalContainerAtom,
