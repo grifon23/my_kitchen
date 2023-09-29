@@ -245,6 +245,48 @@
       "css": "heart-empty-1",
       "code": 59429,
       "src": "websymbols"
+    },
+    {
+      "uid": "d7271d490b71df4311e32cdacae8b331",
+      "css": "home-1",
+      "code": 59430,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8b80d36d4ef43889db10bc1f0dc9a862",
+      "css": "user-1",
+      "code": 59431,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e99461abfef3923546da8d745372c995",
+      "css": "cog",
+      "code": 59432,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "bczb7qup4axmc490xmuuv8qdhcnbgeyf",
+      "css": "user-2",
+      "code": 59433,
+      "src": "typicons"
+    },
+    {
+      "uid": "bcdc294bb787b15203b82f2be8096548",
+      "css": "star-1",
+      "code": 59434,
+      "src": "typicons"
+    },
+    {
+      "uid": "dbd39eb5a1d67beb54cfcb535e840e0f",
+      "css": "plus",
+      "code": 59435,
+      "src": "iconic"
+    },
+    {
+      "uid": "b90d80c250a9bbdd6cd3fe00e6351710",
+      "css": "ok-1",
+      "code": 59436,
+      "src": "iconic"
     }
   ]
 }

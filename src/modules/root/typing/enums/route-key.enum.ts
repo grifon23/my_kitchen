@@ -7,4 +7,9 @@ export enum AuthRouteKey {
 
 export enum UserRouteKey {
 	Home = 'Home',
+	Favorite = 'Favorite',
+	CreateRecipe = 'CreateRecipe',
+	MyIngredients = 'MyIngredients',
+	Profile = 'Profile ',
+	Tabs = 'Tabs',
 }
