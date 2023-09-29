@@ -8,7 +8,7 @@ export const ActionBtnAtom: FC = () => {
 			activeOpacity={0.6}
 			style={styles.container}
 			onPress={() => {}}>
-			<Icon name="plus-circled" size={32} color={colors.bgLayout} />
+			<Icon name="plus" size={20} color={colors.bgLayout} />
 		</TouchableOpacity>
 	)
 }

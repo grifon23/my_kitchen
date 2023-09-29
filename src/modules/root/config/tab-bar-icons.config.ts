@@ -1,9 +1,9 @@
 import { UserRouteKey } from '../typing'
 
 export const tabBarIconsConfig: any = {
-	[UserRouteKey.Home]: 'home',
-	[UserRouteKey.Favorite]: 'heart-empty-1',
-	[UserRouteKey.CreateRecipe]: 'plus-circled',
+	[UserRouteKey.Home]: 'home-1',
+	[UserRouteKey.Favorite]: 'heart-empty',
+	[UserRouteKey.CreateRecipe]: 'plus',
 	[UserRouteKey.MyIngredients]: 'menu',
-	[UserRouteKey.Profile]: 'user',
+	[UserRouteKey.Profile]: 'cog',
 }
