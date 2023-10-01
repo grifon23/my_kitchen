@@ -1,5 +1,11 @@
 import React, { FC } from 'react'
-import { ColorValue, StyleSheet, TouchableOpacity, View } from 'react-native'
+import {
+	ColorValue,
+	StyleSheet,
+	TouchableOpacity,
+	View,
+	ViewStyle,
+} from 'react-native'
 import { colors } from '~modules/common/theme'
 import { Icon } from '../elements'
 import { $size } from '../../helpers'
@@ -13,6 +19,7 @@ interface IProps {
 	colorRightIcon?: ColorValue
 	onPressRightIcon?: () => void
 	onPressLeftIcon?: () => void
+	style?: ViewStyle
 }
 export const PrimaryHeader: FC<IProps> = ({
 	leftIcon,
@@ -22,9 +29,10 @@ export const PrimaryHeader: FC<IProps> = ({
 	rightIcon,
 	colorRightIcon,
 	onPressRightIcon,
+	style,
 }) => {
 	return (
-		<View style={styles.container}>
+		<View style={[styles.container, style]}>
 			{leftIcon && (
 				<TouchableOpacity
 					style={[styles.icon, { left: 15 }]}
