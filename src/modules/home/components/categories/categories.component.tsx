@@ -31,8 +31,8 @@ export const Categories: FC<IProps> = ({ list }) => {
 	return (
 		<View>
 			<FlatList
-				style={{ flex: 1 }}
-				scrollEnabled={false}
+				// style={{ flex: 1 }}
+				scrollEnabled={true}
 				data={list}
 				renderItem={renderItem}
 				keyExtractor={item => String(item.id)}

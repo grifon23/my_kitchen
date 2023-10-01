@@ -1,6 +1,7 @@
-import React from 'react'
-import { PrimaryHeader, ScreenLayout } from '~modules/common'
-import { Categories, Category } from '../components'
+import React, { useState } from 'react'
+import { View } from 'react-native'
+import { Button, PrimaryHeader, ScreenLayout } from '~modules/common'
+import { Categories, Category, CategoryEditor } from '../components'
 import { ICategory } from '../typing'
 const mockData: ICategory[] = [
 	{ label: 'Soups', id: 1 },
@@ -15,17 +16,33 @@ const mockData: ICategory[] = [
 ]
 
 export const HomeScreen = () => {
+	const [isOpenEditor, setIsOpenEditor] = useState(false)
+
+	const onClose = () => {
+		setIsOpenEditor(false)
+	}
+
+	const openEditor = () => {
+		setIsOpenEditor(true)
+	}
 	return (
-		<ScreenLayout
-			horizontalPadding={0}
-			needScroll={true}
-			headerComponent={
-				<PrimaryHeader
-					label="Categories"
-					style={{ marginBottom: 30 }}
-				/>
-			}>
-			<Categories list={mockData} />
-		</ScreenLayout>
+		<>
+			<ScreenLayout
+				horizontalPadding={0}
+				needScroll={false}
+				viewStyle={{ flexGrow: 1 }}
+				headerComponent={<PrimaryHeader label="Categories" />}>
+				<View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
+					<Button
+						mod="outline"
+						onPress={openEditor}
+						txtContent="Add category"
+					/>
+				</View>
+
+				<Categories list={mockData} />
+			</ScreenLayout>
+			<CategoryEditor isOpen={isOpenEditor} close={onClose} />
+		</>
 	)
 }
