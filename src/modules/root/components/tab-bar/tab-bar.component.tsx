@@ -32,8 +32,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'flex-start',
-		paddingBottom: 20,
 		backgroundColor: colors.secondary,
 		zIndex: 999,
+		paddingTop: 5,
+		borderTopWidth: StyleSheet.hairlineWidth,
+		borderTopColor: colors.lightPrimary,
 	},
 })
