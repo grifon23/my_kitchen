@@ -1,4 +1,4 @@
 export interface ICategory {
-	label: string
+	name: string
 	id: number
 }

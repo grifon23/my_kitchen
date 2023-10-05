@@ -1,11 +1,10 @@
 import React, { FC } from 'react'
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native'
-import { colorsConfig } from '~modules/home/config'
+import { colorsConfig } from '~modules/categories/config'
 
 const activeStyle = {
 	height: 35,
 	width: 35,
-	margin: 3,
 }
 
 interface IProps {

@@ -1,1 +1,1 @@
-export * from './tab-bat.component'
+export * from './tab-bar.component'

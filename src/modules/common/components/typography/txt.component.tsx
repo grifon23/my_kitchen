@@ -19,7 +19,7 @@ const lineHeights = {
 };
 export interface TxtProps extends TextProps {
 	children: any
-	style?: TextStyle | TextStyle[]
+	style?: any
 	color?: string
 	mod?: keyof typeof sizes
 	hide?: Boolean

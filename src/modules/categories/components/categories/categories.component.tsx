@@ -6,22 +6,27 @@ import {
 	StyleSheet,
 	View,
 } from 'react-native'
+import { ICategory } from '~modules/categories/typing'
 import { ListEmptyComponent } from '~modules/common'
-import { ICategory } from '~modules/home/typing'
 import { Category } from '../category'
 
 interface IProps {
 	list: ICategory[]
+	openEditor: (id?: string) => void
+	removeCategory: (id: string) => void
 }
-export const Categories: FC<IProps> = ({ list }) => {
+export const Categories: FC<IProps> = ({
+	list,
+	openEditor,
+	removeCategory,
+}) => {
 	const renderItem: ListRenderItem<ICategory> = useCallback(
 		({ item: it }: any) => {
 			return (
 				<Category
-					onPress={() => {
-						console.log('press item', it.id)
-					}}
-					label={it.label}
+					deleteCategory={() => removeCategory(it.id)}
+					onPress={() => openEditor(it.id)}
+					label={it.name}
 					style={styles.item}
 				/>
 			)
