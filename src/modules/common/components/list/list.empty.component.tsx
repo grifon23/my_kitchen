@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderWidth: 1,
-		height: Dimensions.get('screen').height * 0.8,
+		height: Dimensions.get('screen').height * 0.65,
 	},
 	txt: {
 		opacity: 0.5,

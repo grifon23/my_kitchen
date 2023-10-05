@@ -6,8 +6,8 @@ import {
 	StyleSheet,
 	View,
 } from 'react-native'
+import { ICategory } from '~modules/categories/typing'
 import { ListEmptyComponent } from '~modules/common'
-import { ICategory } from '~modules/home/typing'
 import { Category } from '../category'
 
 interface IProps {
@@ -21,7 +21,7 @@ export const Categories: FC<IProps> = ({ list }) => {
 					onPress={() => {
 						console.log('press item', it.id)
 					}}
-					label={it.label}
+					label={it.name}
 					style={styles.item}
 				/>
 			)

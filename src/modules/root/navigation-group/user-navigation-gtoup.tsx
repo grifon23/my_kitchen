@@ -6,7 +6,7 @@ import { UIKitScreen } from './../../common/ua-kit/screens/ui-kit.screen'
 import { UserRouteKey } from '../typing/enums/route-key.enum'
 import { ComingSoonScreen } from '../screens'
 import { TabBarWidget } from '../widgets'
-import { HomeScreen } from '~modules/home'
+import { CategoriesScreen } from '~modules/categories'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -20,7 +20,7 @@ const UserTabNavigator = () => (
 		)}>
 		<Tab.Screen
 			name={UserRouteKey.Home}
-			component={HomeScreen}></Tab.Screen>
+			component={CategoriesScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Favorite}
 			component={UIKitScreen}></Tab.Screen>

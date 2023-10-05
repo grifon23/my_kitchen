@@ -1,23 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Button, PrimaryHeader, ScreenLayout } from '~modules/common'
 import { Categories, Category, CategoryEditor } from '../components'
+import firestore from '@react-native-firebase/firestore'
+
 import { ICategory } from '../typing'
-const mockData: ICategory[] = [
-	{ label: 'Soups', id: 1 },
-	{ label: 'Hot dishes', id: 2 },
-	{ label: 'Deserts', id: 3 },
-	{ label: 'Salad', id: 4 },
-	{ label: 'Meat', id: 5 },
-	{ label: 'Fish', id: 6 },
-	{ label: 'Torts', id: 7 },
-	{ label: 'Fruits', id: 8 },
-	{ label: 'Tasty', id: 9 },
-]
+import _ from 'lodash'
+import { categoriesApi } from '../api'
 
-export const HomeScreen = () => {
+export const CategoriesScreen = () => {
 	const [isOpenEditor, setIsOpenEditor] = useState(false)
-
+	const [list, setList] = useState<ICategory[]>([])
 	const onClose = () => {
 		setIsOpenEditor(false)
 	}
@@ -25,6 +18,26 @@ export const HomeScreen = () => {
 	const openEditor = () => {
 		setIsOpenEditor(true)
 	}
+
+	const getCategories = async () => {
+		try {
+			const categories: any = []
+
+			const collection = await categoriesApi.getCategoriesReq()
+			console.log('collection', collection)
+			collection.forEach(it => {
+				categories.push({ id: it.id, ...it.data() })
+			})
+			setList(categories)
+		} catch (error) {
+			console.log('error', error)
+		}
+	}
+
+	useEffect(() => {
+		getCategories()
+	}, [])
+	console.log('list', list)
 	return (
 		<>
 			<ScreenLayout
@@ -40,7 +53,7 @@ export const HomeScreen = () => {
 					/>
 				</View>
 
-				<Categories list={mockData} />
+				<Categories list={list} />
 			</ScreenLayout>
 			<CategoryEditor isOpen={isOpenEditor} close={onClose} />
 		</>
