@@ -12,15 +12,20 @@ import { Category } from '../category'
 
 interface IProps {
 	list: ICategory[]
+	openEditor: (id?: string) => void
+	removeCategory: (id: string) => void
 }
-export const Categories: FC<IProps> = ({ list }) => {
+export const Categories: FC<IProps> = ({
+	list,
+	openEditor,
+	removeCategory,
+}) => {
 	const renderItem: ListRenderItem<ICategory> = useCallback(
 		({ item: it }: any) => {
 			return (
 				<Category
-					onPress={() => {
-						console.log('press item', it.id)
-					}}
+					deleteCategory={() => removeCategory(it.id)}
+					onPress={() => openEditor(it.id)}
 					label={it.name}
 					style={styles.item}
 				/>

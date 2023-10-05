@@ -1,7 +1,6 @@
 import React from 'react'
 import { FC } from 'react'
-import { StyleSheet, ViewStyle } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { StyleSheet, ViewStyle, TouchableOpacity } from 'react-native'
 import { colors } from '~modules/common/theme'
 import { Txt } from '../../typography'
 import { styleModConfig } from './style-config'
@@ -33,5 +32,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		paddingHorizontal: 16,
+		zIndex: 99,
 	},
 })

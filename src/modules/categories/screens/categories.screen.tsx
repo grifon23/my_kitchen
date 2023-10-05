@@ -1,43 +1,69 @@
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
-import { Button, PrimaryHeader, ScreenLayout } from '~modules/common'
-import { Categories, Category, CategoryEditor } from '../components'
-import firestore from '@react-native-firebase/firestore'
+import {
+	appEvents,
+	Button,
+	Loader,
+	PrimaryHeader,
+	ScreenLayout,
+} from '~modules/common'
+import { Categories, CategoryEditor } from '../components'
 
 import { ICategory } from '../typing'
 import _ from 'lodash'
-import { categoriesApi } from '../api'
+import { categoryService } from '../service'
 
 export const CategoriesScreen = () => {
 	const [isOpenEditor, setIsOpenEditor] = useState(false)
 	const [list, setList] = useState<ICategory[]>([])
+	const [isLoading, setIsLoading] = useState(false)
+	const [categoryId, setCategoryId] = useState<string>(null)
+
 	const onClose = () => {
 		setIsOpenEditor(false)
+		setCategoryId(null)
+		getCategories()
 	}
 
-	const openEditor = () => {
+	const openEditor = (id?: string) => {
 		setIsOpenEditor(true)
+		setCategoryId(id)
 	}
 
 	const getCategories = async () => {
+		setIsLoading(true)
 		try {
-			const categories: any = []
-
-			const collection = await categoriesApi.getCategoriesReq()
-			console.log('collection', collection)
-			collection.forEach(it => {
-				categories.push({ id: it.id, ...it.data() })
-			})
+			const categories = await categoryService.getCategories()
 			setList(categories)
 		} catch (error) {
 			console.log('error', error)
 		}
+		setIsLoading(false)
 	}
 
 	useEffect(() => {
 		getCategories()
 	}, [])
-	console.log('list', list)
+
+	const removeCategory = async (id: string) => {
+		try {
+			await categoryService.deleteCategory(id)
+			getCategories()
+		} catch (error) {
+			console.log('error remove category')
+		}
+	}
+
+	const alertRemoveCategory = (id: string) => {
+		appEvents.emit('alert', {
+			onPress: async () => removeCategory(id),
+			btnText: 'Ok',
+			icon: 'trash',
+			buttonType: 'primary',
+			message: 'Are you sure delete category with all recipes?',
+		})
+	}
+	if (isLoading) return <Loader />
 	return (
 		<>
 			<ScreenLayout
@@ -53,9 +79,17 @@ export const CategoriesScreen = () => {
 					/>
 				</View>
 
-				<Categories list={list} />
+				<Categories
+					list={list}
+					openEditor={openEditor}
+					removeCategory={alertRemoveCategory}
+				/>
 			</ScreenLayout>
-			<CategoryEditor isOpen={isOpenEditor} close={onClose} />
+			<CategoryEditor
+				isOpen={isOpenEditor}
+				close={onClose}
+				categoryId={categoryId}
+			/>
 		</>
 	)
 }

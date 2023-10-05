@@ -5,10 +5,19 @@ interface IProps {
 	label: string
 	onPress: () => void
 	style?: ViewStyle
+	deleteCategory: () => void
 }
-export const Category: FC<IProps> = ({ label, onPress, style }) => {
+export const Category: FC<IProps> = ({
+	label,
+	onPress,
+	style,
+	deleteCategory,
+}) => {
 	return (
-		<TouchableOpacity onPress={onPress} style={[styles.container, style]}>
+		<TouchableOpacity
+			onPress={onPress}
+			style={[styles.container, style]}
+			onLongPress={deleteCategory}>
 			<Txt mod="md" color={colors.secondaryTxt} style={styles.label}>
 				{label}
 			</Txt>
