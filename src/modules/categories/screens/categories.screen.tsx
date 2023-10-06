@@ -3,9 +3,11 @@ import { View } from 'react-native'
 import {
 	appEvents,
 	Button,
+	colors,
 	Loader,
 	PrimaryHeader,
 	ScreenLayout,
+	useNav,
 } from '~modules/common'
 import { Categories, CategoryEditor } from '../components'
 
@@ -13,8 +15,10 @@ import _ from 'lodash'
 import { categoryService } from '../service'
 import { useSelector } from 'react-redux'
 import { selectCategories } from '~modules/store/categories/selector'
+import { UserRouteKey } from '~modules/root/typing'
 
 export const CategoriesScreen = () => {
+	const nav = useNav()
 	const { data: list, isLoading } = useSelector(selectCategories)
 	const [isOpenEditor, setIsOpenEditor] = useState(false)
 	const [categoryId, setCategoryId] = useState<string>(null)
@@ -62,7 +66,9 @@ export const CategoriesScreen = () => {
 		})
 	}
 
-	const goDetailCategory = (id: string) => {}
+	const goDetailCategory = (id: string) => {
+		nav.navigate(UserRouteKey.Recipes, { categoryId: id })
+	}
 
 	if (isLoading) return <Loader />
 	return (
