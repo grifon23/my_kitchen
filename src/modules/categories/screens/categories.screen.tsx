@@ -9,36 +9,35 @@ import {
 } from '~modules/common'
 import { Categories, CategoryEditor } from '../components'
 
-import { ICategory } from '../typing'
 import _ from 'lodash'
 import { categoryService } from '../service'
+import { useSelector } from 'react-redux'
+import { selectCategories } from '~modules/store/categories/selector'
 
 export const CategoriesScreen = () => {
+	const { data: list, isLoading } = useSelector(selectCategories)
 	const [isOpenEditor, setIsOpenEditor] = useState(false)
-	const [list, setList] = useState<ICategory[]>([])
-	const [isLoading, setIsLoading] = useState(false)
 	const [categoryId, setCategoryId] = useState<string>(null)
 
 	const onClose = () => {
 		setIsOpenEditor(false)
 		setCategoryId(null)
-		getCategories()
 	}
 
-	const openEditor = (id?: string) => {
+	const openEditor = () => {
 		setIsOpenEditor(true)
-		setCategoryId(id)
 	}
 
+	const editCategory = (id: string) => {
+		setCategoryId(id)
+		openEditor()
+	}
 	const getCategories = async () => {
-		setIsLoading(true)
 		try {
-			const categories = await categoryService.getCategories()
-			setList(categories)
+			await categoryService.loadCategories()
 		} catch (error) {
 			console.log('error', error)
 		}
-		setIsLoading(false)
 	}
 
 	useEffect(() => {
@@ -48,7 +47,6 @@ export const CategoriesScreen = () => {
 	const removeCategory = async (id: string) => {
 		try {
 			await categoryService.deleteCategory(id)
-			getCategories()
 		} catch (error) {
 			console.log('error remove category')
 		}
@@ -63,6 +61,9 @@ export const CategoriesScreen = () => {
 			message: 'Are you sure delete category with all recipes?',
 		})
 	}
+
+	const goDetailCategory = (id: string) => {}
+
 	if (isLoading) return <Loader />
 	return (
 		<>
@@ -81,8 +82,9 @@ export const CategoriesScreen = () => {
 
 				<Categories
 					list={list}
-					openEditor={openEditor}
+					openEditor={editCategory}
 					removeCategory={alertRemoveCategory}
+					goDetailCategory={goDetailCategory}
 				/>
 			</ScreenLayout>
 			<CategoryEditor

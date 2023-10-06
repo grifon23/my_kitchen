@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import React, { FC, useEffect } from 'react'
 import { categoryService } from '~modules/categories/service'
+import { categoryValidator } from '~modules/categories/validators'
 import { Button, Txt, TxtInput, useForm } from '~modules/common'
 import { ModalComponent } from '~modules/common/components/modals'
-import { ColorsWrapperAtom } from './atoms'
 
 interface IProps {
 	isOpen: boolean
@@ -11,19 +11,29 @@ interface IProps {
 	categoryId?: string
 }
 export const CategoryEditor: FC<IProps> = ({ isOpen, close, categoryId }) => {
-	const form = useForm<{ name: string; color: string }>({}, () => null)
+	const form = useForm<{ name: string }>({}, categoryValidator)
+
+	const resetForm = () => {
+		form.setForm({ name: '' })
+		form.setFormErrors({ name: '' })
+	}
 
 	const getCategory = async () => {
 		try {
-			if (!_.isString(categoryId)) return
-			const resp: any = await categoryService.getOneCategory(categoryId)
-			form.setFormField('name', resp.name)
-			console.log('resp', resp)
+			if (!categoryId) {
+				resetForm()
+
+				return
+			} else {
+				const resp: any = await categoryService.getOneCategory(
+					categoryId,
+				)
+				form.setFormField('name', resp.name)
+			}
 		} catch (error) {
 			console.log('error get category', error)
 		}
 	}
-	console.log('categoryId', _.isString(categoryId))
 
 	useEffect(() => {
 		getCategory()
@@ -39,17 +49,20 @@ export const CategoryEditor: FC<IProps> = ({ isOpen, close, categoryId }) => {
 				await categoryService.createCategory({ name: form.values.name })
 			}
 			close()
-			form.setForm({ name: '', color: '' })
+			form.setForm({ name: '' })
+			form.setFormErrors({ name: '' })
 		} catch (error) {
 			console.log('error editor category', error)
 		}
 	}
+
+	const handleClose = () => {
+		close()
+		resetForm()
+	}
+
 	return (
-		<ModalComponent
-			isVisible={isOpen}
-			onClose={close}
-			animationIn={'bounceInRight'}
-			animationOut={'bounceOutRight'}>
+		<ModalComponent isVisible={isOpen} onClose={handleClose}>
 			<ModalComponent.Container style={{ padding: 20, borderRadius: 10 }}>
 				<ModalComponent.Header>
 					<Txt style={{ textAlign: 'center' }}>Category create</Txt>
@@ -62,12 +75,6 @@ export const CategoryEditor: FC<IProps> = ({ isOpen, close, categoryId }) => {
 						value={form.values.name}
 						error={form.errors.name}
 						styleContainer={{ marginVertical: 20 }}
-					/>
-
-					<ColorsWrapperAtom
-						onChange={val => form.setFormField('color', val)}
-						activeColor={form.values.color}
-						style={{ marginBottom: 20 }}
 					/>
 
 					<Button
