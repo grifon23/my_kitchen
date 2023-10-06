@@ -4,6 +4,7 @@ export namespace Store {
 		SET_NAVIGATION_GROUP = 'SET_NAVIGATION_GROUP',
 		RESET = 'RESET',
 		SET_ACCOUNT = 'SET_ACCOUNT',
+		SET_CATEGORIES = 'SET_CATEGORIES',
 	}
 	type StoreData<T> = {
 		data: T
@@ -15,15 +16,15 @@ export namespace Store {
 	}
 	export interface Root {
 		navigation: States.Nav
-		// account: States.Account
+		categorise: States.Categories
 	}
 	export namespace States {
 		export interface Nav {
 			activeGroup: NavGroupKey
 			isLoading: boolean
 		}
-		// export interface Account {
-		// 	info: StoreData<any>
-		// }
+		export interface Categories {
+			info: StoreData<any>
+		}
 	}
 }

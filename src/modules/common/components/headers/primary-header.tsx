@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import {
 	ColorValue,
+	Platform,
 	StyleSheet,
 	TouchableOpacity,
 	View,
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		position: 'relative',
 		alignItems: 'flex-end',
-		height: 60,
+		height: Platform.OS === 'ios' ? 80 : 60,
 	},
 	icon: {
 		position: 'absolute',

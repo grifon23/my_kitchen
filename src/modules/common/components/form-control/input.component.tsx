@@ -41,6 +41,7 @@ export const TxtInput: FC<IProps> = ({
 			) : null}
 			<View style={styles.container}>
 				<TextInput
+					autoCapitalize="none"
 					placeholder={placeholder}
 					value={value}
 					onChangeText={onChange}

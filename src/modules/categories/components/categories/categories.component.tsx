@@ -14,18 +14,21 @@ interface IProps {
 	list: ICategory[]
 	openEditor: (id?: string) => void
 	removeCategory: (id: string) => void
+	goDetailCategory: (id: string) => void
 }
 export const Categories: FC<IProps> = ({
 	list,
 	openEditor,
 	removeCategory,
+	goDetailCategory,
 }) => {
 	const renderItem: ListRenderItem<ICategory> = useCallback(
 		({ item: it }: any) => {
 			return (
 				<Category
+					editCategory={() => openEditor(it.id)}
 					deleteCategory={() => removeCategory(it.id)}
-					onPress={() => openEditor(it.id)}
+					onPress={() => goDetailCategory(it.id)}
 					label={it.name}
 					style={styles.item}
 				/>
