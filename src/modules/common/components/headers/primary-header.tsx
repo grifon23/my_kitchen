@@ -34,34 +34,40 @@ export const PrimaryHeader: FC<IProps> = ({
 }) => {
 	return (
 		<View style={[styles.container, style]}>
-			{leftIcon && (
-				<TouchableOpacity
-					style={[styles.icon, { left: 15 }]}
-					onPress={onPressLeftIcon}>
-					<Icon
-						name={leftIcon}
-						size={$size(20)}
-						color={colorLeftIcon}
-					/>
-				</TouchableOpacity>
-			)}
-			{label ? (
-				<Txt mod="lg" style={styles.label}>
-					{label}
-				</Txt>
-			) : null}
+			<View style={styles.item}>
+				{leftIcon ? (
+					<TouchableOpacity
+						style={styles.icon}
+						onPress={onPressLeftIcon}>
+						<Icon
+							name={leftIcon}
+							size={$size(20)}
+							color={colorLeftIcon}
+						/>
+					</TouchableOpacity>
+				) : null}
+			</View>
 
-			{rightIcon && (
-				<TouchableOpacity
-					onPress={onPressRightIcon}
-					style={[styles.icon, { right: 15 }]}>
-					<Icon
-						name={rightIcon}
-						size={$size(20)}
-						color={colorRightIcon}
-					/>
-				</TouchableOpacity>
-			)}
+			<View style={styles.item}>
+				{label ? (
+					<Txt mod="lg" style={styles.label}>
+						{label}
+					</Txt>
+				) : null}
+			</View>
+			<View style={styles.item}>
+				{rightIcon ? (
+					<TouchableOpacity
+						onPress={onPressRightIcon}
+						style={styles.icon}>
+						<Icon
+							name={rightIcon}
+							size={$size(20)}
+							color={colorRightIcon}
+						/>
+					</TouchableOpacity>
+				) : null}
+			</View>
 		</View>
 	)
 }
@@ -70,19 +76,24 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: colors.bgLayout,
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		position: 'relative',
-		alignItems: 'flex-end',
-		height: Platform.OS === 'ios' ? 80 : 60,
+		alignItems: 'center',
+		height: Platform.OS === 'ios' ? 80 : 80,
+		paddingTop: 30,
 	},
 	icon: {
-		position: 'absolute',
 		zIndex: 99,
+		paddingHorizontal: 20,
+		paddingVertical: 10,
 	},
 	label: {
 		textAlign: 'center',
 		width: '100%',
 		color: colors.primaryTxt,
 		zIndex: 99,
+	},
+	item: {
+		minWidth: 40,
 	},
 })

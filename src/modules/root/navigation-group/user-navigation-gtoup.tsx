@@ -7,20 +7,39 @@ import { UserRouteKey } from '../typing/enums/route-key.enum'
 import { ComingSoonScreen } from '../screens'
 import { TabBarWidget } from '../widgets'
 import { CategoriesScreen } from '~modules/categories'
+import { RecipesScreen } from '~modules/recipes'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
+const HomeStack = createStackNavigator()
+
+const HomeStackNavigator = () => {
+	return (
+		<HomeStack.Navigator
+			screenOptions={{ headerShown: false }}
+			initialRouteName={UserRouteKey.Home}>
+			<HomeStack.Screen
+				name={UserRouteKey.Home}
+				component={CategoriesScreen}
+			/>
+			<HomeStack.Screen
+				name={UserRouteKey.Recipes}
+				component={RecipesScreen}
+			/>
+		</HomeStack.Navigator>
+	)
+}
 
 const UserTabNavigator = () => (
 	<Tab.Navigator
 		screenOptions={{ headerShown: false }}
-		initialRouteName={UserRouteKey.Home}
+		initialRouteName={UserRouteKey.Tabs}
 		tabBar={({ state, navigation }) => (
 			<TabBarWidget state={state} navigate={navigation.navigate} />
 		)}>
 		<Tab.Screen
-			name={UserRouteKey.Home}
-			component={CategoriesScreen}></Tab.Screen>
+			name={UserRouteKey.HomeStack}
+			component={HomeStackNavigator}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Favorite}
 			component={UIKitScreen}></Tab.Screen>

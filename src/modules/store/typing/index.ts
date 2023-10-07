@@ -1,3 +1,5 @@
+import { ICategory } from '~modules/categories/typing'
+import { IRecipe } from '~modules/recipes/typing'
 import { NavGroupKey } from '~modules/root/typing'
 export namespace Store {
 	export enum StoreActionKey {
@@ -5,6 +7,7 @@ export namespace Store {
 		RESET = 'RESET',
 		SET_ACCOUNT = 'SET_ACCOUNT',
 		SET_CATEGORIES = 'SET_CATEGORIES',
+		SET_RECIPES = 'SET_RECIPES',
 	}
 	type StoreData<T> = {
 		data: T
@@ -17,6 +20,7 @@ export namespace Store {
 	export interface Root {
 		navigation: States.Nav
 		categorise: States.Categories
+		recipes: States.Recipes
 	}
 	export namespace States {
 		export interface Nav {
@@ -24,7 +28,11 @@ export namespace Store {
 			isLoading: boolean
 		}
 		export interface Categories {
-			info: StoreData<any>
+			info: StoreData<ICategory[]>
+		}
+
+		export interface Recipes {
+			info: StoreData<IRecipe[]>
 		}
 	}
 }
