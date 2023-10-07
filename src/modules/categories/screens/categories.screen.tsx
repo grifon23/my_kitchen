@@ -4,7 +4,6 @@ import {
 	appEvents,
 	Button,
 	colors,
-	Loader,
 	PrimaryHeader,
 	ScreenLayout,
 	useNav,
@@ -16,6 +15,7 @@ import { categoryService } from '../service'
 import { useSelector } from 'react-redux'
 import { selectCategories } from '~modules/store/categories/selector'
 import { UserRouteKey } from '~modules/root/typing'
+import { Loader } from '~modules/common/components/elements/loader.element'
 
 export const CategoriesScreen = () => {
 	const nav = useNav()

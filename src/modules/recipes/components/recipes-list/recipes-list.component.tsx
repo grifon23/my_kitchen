@@ -1,6 +1,7 @@
 import React, { FC, useCallback } from 'react'
 import { FlatList, ListRenderItem, StyleSheet } from 'react-native'
 import { ListEmptyComponent, SwipableRow } from '~modules/common'
+import { IRecipe } from '~modules/recipes/typing'
 import { Recipe } from '../recipe/recipe.component'
 
 interface IProps {
@@ -17,14 +18,14 @@ export const RecilesList: FC<IProps> = ({
 	goDetailRecipe,
 	swipeRef,
 }) => {
-	const renderItem: ListRenderItem<any> = useCallback(
-		({ item: it }: any) => {
+	const renderItem: ListRenderItem<IRecipe> = useCallback(
+		({ item: it }) => {
 			return (
 				<SwipableRow
 					key={it.id}
 					swipeRef={swipeRef}
 					item={{ id: 4 }}
-					openPopup={() => {}}>
+					openPopup={() => removeRecipe(it.id)}>
 					<Recipe
 						style={styles.item}
 						name={it.name}
