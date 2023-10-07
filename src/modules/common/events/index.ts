@@ -14,6 +14,9 @@ export type AppEvents = {
 		buttonType: 'primary' | 'outline'
 		btnText?: string
 		colorIcon?: string
+		cancelBtnText?: string
+		cancelBtnType?: 'primary' | 'outline'
+		onPressCancelBtn?: () => void
 	}
 }
 export const appEvents = new Events<AppEvents>()

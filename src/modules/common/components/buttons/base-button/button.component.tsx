@@ -26,7 +26,7 @@ export const Button: FC<IProps> = ({ onPress, txtContent, mod, style }) => {
 }
 const styles = StyleSheet.create({
 	container: {
-		width: '100%',
+		maxWidth: '100%',
 		height: 60,
 		borderRadius: 10,
 		alignItems: 'center',

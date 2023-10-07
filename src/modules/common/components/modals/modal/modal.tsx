@@ -34,8 +34,8 @@ export const ModalComponent = ({
 			deviceWidth={dimensions.width}
 			statusBarTranslucent
 			isVisible={isVisible}
-			animationInTiming={800}
-			animationOutTiming={700}
+			animationInTiming={500}
+			animationOutTiming={500}
 			backdropTransitionInTiming={300}
 			backdropTransitionOutTiming={300}
 			backdropOpacity={0.7}
