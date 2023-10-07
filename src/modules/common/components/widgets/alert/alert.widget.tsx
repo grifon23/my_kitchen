@@ -14,6 +14,8 @@ interface IContent {
 	message: string
 	buttonType: 'primary' | 'outline' | null
 	btnText: string
+	cancelBtnText?: string
+	cancelBtnType?: 'primary' | 'outline'
 }
 const contentInitial: IContent = {
 	icon: '',
@@ -21,6 +23,8 @@ const contentInitial: IContent = {
 	buttonType: null,
 	btnText: '',
 	colorIcon: '',
+	cancelBtnText: '',
+	cancelBtnType: 'outline',
 }
 export const AlertWidget = () => {
 	const settingsRef = useRef<any>({
@@ -35,6 +39,7 @@ export const AlertWidget = () => {
 
 			settingsRef.current = {
 				onPress: data?.onPress,
+				onPressCancelBtn: data?.onPressCancelBtn,
 			}
 			setContent({
 				icon: data?.icon,
@@ -42,6 +47,8 @@ export const AlertWidget = () => {
 				message: data?.message,
 				btnText: _.defaultTo(data.btnText, contentInitial.btnText),
 				colorIcon: data.colorIcon,
+				cancelBtnText: data.cancelBtnText,
+				cancelBtnType: data.cancelBtnType,
 			})
 		},
 		[setContent, settingsRef.current, content],
@@ -54,6 +61,14 @@ export const AlertWidget = () => {
 	}
 	const onConfirm = () => {
 		settingsRef.current.onPress()
+		close()
+	}
+
+	const onCancel = () => {
+		if (settingsRef.current?.onPressCancelBtn) {
+			settingsRef.current?.onPressCancelBtn()
+			close()
+		}
 		close()
 	}
 	return (
@@ -84,8 +99,34 @@ export const AlertWidget = () => {
 						{content?.message}
 					</Txt>
 				</View>
-				<View style={styles.button}>
+				<View
+					style={[
+						styles.button,
+						{
+							justifyContent: settingsRef.current
+								?.onPressCancelBtn
+								? 'space-between'
+								: 'center',
+						},
+					]}>
+					{settingsRef.current?.onPressCancelBtn ? (
+						<Button
+							style={styles.close}
+							onPress={onCancel}
+							mod={_.defaultTo(content.cancelBtnType, 'outline')}
+							txtContent={_.defaultTo(
+								content.cancelBtnText,
+								'Cancel',
+							)}
+						/>
+					) : null}
+
 					<Button
+						style={{
+							minWidth: settingsRef.current?.onPressCancelBtn
+								? '40%'
+								: '100%',
+						}}
 						onPress={onConfirm}
 						mod={content.buttonType}
 						txtContent={content.btnText}
@@ -118,9 +159,12 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		width: '100%',
 		padding: 16,
+		flexDirection: 'row',
 	},
 	btnTxt: {},
-	close: {},
+	close: {
+		minWidth: '40%',
+	},
 	bottomBtn: {},
 })
 export const Alert = {

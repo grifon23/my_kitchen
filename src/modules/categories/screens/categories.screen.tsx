@@ -63,6 +63,7 @@ export const CategoriesScreen = () => {
 			icon: 'trash',
 			buttonType: 'primary',
 			message: 'Are you sure delete category with all recipes?',
+			onPressCancelBtn: () => {},
 		})
 	}
 

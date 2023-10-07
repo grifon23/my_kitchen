@@ -58,6 +58,7 @@ export const RecipesScreen = () => {
 			icon: 'trash',
 			buttonType: 'primary',
 			message: 'Are you sure delete recipe?',
+			onPressCancelBtn: () => {},
 		})
 	}
 
