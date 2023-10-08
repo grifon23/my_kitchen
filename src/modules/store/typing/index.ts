@@ -8,6 +8,7 @@ export namespace Store {
 		SET_ACCOUNT = 'SET_ACCOUNT',
 		SET_CATEGORIES = 'SET_CATEGORIES',
 		SET_RECIPES = 'SET_RECIPES',
+		SET_FAVORITE_RECIPES = 'SET_FAVORITE_RECIPES',
 	}
 	type StoreData<T> = {
 		data: T
@@ -21,6 +22,7 @@ export namespace Store {
 		navigation: States.Nav
 		categorise: States.Categories
 		recipes: States.Recipes
+		favorite: States.FavoriteRecipes
 	}
 	export namespace States {
 		export interface Nav {
@@ -32,6 +34,9 @@ export namespace Store {
 		}
 
 		export interface Recipes {
+			info: StoreData<IRecipe[]>
+		}
+		export interface FavoriteRecipes {
 			info: StoreData<IRecipe[]>
 		}
 	}

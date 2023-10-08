@@ -1,4 +1,3 @@
-import { useRoute } from '@react-navigation/native'
 import _ from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -7,34 +6,31 @@ import {
 	colors,
 	PrimaryHeader,
 	ScreenLayout,
-	useNav,
+	Txt,
 } from '~modules/common'
 import { Loader } from '~modules/common/components/elements/loader.element'
 import { SearchFormControll } from '~modules/common/components/form-control/search-form-controll'
-import { selectRecipes } from '~modules/store/recipes/selector'
+import { selectFavoriteRecipes } from '~modules/store/favorite/selector'
 import { RecilesList } from '../components'
 import { recipesService } from '../service'
 import { IRecipe } from '../typing'
 
-export const RecipesScreen = () => {
-	const { params }: any = useRoute()
-	const nav = useNav()
-	const { data } = useSelector(selectRecipes)
+export const FavoriteRecipes = () => {
+	const { data: favorites } = useSelector(selectFavoriteRecipes)
 	const [isLoading, setIsLoading] = useState(false)
 	const [searchString, setSearchString] = useState<string>('')
-	const loadRecipe = async () => {
+	const loadFavoriteRecipes = async () => {
 		setIsLoading(true)
 		try {
-			await recipesService.loadRecipesByCategory(params.categoryId)
+			await recipesService.loadFavoriteRecipe()
 			setIsLoading(false)
 		} catch (error) {
-			console.log('error', error)
+			console.log('error')
 		}
 	}
-
 	useEffect(() => {
-		loadRecipe()
-	}, [params.categoryId])
+		loadFavoriteRecipes()
+	}, [])
 
 	const swipeRef: Array<any> = []
 	let prevOpenedRow
@@ -45,32 +41,24 @@ export const RecipesScreen = () => {
 		}
 	}
 	const memoFilteringRecipe = useMemo(() => {
-		if (data) {
-			const fitlterList = data.filter((it: IRecipe) =>
+		if (favorites) {
+			const fitlterList = favorites.filter((it: IRecipe) =>
 				it.name.toLowerCase().includes(searchString),
 			)
 			return fitlterList
 		}
-	}, [searchString, data])
+	}, [searchString, favorites])
 
-	const removeRecipe = async (categoryId: string, id: string) => {
-		try {
-			await recipesService.removeRecipe(categoryId, id)
-		} catch (error) {
-			console.log('error remove category')
-		}
-	}
+	if (isLoading) return <Loader />
 
-	const updateFavorite = async (id: string, isFavorite: boolean) => {
-		console.log('id', id, 'idFavorite', isFavorite)
-		if (!isFavorite) {
-			await recipesService.updateFavorite(id, false)
-		} else await recipesService.updateFavorite(id, true)
+	const removeFromFavorines = async (categoryId: string, id: string) => {
+		await recipesService.removeRecipe(categoryId, id)
+		await recipesService.loadFavoriteRecipe()
 	}
 
 	const alertRemoveRecipe = (categoryId: string, id: string) => {
 		appEvents.emit('alert', {
-			onPress: async () => removeRecipe(categoryId, id),
+			onPress: async () => removeFromFavorines(categoryId, id),
 			btnText: 'Ok',
 			icon: 'trash',
 			buttonType: 'primary',
@@ -78,20 +66,11 @@ export const RecipesScreen = () => {
 			onPressCancelBtn: () => {},
 		})
 	}
-	console.log('params.categoryId', params.categoryId)
-	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout
 			horizontalPadding={0}
 			needScroll={false}
-			headerComponent={
-				<PrimaryHeader
-					label="Recipes"
-					leftIcon="left-open-big"
-					colorLeftIcon={colors.secondaryTxt}
-					onPressLeftIcon={() => nav.goBack()}
-				/>
-			}>
+			headerComponent={<PrimaryHeader label="Favorite recipes" />}>
 			<SearchFormControll
 				value={searchString}
 				onChange={setSearchString}
@@ -101,7 +80,7 @@ export const RecipesScreen = () => {
 			/>
 
 			<RecilesList
-				updateFavorite={updateFavorite}
+				isFavoriteList={true}
 				swipeRef={swipeRef}
 				list={memoFilteringRecipe}
 				openEditor={_.noop}
