@@ -1,25 +1,27 @@
 import { useRoute } from '@react-navigation/native'
 import _ from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
 	appEvents,
 	colors,
 	PrimaryHeader,
 	ScreenLayout,
+	SearchFormControll,
 	useNav,
 } from '~modules/common'
 import { Loader } from '~modules/common/components/elements/loader.element'
 import { selectRecipes } from '~modules/store/recipes/selector'
 import { RecilesList } from '../components'
 import { recipesService } from '../service'
+import { IRecipe } from '../typing'
 
 export const RecipesScreen = () => {
 	const { params }: any = useRoute()
+	const nav = useNav()
 	const { data } = useSelector(selectRecipes)
 	const [isLoading, setIsLoading] = useState(false)
-	const nav = useNav()
-
+	const [searchString, setSearchString] = useState<string>('')
 	const loadRecipe = async () => {
 		setIsLoading(true)
 		try {
@@ -42,6 +44,12 @@ export const RecipesScreen = () => {
 			prevOpenedRow.close()
 		}
 	}
+	const memoFilteringRecipe = useMemo(() => {
+		const fitlterList = data.filter((it: IRecipe) =>
+			it.name.includes(searchString),
+		)
+		return fitlterList
+	}, [searchString, data])
 
 	const removeRecipe = async (id: string) => {
 		try {
@@ -75,9 +83,17 @@ export const RecipesScreen = () => {
 					onPressLeftIcon={() => nav.goBack()}
 				/>
 			}>
+			<SearchFormControll
+				value={searchString}
+				onChange={setSearchString}
+				placeholder="Search ..."
+				horrizontalPadding={16}
+				mb={20}
+			/>
+
 			<RecilesList
 				swipeRef={swipeRef}
-				list={data}
+				list={memoFilteringRecipe}
 				openEditor={_.noop}
 				goDetailRecipe={_.noop}
 				removeRecipe={alertRemoveRecipe}
