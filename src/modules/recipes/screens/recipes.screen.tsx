@@ -7,10 +7,10 @@ import {
 	colors,
 	PrimaryHeader,
 	ScreenLayout,
-	SearchFormControll,
 	useNav,
 } from '~modules/common'
 import { Loader } from '~modules/common/components/elements/loader.element'
+import { SearchFormControll } from '~modules/common/components/form-control/search-form-controll'
 import { selectRecipes } from '~modules/store/recipes/selector'
 import { RecilesList } from '../components'
 import { recipesService } from '../service'
@@ -45,10 +45,12 @@ export const RecipesScreen = () => {
 		}
 	}
 	const memoFilteringRecipe = useMemo(() => {
-		const fitlterList = data.filter((it: IRecipe) =>
-			it.name.includes(searchString),
-		)
-		return fitlterList
+		if (data) {
+			const fitlterList = data.filter((it: IRecipe) =>
+				it.name.toLowerCase().includes(searchString),
+			)
+			return fitlterList
+		}
 	}, [searchString, data])
 
 	const removeRecipe = async (id: string) => {
