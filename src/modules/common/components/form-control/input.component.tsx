@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FC } from 'react'
 import {
 	StyleSheet,
@@ -20,6 +20,7 @@ interface IProps {
 	placeholder?: string
 	inputProps?: Omit<TextInputProps, 'value' | 'onChange' | 'placeholder'>
 	rightElement?: JSX.Element
+	isTexterea?: boolean
 }
 export const TxtInput: FC<IProps> = ({
 	value,
@@ -30,7 +31,9 @@ export const TxtInput: FC<IProps> = ({
 	placeholder,
 	rightElement,
 	inputProps = {},
+	isTexterea,
 }) => {
+	const [height, setHeight] = useState(0)
 	return (
 		<View style={styleContainer}>
 			{label ? (
@@ -40,11 +43,21 @@ export const TxtInput: FC<IProps> = ({
 			) : null}
 			<View style={styles.container}>
 				<TextInput
+					onContentSizeChange={event => {
+						const heightContent =
+							event.nativeEvent.contentSize.height < 100
+								? 100
+								: event.nativeEvent.contentSize.height
+						setHeight(heightContent)
+					}}
 					autoCapitalize="none"
 					placeholder={placeholder}
 					value={value}
 					onChangeText={onChange}
-					style={styles.input}
+					style={[
+						styles.input,
+						isTexterea ? { height } : { height: 60 },
+					]}
 					{...inputProps}
 				/>
 				{rightElement ? (
@@ -68,7 +81,6 @@ const styles = StyleSheet.create({
 		color: colors.primary,
 	},
 	input: {
-		height: 60,
 		width: '100%',
 		borderRadius: 10,
 		borderWidth: 1,

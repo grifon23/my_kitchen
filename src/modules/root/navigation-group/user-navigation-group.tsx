@@ -10,12 +10,14 @@ import { CategoriesScreen } from '~modules/categories'
 import {
 	EditorRecipeScreen,
 	FavoriteRecipes,
+	IngradientsRecipeScreen,
 	RecipesScreen,
 } from '~modules/recipes'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const HomeStack = createStackNavigator()
+const EditorRecipe = createStackNavigator()
 
 const HomeStackNavigator = () => {
 	return (
@@ -31,6 +33,22 @@ const HomeStackNavigator = () => {
 				component={RecipesScreen}
 			/>
 		</HomeStack.Navigator>
+	)
+}
+const EditorRecipeGroup = () => {
+	return (
+		<EditorRecipe.Navigator
+			screenOptions={{ headerShown: false }}
+			initialRouteName={UserRouteKey.EditorRecipe}>
+			<EditorRecipe.Screen
+				name={UserRouteKey.EditorRecipe}
+				component={EditorRecipeScreen}
+			/>
+			<EditorRecipe.Screen
+				name={UserRouteKey.IngradientsRecipe}
+				component={IngradientsRecipeScreen}
+			/>
+		</EditorRecipe.Navigator>
 	)
 }
 
@@ -49,7 +67,7 @@ const UserTabNavigator = () => (
 			component={FavoriteRecipes}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.CreateRecipe}
-			component={EditorRecipeScreen}></Tab.Screen>
+			component={EditorRecipeGroup}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.MyIngredients}
 			component={UIKitScreen}></Tab.Screen>

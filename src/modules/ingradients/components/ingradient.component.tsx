@@ -10,44 +10,26 @@ interface IProps {
 		key: keyof IIngradient,
 		val: string,
 	) => void
-	onPress: () => void
 	ingradient: IIngradient
 	index: number
 	remove: () => void
 	style?: ViewStyle
+	errors: any
 }
-export const IngradientAtom: FC<IProps> = ({
+export const IngradientForm: FC<IProps> = ({
 	onChangeIngradient,
-	onPress,
 	ingradient,
 	index,
 	remove,
 	style,
+	errors,
 }) => {
-	const memoActionsIngradient = useMemo(() => {
-		// if (!_.values(ingradient).every(it => it) ?? index > 0) {
-		return (
-			<Icon
-				name="plus-circled"
-				size={30}
-				color={colors.primary}
-				onPress={onPress}
-			/>
-		)
-		// } else {
-		// 	return (
-		// 		<Icon
-		// 			name="cancel"
-		// 			size={30}
-		// 			color={colors.errorTxt}
-		// 			onPress={remove}
-		// 		/>
-		// 	)
-		// }
-	}, [ingradient])
+	const getErrors = (name: keyof IIngradient) => {
+		const _errors = _.cloneDeep(errors)
+		return _errors[`index_${index}_${name}`]
+	}
 	return (
 		<>
-			<Txt>first 10 cups</Txt>
 			<View style={[styles.container, style]}>
 				<TxtInput
 					inputProps={{
@@ -57,6 +39,7 @@ export const IngradientAtom: FC<IProps> = ({
 					value={ingradient.name}
 					placeholder="Ingradient"
 					styleContainer={{ maxWidth: '45%' }}
+					error={getErrors('name')}
 				/>
 
 				<TxtInput
@@ -65,6 +48,7 @@ export const IngradientAtom: FC<IProps> = ({
 					onChange={val => onChangeIngradient(index, 'count', val)}
 					styleContainer={{ maxWidth: '17%' }}
 					placeholder={'0'}
+					error={getErrors('count')}
 				/>
 
 				<TxtInput
@@ -73,8 +57,16 @@ export const IngradientAtom: FC<IProps> = ({
 					onChange={val => onChangeIngradient(index, 'metric', val)}
 					styleContainer={{ maxWidth: '20%' }}
 					placeholder="Mtr"
+					error={getErrors('metric')}
 				/>
-				<View style={{ maxWidth: '10%' }}>{memoActionsIngradient}</View>
+				<View style={{ maxWidth: '10%' }}>
+					<Icon
+						name="cancel"
+						size={30}
+						color={colors.errorTxt}
+						onPress={remove}
+					/>
+				</View>
 			</View>
 		</>
 	)

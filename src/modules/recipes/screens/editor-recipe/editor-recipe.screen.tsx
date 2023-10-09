@@ -1,30 +1,41 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import {
+	Button,
 	PrimaryHeader,
 	ScreenLayout,
 	Select,
+	Txt,
 	TxtInput,
 	useForm,
 	useNav,
 } from '~modules/common'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectCategories } from '~modules/store/categories/selector'
 import _ from 'lodash'
 import { ICreateRecipeForm } from '~modules/recipes/typing'
-import { IngradientAtom, ListIngradientAtom } from './atoms'
+import { UserRouteKey } from '~modules/root/typing'
+import { useRoute } from '@react-navigation/native'
+import { PreviewIngradients } from '~modules/ingradients/components'
 
 export const EditorRecipeScreen = () => {
+	const { params }: any = useRoute()
+
 	const nav = useNav()
 	const { data: categories, isLoading: loadCategory } =
 		useSelector(selectCategories)
-	const form = useForm<ICreateRecipeForm>(
-		{ ingradients: [{ name: '', count: '', metric: '' }] },
-		() => null,
-	)
+	const form = useForm<ICreateRecipeForm>({}, () => null)
+
+	useEffect(() => {
+		if (params?.ingradients) {
+			form.setFormField('ingradients', params.ingradients)
+		}
+	}, [params?.ingradients])
+
 	const onChange = (key: keyof ICreateRecipeForm, val: string) => {
 		form.setFormField(key, val)
 	}
+
 	const optionsCategory = useMemo(() => {
 		if (!_.isEmpty(categories))
 			return categories.map(it => {
@@ -33,6 +44,37 @@ export const EditorRecipeScreen = () => {
 	}, [categories, loadCategory])
 	console.log('values', form.values)
 
+	const memoIngradientsList = useMemo(() => {
+		if (!_.isEmpty(form.values.ingradients))
+			return (
+				<View>
+					{form.values.ingradients.map(it => {
+						return (
+							<View
+								style={{
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+									marginBottom: 10,
+								}}>
+								<Txt>{it.name}</Txt>
+								<View
+									style={{
+										borderBottomWidth: 1,
+										flex: 1,
+										borderStyle: 'solid',
+										paddingBottom: 10,
+									}}
+								/>
+								<View style={{ flexDirection: 'row' }}>
+									<Txt>{it.count} </Txt>
+									<Txt>{it.metric}</Txt>
+								</View>
+							</View>
+						)
+					})}
+				</View>
+			)
+	}, [params?.ingradients, form.values.ingradients])
 	return (
 		<ScreenLayout
 			needScroll={true}
@@ -69,12 +111,15 @@ export const EditorRecipeScreen = () => {
 					placeholder={'Enter description recipe'}
 					error={form.errors.description}
 					styleContainer={{ marginBottom: 20 }}
+					isTexterea={true}
+					inputProps={{
+						multiline: true,
+					}}
 				/>
-				<ListIngradientAtom
-					ingradients={form.values.ingradients}
-					onChange={val => form.setFormField('ingradients', val)}
-				/>
+				<PreviewIngradients ingradients={form.values.ingradients} />
 			</View>
 		</ScreenLayout>
 	)
 }
+
+const styles = StyleSheet.create({})
