@@ -14,4 +14,5 @@ export enum UserRouteKey {
 	MyIngredients = 'MyIngredients',
 	Profile = 'Profile ',
 	Tabs = 'Tabs',
+	EditorRecipe = 'EditorRecipe',
 }

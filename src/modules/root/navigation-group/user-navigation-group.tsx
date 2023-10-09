@@ -2,12 +2,16 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { UIKitScreen } from './../../common/ua-kit/screens/ui-kit.screen'
+import { UIKitScreen } from '../../common/ua-kit/screens/ui-kit.screen'
 import { UserRouteKey } from '../typing/enums/route-key.enum'
 import { ComingSoonScreen } from '../screens'
 import { TabBarWidget } from '../widgets'
 import { CategoriesScreen } from '~modules/categories'
-import { FavoriteRecipes, RecipesScreen } from '~modules/recipes'
+import {
+	EditorRecipeScreen,
+	FavoriteRecipes,
+	RecipesScreen,
+} from '~modules/recipes'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -45,7 +49,7 @@ const UserTabNavigator = () => (
 			component={FavoriteRecipes}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.CreateRecipe}
-			component={ComingSoonScreen}></Tab.Screen>
+			component={EditorRecipeScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.MyIngredients}
 			component={UIKitScreen}></Tab.Screen>

@@ -1,13 +1,18 @@
 import React, { FC, useRef, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { $size, colors, Icon } from '~modules/common'
+import { $size, appEvents, colors, Icon, useNav } from '~modules/common'
+import { UserRouteKey } from '~modules/root/typing'
 
 export const ActionBtnAtom: FC = () => {
+	const nav = useNav()
+	const openEditorRecipe = () => {
+		nav.navigate(UserRouteKey.CreateRecipe)
+	}
 	return (
 		<TouchableOpacity
 			activeOpacity={0.6}
 			style={styles.container}
-			onPress={() => {}}>
+			onPress={openEditorRecipe}>
 			<Icon name="plus" size={20} color={colors.bgLayout} />
 		</TouchableOpacity>
 	)

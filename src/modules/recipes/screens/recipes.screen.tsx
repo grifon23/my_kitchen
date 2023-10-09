@@ -78,7 +78,6 @@ export const RecipesScreen = () => {
 			onPressCancelBtn: () => {},
 		})
 	}
-	console.log('params.categoryId', params.categoryId)
 	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout

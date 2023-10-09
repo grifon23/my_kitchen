@@ -19,7 +19,6 @@ interface IProps {
 	styleContainer?: ViewStyle
 	placeholder?: string
 	inputProps?: Omit<TextInputProps, 'value' | 'onChange' | 'placeholder'>
-
 	rightElement?: JSX.Element
 }
 export const TxtInput: FC<IProps> = ({
