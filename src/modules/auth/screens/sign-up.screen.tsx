@@ -13,9 +13,9 @@ import {
 import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignUpForm } from '../components/sign-up-form.component'
 import { exeptionsConfig } from '../config'
-import { authApiService } from '../api'
 import { ISignUpForm } from '../typing'
 import { signUpValidator } from '../validators'
+import { authService } from '../services'
 
 export const SignUpScreen = () => {
 	const form = useForm<ISignUpForm>({}, signUpValidator)
@@ -33,7 +33,7 @@ export const SignUpScreen = () => {
 
 	const submit = async () => {
 		try {
-			await authApiService.signUp(form.values)
+			await authService.signUp(form.values)
 			resetForm()
 			resetErrors()
 		} catch (error: any) {
