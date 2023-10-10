@@ -4,7 +4,6 @@ export enum AuthRouteKey {
 	Onboarding = 'onboarding',
 }
 
-
 export enum UserRouteKey {
 	HomeStack = 'homeStack',
 	Home = 'Home',
@@ -14,4 +13,7 @@ export enum UserRouteKey {
 	MyIngredients = 'MyIngredients',
 	Profile = 'Profile ',
 	Tabs = 'Tabs',
+	EditorRecipe = 'EditorRecipe',
+	IngradientsRecipe = 'IngradientsRecipe',
+	MyIngradients = 'MyIngradients',
 }

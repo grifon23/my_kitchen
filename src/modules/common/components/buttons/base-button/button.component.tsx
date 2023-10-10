@@ -10,14 +10,30 @@ interface IProps {
 	onPress: () => void
 	txtContent: string
 	style?: ViewStyle
+	height?: number
+	disable?: boolean
 }
-export const Button: FC<IProps> = ({ onPress, txtContent, mod, style }) => {
+export const Button: FC<IProps> = ({
+	onPress,
+	txtContent,
+	mod,
+	style,
+	height = 60,
+	disable,
+}) => {
 	const styleMod = styleModConfig[mod]
 	return (
 		<TouchableOpacity
+			disabled={disable}
 			activeOpacity={0.6}
 			onPress={onPress}
-			style={[style, styles.container, styleMod.container]}>
+			style={[
+				style,
+				{ height },
+				styles.container,
+				styleMod.container,
+				disable ? { opacity: 0.5 } : {},
+			]}>
 			<Txt mod="md" style={styleMod.txt}>
 				{txtContent}
 			</Txt>
@@ -27,7 +43,7 @@ export const Button: FC<IProps> = ({ onPress, txtContent, mod, style }) => {
 const styles = StyleSheet.create({
 	container: {
 		maxWidth: '100%',
-		height: 60,
+
 		borderRadius: 10,
 		alignItems: 'center',
 		justifyContent: 'center',

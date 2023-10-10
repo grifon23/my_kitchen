@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import {
 	appEvents,
@@ -73,7 +73,6 @@ export const SignInScreen = () => {
 				onPress={() => form.onSubmit(submit)}
 				mod="primary"
 				txtContent="Login"
-				style={{ width: 200 }}
 			/>
 			<View style={styles.linkContainer}>
 				<Txt>Dont have account go to </Txt>

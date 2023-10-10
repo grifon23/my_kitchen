@@ -1,2 +1,2 @@
 export * from './auth.navigation-group'
-export * from './user-navigation-gtoup'
+export * from './user-navigation-group'

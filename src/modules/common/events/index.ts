@@ -18,5 +18,6 @@ export type AppEvents = {
 		cancelBtnType?: 'primary' | 'outline'
 		onPressCancelBtn?: () => void
 	}
+	editorRecipe: {}
 }
 export const appEvents = new Events<AppEvents>()
