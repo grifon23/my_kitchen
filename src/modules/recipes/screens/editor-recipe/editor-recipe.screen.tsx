@@ -4,17 +4,15 @@ import {
 	PrimaryHeader,
 	ScreenLayout,
 	Select,
-	Txt,
 	TxtInput,
 	useForm,
 	useNav,
 } from '~modules/common'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectCategories } from '~modules/store/categories/selector'
 import _ from 'lodash'
 import { ICreateRecipeForm } from '~modules/recipes/typing'
-import { UserRouteKey } from '~modules/root/typing'
 import { useRoute } from '@react-navigation/native'
 import { PreviewIngradients } from '~modules/ingradients/components'
 
@@ -44,37 +42,6 @@ export const EditorRecipeScreen = () => {
 	}, [categories, loadCategory])
 	console.log('values', form.values)
 
-	const memoIngradientsList = useMemo(() => {
-		if (!_.isEmpty(form.values.ingradients))
-			return (
-				<View>
-					{form.values.ingradients.map(it => {
-						return (
-							<View
-								style={{
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-									marginBottom: 10,
-								}}>
-								<Txt>{it.name}</Txt>
-								<View
-									style={{
-										borderBottomWidth: 1,
-										flex: 1,
-										borderStyle: 'solid',
-										paddingBottom: 10,
-									}}
-								/>
-								<View style={{ flexDirection: 'row' }}>
-									<Txt>{it.count} </Txt>
-									<Txt>{it.metric}</Txt>
-								</View>
-							</View>
-						)
-					})}
-				</View>
-			)
-	}, [params?.ingradients, form.values.ingradients])
 	return (
 		<ScreenLayout
 			needScroll={true}
@@ -84,7 +51,13 @@ export const EditorRecipeScreen = () => {
 					leftIcon="left-open-big"
 					onPressLeftIcon={() => nav.goBack()}
 				/>
-			}>
+			}
+			scrollStyle={{
+				flexGrow: 1,
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				paddingBottom: 30,
+			}}>
 			<View>
 				<Select
 					value={form.values.categoryId}
@@ -95,6 +68,7 @@ export const EditorRecipeScreen = () => {
 					height={60}
 					style={{ marginBottom: 20 }}
 				/>
+
 				<TxtInput
 					label="Recipe name"
 					value={form.values.name}
@@ -116,10 +90,15 @@ export const EditorRecipeScreen = () => {
 						multiline: true,
 					}}
 				/>
+
 				<PreviewIngradients ingradients={form.values.ingradients} />
 			</View>
+
+			<Button
+				txtContent={'Save recipe'}
+				mod="outline"
+				onPress={() => {}}
+			/>
 		</ScreenLayout>
 	)
 }
-
-const styles = StyleSheet.create({})

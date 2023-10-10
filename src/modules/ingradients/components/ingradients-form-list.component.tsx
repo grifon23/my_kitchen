@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { FC, useEffect, useState } from 'react'
 import { Button, useForm, useNav } from '~modules/common'
 import { IIngradient } from '~modules/recipes/typing'
-import { IngradientForm } from './ingradient.component'
+import { IngradientRowForm } from './ingradient-row-form.component'
 import { StyleSheet, View } from 'react-native'
 import { UserRouteKey } from '~modules/root/typing'
 import { ingradientValidator } from '../validators'
@@ -37,6 +37,7 @@ export const IngradientsListForm: FC<IProps> = ({ ingradients }) => {
 		const _ingradients = _.cloneDeep(form.values.ingradients)
 		_ingradients[index][key] = val
 		form.setFormField('ingradients', _ingradients)
+		resetErros(index)
 	}
 
 	const addIngradient = () => {
@@ -62,7 +63,12 @@ export const IngradientsListForm: FC<IProps> = ({ ingradients }) => {
 		})
 	}
 
-	console.log('errors', form.errors)
+	const resetErros = (index: number) => {
+		const _errors: any = _.cloneDeep(form.errors)
+		_errors[`error_${index}`] = ''
+		form.setFormErrors(_errors)
+	}
+
 	return (
 		<View style={styles.container}>
 			<View>
@@ -74,12 +80,12 @@ export const IngradientsListForm: FC<IProps> = ({ ingradients }) => {
 				/>
 				{form.values.ingradients.map((it, index) => {
 					return (
-						<IngradientForm
+						<IngradientRowForm
 							ingradient={it}
 							onChangeIngradient={onChangeIngradient}
 							remove={() => remove(index)}
 							index={index}
-							style={{ marginBottom: 20 }}
+							style={{ marginBottom: 10 }}
 							errors={form.errors}
 						/>
 					)

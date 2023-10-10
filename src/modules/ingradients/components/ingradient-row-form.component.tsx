@@ -1,8 +1,16 @@
 import _ from 'lodash'
 import React, { FC, useMemo, useState } from 'react'
 import { StyleSheet, View, ViewStyle } from 'react-native'
-import { colors, Icon, Txt, TxtInput } from '~modules/common'
+import {
+	colors,
+	ErrorTxt,
+	Icon,
+	SelectAutoComplete,
+	Txt,
+	TxtInput,
+} from '~modules/common'
 import { IIngradient } from '~modules/recipes/typing'
+import { ingradientsData } from '../config'
 
 interface IProps {
 	onChangeIngradient: (
@@ -16,7 +24,7 @@ interface IProps {
 	style?: ViewStyle
 	errors: any
 }
-export const IngradientForm: FC<IProps> = ({
+export const IngradientRowForm: FC<IProps> = ({
 	onChangeIngradient,
 	ingradient,
 	index,
@@ -24,22 +32,21 @@ export const IngradientForm: FC<IProps> = ({
 	style,
 	errors,
 }) => {
-	const getErrors = (name: keyof IIngradient) => {
+	const getErrors = () => {
 		const _errors = _.cloneDeep(errors)
-		return _errors[`index_${index}_${name}`]
+		return _errors[`error_${index}`]
 	}
+
 	return (
-		<>
-			<View style={[styles.container, style]}>
-				<TxtInput
-					inputProps={{
-						maxLength: 20,
-					}}
+		<View style={[styles.container, style]}>
+			<View style={styles.row}>
+				<SelectAutoComplete
 					onChange={val => onChangeIngradient(index, 'name', val)}
 					value={ingradient.name}
-					placeholder="Ingradient"
-					styleContainer={{ maxWidth: '45%' }}
-					error={getErrors('name')}
+					options={ingradientsData.map(it => {
+						return { label: it, value: it }
+					})}
+					placeholder="Enter ingradient"
 				/>
 
 				<TxtInput
@@ -48,7 +55,6 @@ export const IngradientForm: FC<IProps> = ({
 					onChange={val => onChangeIngradient(index, 'count', val)}
 					styleContainer={{ maxWidth: '17%' }}
 					placeholder={'0'}
-					error={getErrors('count')}
 				/>
 
 				<TxtInput
@@ -57,7 +63,6 @@ export const IngradientForm: FC<IProps> = ({
 					onChange={val => onChangeIngradient(index, 'metric', val)}
 					styleContainer={{ maxWidth: '20%' }}
 					placeholder="Mtr"
-					error={getErrors('metric')}
 				/>
 				<View style={{ maxWidth: '10%' }}>
 					<Icon
@@ -68,14 +73,19 @@ export const IngradientForm: FC<IProps> = ({
 					/>
 				</View>
 			</View>
-		</>
+			<ErrorTxt error={getErrors()} />
+		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-	container: {
+	row: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		marginBottom: 5,
+	},
+	container: {
+		flexDirection: 'column',
 	},
 })

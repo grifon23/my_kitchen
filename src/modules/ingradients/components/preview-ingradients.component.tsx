@@ -48,7 +48,7 @@ export const PreviewIngradients: FC<IProps> = ({ ingradients }) => {
 	}, [ingradients])
 
 	return (
-		<>
+		<View style={styles.container}>
 			<View style={styles.ingradientsHeader}>
 				<Txt mod="xl" style={{ flex: 1 }}>
 					Ingradients
@@ -67,7 +67,7 @@ export const PreviewIngradients: FC<IProps> = ({ ingradients }) => {
 				/>
 			</View>
 			{memoIngradientsList}
-		</>
+		</View>
 	)
 }
 
@@ -79,5 +79,9 @@ const styles = StyleSheet.create({
 	},
 	ingradientsList: {
 		flexDirection: 'column',
+	},
+	container: {
+		minHeight: 200,
+		marginBottom: 20,
 	},
 })

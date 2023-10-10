@@ -11,10 +11,10 @@ export const ingradientValidator = (data: any) => {
 	const errors: any = _.defaultTo({}, {})
 	data.ingradients?.forEach((it: any, index: number) => {
 		const error: any = validate(it, constraints)
-		_.keys(error).map(key => {
-			const _key = `index_${index}_${key}`
-			errors[_key] = error[key]
-		})
+		if (error) {
+			const _key = `error_${index}`
+			errors[_key] = 'Fields is required'
+		} else null
 	})
 	return !_.isEmpty(errors) ? errors : null
 }

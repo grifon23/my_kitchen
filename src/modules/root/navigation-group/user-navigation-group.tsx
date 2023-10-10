@@ -13,6 +13,7 @@ import {
 	IngradientsRecipeScreen,
 	RecipesScreen,
 } from '~modules/recipes'
+import { MyIngradientsScreen } from '~modules/ingradients/screens'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -70,7 +71,7 @@ const UserTabNavigator = () => (
 			component={EditorRecipeGroup}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.MyIngredients}
-			component={UIKitScreen}></Tab.Screen>
+			component={MyIngradientsScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Profile}
 			component={ComingSoonScreen}></Tab.Screen>

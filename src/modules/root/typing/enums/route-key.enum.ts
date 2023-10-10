@@ -15,4 +15,5 @@ export enum UserRouteKey {
 	Tabs = 'Tabs',
 	EditorRecipe = 'EditorRecipe',
 	IngradientsRecipe = 'IngradientsRecipe',
+	MyIngradients = 'MyIngradients',
 }

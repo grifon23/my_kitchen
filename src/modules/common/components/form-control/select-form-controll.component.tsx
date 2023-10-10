@@ -43,11 +43,13 @@ export const Select: FC<IProps> = ({
 		onChange(val.value)
 		setOpen(false)
 	}
+
 	const interpolate = (outputRange: number[] | string[]) =>
 		animVal.interpolate({
 			inputRange: [0, 1],
 			outputRange,
 		})
+
 	useEffect(() => {
 		Animated.timing(animVal, {
 			toValue: open ? 1 : 0,
@@ -55,6 +57,7 @@ export const Select: FC<IProps> = ({
 			useNativeDriver: false,
 		}).start()
 	}, [open])
+
 	return (
 		<View style={style}>
 			<>

@@ -16,6 +16,7 @@ import { exeptionsConfig } from '../config'
 import { authApiService } from '../api'
 import { ISignUpForm } from '../typing'
 import { signUpValidator } from '../validators'
+import { authService } from '../services'
 
 export const SignUpScreen = () => {
 	const form = useForm<ISignUpForm>({}, signUpValidator)
@@ -33,7 +34,7 @@ export const SignUpScreen = () => {
 
 	const submit = async () => {
 		try {
-			await authApiService.signUp(form.values)
+			await authService.signUp(form.values)
 			resetForm()
 			resetErrors()
 		} catch (error: any) {
@@ -75,7 +76,6 @@ export const SignUpScreen = () => {
 					onPress={() => form.onSubmit(submit)}
 					mod="primary"
 					txtContent="Create account"
-					style={{ width: 200 }}
 				/>
 				<View
 					style={{
