@@ -40,7 +40,10 @@ export const EditorRecipeScreen = () => {
 				return { value: it.id, label: it.name }
 			})
 	}, [categories, loadCategory])
-	console.log('values', form.values)
+
+	const submit = () => {
+		console.log('submit recipe', form.values)
+	}
 
 	return (
 		<ScreenLayout
@@ -97,7 +100,7 @@ export const EditorRecipeScreen = () => {
 			<Button
 				txtContent={'Save recipe'}
 				mod="outline"
-				onPress={() => {}}
+				onPress={() => form.onSubmit(submit)}
 			/>
 		</ScreenLayout>
 	)
