@@ -17,9 +17,7 @@ export const Recipe: FC<IProps> = ({
 	updateFavorite,
 	isFavoriteItem,
 }) => {
-	const isFavorite = JSON.parse(item.isFavorite)
-
-	const [stateFavorite, setStateFavorite] = useState<boolean>(isFavorite)
+	const [stateFavorite, setStateFavorite] = useState<boolean>(item.isFavorite)
 	const toggle = () => setStateFavorite(prev => !prev)
 
 	const handleChangeFavorite = () => {
@@ -36,7 +34,7 @@ export const Recipe: FC<IProps> = ({
 				onPress={handleChangeFavorite}
 			/>
 		)
-	}, [isFavorite, stateFavorite, updateFavorite, isFavoriteItem])
+	}, [item.isFavorite, stateFavorite, updateFavorite, isFavoriteItem])
 	return (
 		<View style={[styles.container, style]}>
 			<TouchableOpacity onPress={onPress} style={styles.content}>

@@ -1,4 +1,5 @@
 import firestore, { Filter } from '@react-native-firebase/firestore'
+import { IRecipe } from '../typing'
 
 class RecipeApi {
 	public async getRecipeReq(categoryId: string) {
@@ -13,10 +14,14 @@ class RecipeApi {
 		await firestore().collection('recipes').doc(id).delete()
 	}
 
+	public async createRecipeReq(payload: IRecipe) {
+		await firestore().collection('recipes').add(payload)
+	}
+
 	public async getFavoriteRecipeReq() {
 		return await firestore()
 			.collection('recipes')
-			.where('isFavorite', '==', 'true')
+			.where('isFavorite', '==', true)
 			.get()
 	}
 
@@ -24,7 +29,7 @@ class RecipeApi {
 		await firestore()
 			.collection('recipes')
 			.doc(id)
-			.update({ isFavorite: String(payload) })
+			.update({ isFavorite: payload })
 	}
 }
 

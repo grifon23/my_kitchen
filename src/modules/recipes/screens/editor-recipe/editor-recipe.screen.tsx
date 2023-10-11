@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import {
 	Button,
+	FormControllSelect,
 	PrimaryHeader,
 	ScreenLayout,
-	Select,
 	TxtInput,
+	appEvents,
 	useForm,
 	useNav,
 } from '~modules/common'
@@ -13,16 +14,32 @@ import { useSelector } from 'react-redux'
 import { selectCategories } from '~modules/store/categories/selector'
 import _ from 'lodash'
 import { ICreateRecipeForm } from '~modules/recipes/typing'
-import { useRoute } from '@react-navigation/native'
+import { useIsFocused, useRoute } from '@react-navigation/native'
 import { PreviewIngradients } from '~modules/ingradients/components'
+import { recipesService } from '~modules/recipes/service'
+import { UserRouteKey } from '~modules/root/typing'
+import { createRecipeValidator } from '~modules/recipes/validators'
 
 export const EditorRecipeScreen = () => {
 	const { params }: any = useRoute()
-
+	const isFocused = useIsFocused()
 	const nav = useNav()
 	const { data: categories, isLoading: loadCategory } =
 		useSelector(selectCategories)
-	const form = useForm<ICreateRecipeForm>({}, () => null)
+	const form = useForm<ICreateRecipeForm>({}, createRecipeValidator)
+
+	const resetForm = () => {
+		const keys = _.keys(form.values)
+		keys.forEach((it: any) => {
+			form.setFormField(it, '')
+		})
+	}
+
+	// useEffect(() => {
+	// 	if (!isFocused) {
+	// 		setTimeout(() => resetForm(), 5000)
+	// 	}
+	// }, [isFocused])
 
 	useEffect(() => {
 		if (params?.ingradients) {
@@ -41,8 +58,40 @@ export const EditorRecipeScreen = () => {
 			})
 	}, [categories, loadCategory])
 
-	const submit = () => {
-		console.log('submit recipe', form.values)
+	const successAlert = useCallback(() => {
+		return appEvents.emit('alert', {
+			onPress: () => nav.navigate(UserRouteKey.Home),
+			btnText: 'Ok',
+			buttonType: 'primary',
+			message: 'Recipe successfuly create',
+		})
+	}, [])
+
+	const errorAlert = useCallback(() => {
+		return appEvents.emit('alert', {
+			onPress: _.noop,
+			btnText: 'Close',
+			buttonType: 'primary',
+			message: 'Somthing wrong, try later',
+		})
+	}, [])
+
+	const createRecipe = async () => {
+		try {
+			const dataToSave = {
+				...form.values,
+				isFavorite: false,
+			}
+			await recipesService.createRecipe(dataToSave)
+			resetForm()
+			successAlert()
+		} catch (error) {
+			errorAlert()
+		}
+	}
+
+	const submit = async () => {
+		createRecipe()
 	}
 
 	return (
@@ -62,14 +111,14 @@ export const EditorRecipeScreen = () => {
 				paddingBottom: 30,
 			}}>
 			<View>
-				<Select
-					value={form.values.categoryId}
-					onChange={val => onChange('categoryId', val)}
+				<FormControllSelect
+					label="Category"
+					selected={form.values.categoryId}
+					onSelect={val => onChange('categoryId', val.value)}
 					options={optionsCategory}
 					placeholder={'Select category'}
 					error={form.errors.categoryId}
-					height={60}
-					style={{ marginBottom: 20 }}
+					mb={20}
 				/>
 
 				<TxtInput
@@ -94,7 +143,10 @@ export const EditorRecipeScreen = () => {
 					}}
 				/>
 
-				<PreviewIngradients ingradients={form.values.ingradients} />
+				<PreviewIngradients
+					error={form.errors.ingradients}
+					ingradients={form.values.ingradients}
+				/>
 			</View>
 
 			<Button
