@@ -36,7 +36,7 @@ export const RecilesList: FC<IProps> = ({
 						updateFavorite={updateFavorite}
 						style={styles.item}
 						item={it}
-						onPress={() => {}}
+						onPress={() => goDetailRecipe(it.id)}
 					/>
 				</SwipableRow>
 			)

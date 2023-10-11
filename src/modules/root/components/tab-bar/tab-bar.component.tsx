@@ -13,7 +13,7 @@ export const TabBarComponent = (props: ITabBarProps) => {
 	const items = props.items.map((route: any, index) => {
 		const isActive = props.activeIndex === index
 		const onPress = () => props.onPressItem(index, route)
-		if (UserRouteKey.CreateRecipe === route) {
+		if (UserRouteKey.EditorRecipe === route) {
 			return <ActionBtnAtom key={`${route}-${index}`} />
 		}
 		return (

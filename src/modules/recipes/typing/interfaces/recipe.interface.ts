@@ -6,4 +6,5 @@ export interface IRecipe {
 	id?: string
 	isFavorite: boolean
 	ingradients: IIngradient[]
+	description: string
 }

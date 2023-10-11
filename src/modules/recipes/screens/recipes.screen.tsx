@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import {
 	appEvents,
 	colors,
+	gcService,
 	PrimaryHeader,
 	ScreenLayout,
 	useNav,
@@ -15,6 +16,7 @@ import { selectRecipes } from '~modules/store/recipes/selector'
 import { RecilesList } from '../components'
 import { recipesService } from '../service'
 import { IRecipe } from '../typing'
+import { UserRouteKey } from '~modules/root/typing'
 
 export const RecipesScreen = () => {
 	const { params }: any = useRoute()
@@ -77,6 +79,11 @@ export const RecipesScreen = () => {
 			onPressCancelBtn: () => {},
 		})
 	}
+
+	const editRecipe = (id: string) => {
+		gcService.set('recipeId', id)
+		nav.navigate(UserRouteKey.EditorRecipe, { id })
+	}
 	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout
@@ -103,7 +110,7 @@ export const RecipesScreen = () => {
 				swipeRef={swipeRef}
 				list={memoFilteringRecipe}
 				openEditor={_.noop}
-				goDetailRecipe={_.noop}
+				goDetailRecipe={editRecipe}
 				removeRecipe={alertRemoveRecipe}
 			/>
 		</ScreenLayout>

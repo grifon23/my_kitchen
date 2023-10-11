@@ -1,12 +1,20 @@
 import React, { FC, useRef, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { $size, appEvents, colors, Icon, useNav } from '~modules/common'
+import {
+	$size,
+	appEvents,
+	colors,
+	gcService,
+	Icon,
+	useNav,
+} from '~modules/common'
 import { UserRouteKey } from '~modules/root/typing'
 
 export const ActionBtnAtom: FC = () => {
 	const nav = useNav()
 	const openEditorRecipe = () => {
-		nav.navigate(UserRouteKey.CreateRecipe)
+		gcService.set('recipeId', null)
+		nav.navigate(UserRouteKey.EditorRecipe)
 	}
 	return (
 		<TouchableOpacity

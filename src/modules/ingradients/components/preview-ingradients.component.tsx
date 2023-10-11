@@ -51,23 +51,26 @@ export const PreviewIngradients: FC<IProps> = ({ ingradients, error }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.ingradientsHeader}>
-				<Txt mod="xl" style={{ flex: 1 }}>
-					Ingradients
-				</Txt>
+				<View style={styles.row}>
+					<Txt mod="xl" style={{ flex: 1 }}>
+						Ingradients
+					</Txt>
 
-				<Button
-					height={40}
-					mod="primary"
-					onPress={() =>
-						nav.navigate(UserRouteKey.IngradientsRecipe, {
-							ingradients,
-						})
-					}
-					txtContent={labelButton}
-					style={{ height: 40, width: 180 }}
-				/>
+					<Button
+						height={40}
+						mod="primary"
+						onPress={() =>
+							nav.navigate(UserRouteKey.IngradientsRecipe, {
+								ingradients,
+							})
+						}
+						txtContent={labelButton}
+						style={{ height: 40, width: 180 }}
+					/>
+				</View>
+				{error ? <ErrorTxt error={error} /> : null}
 			</View>
-			{error ? <ErrorTxt error={error} /> : null}
+
 			{memoIngradientsList}
 		</View>
 	)
@@ -75,8 +78,6 @@ export const PreviewIngradients: FC<IProps> = ({ ingradients, error }) => {
 
 const styles = StyleSheet.create({
 	ingradientsHeader: {
-		flexDirection: 'row',
-		alignItems: 'center',
 		marginBottom: 20,
 	},
 	ingradientsList: {
@@ -86,4 +87,5 @@ const styles = StyleSheet.create({
 		minHeight: 200,
 		marginBottom: 20,
 	},
+	row: { flexDirection: 'row', alignItems: 'center' },
 })

@@ -35,8 +35,6 @@ export const AlertWidget = () => {
 	useEventsListener(
 		'alert',
 		data => {
-			console.log('data?.icon', data?.icon)
-
 			settingsRef.current = {
 				onPress: data?.onPress,
 				onPressCancelBtn: data?.onPressCancelBtn,
@@ -124,7 +122,7 @@ export const AlertWidget = () => {
 					<Button
 						style={{
 							minWidth: settingsRef.current?.onPressCancelBtn
-								? '40%'
+								? '45%'
 								: '100%',
 						}}
 						onPress={onConfirm}
@@ -158,12 +156,12 @@ const styles = StyleSheet.create({
 	button: {
 		alignSelf: 'center',
 		width: '100%',
-		padding: 16,
 		flexDirection: 'row',
+		alignItems: 'center',
 	},
 	btnTxt: {},
 	close: {
-		minWidth: '40%',
+		minWidth: '45%',
 	},
 	bottomBtn: {},
 })

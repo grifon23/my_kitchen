@@ -67,7 +67,7 @@ const UserTabNavigator = () => (
 			name={UserRouteKey.Favorite}
 			component={FavoriteRecipes}></Tab.Screen>
 		<Tab.Screen
-			name={UserRouteKey.CreateRecipe}
+			name={UserRouteKey.EditorRecipe}
 			component={EditorRecipeGroup}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.MyIngredients}
@@ -87,6 +87,10 @@ export const UserNavigationGroup = () => {
 				component={UserTabNavigator}
 				name={UserRouteKey.Tabs}
 			/>
+			{/* <Stack.Screen
+				component={EditorRecipeScreen}
+				name={UserRouteKey.CreateRecipe}
+			/> */}
 		</Stack.Navigator>
 	)
 }

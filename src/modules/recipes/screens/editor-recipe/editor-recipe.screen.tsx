@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
 	Button,
 	FormControllSelect,
+	Loader,
 	PrimaryHeader,
 	ScreenLayout,
 	TxtInput,
 	appEvents,
+	gcService,
 	useForm,
 	useNav,
 } from '~modules/common'
@@ -21,12 +23,16 @@ import { UserRouteKey } from '~modules/root/typing'
 import { createRecipeValidator } from '~modules/recipes/validators'
 
 export const EditorRecipeScreen = () => {
-	const { params }: any = useRoute()
-	const isFocused = useIsFocused()
+	const route: any = useRoute()
 	const nav = useNav()
+	const recipeId = gcService.get('recipeId')
+	const isFocused = useIsFocused()
 	const { data: categories, isLoading: loadCategory } =
 		useSelector(selectCategories)
+
 	const form = useForm<ICreateRecipeForm>({}, createRecipeValidator)
+
+	const [isLoading, setIsLoading] = useState(false)
 
 	const resetForm = () => {
 		const keys = _.keys(form.values)
@@ -34,18 +40,35 @@ export const EditorRecipeScreen = () => {
 			form.setFormField(it, '')
 		})
 	}
+	console.log('in edit recip', recipeId)
 
-	// useEffect(() => {
-	// 	if (!isFocused) {
-	// 		setTimeout(() => resetForm(), 5000)
-	// 	}
-	// }, [isFocused])
+	const loadRecipe = async (id: string) => {
+		setIsLoading(true)
+		try {
+			const recipe = await recipesService.getDetailedRecipe(id)
+
+			const prepareData: any = _.omit(recipe, ['id'])
+			form.setForm(prepareData)
+			setIsLoading(false)
+		} catch (error) {
+			console.log('error')
+		}
+	}
+	console.log('params', route.params)
+	useEffect(() => {
+		if (!recipeId) {
+			resetForm()
+			return
+		} else {
+			loadRecipe(recipeId)
+		}
+	}, [recipeId, isFocused])
 
 	useEffect(() => {
-		if (params?.ingradients) {
-			form.setFormField('ingradients', params.ingradients)
+		if (route?.params?.ingradients) {
+			form.setFormField('ingradients', route?.params.ingradients)
 		}
-	}, [params?.ingradients])
+	}, [route?.params?.ingradients])
 
 	const onChange = (key: keyof ICreateRecipeForm, val: string) => {
 		form.setFormField(key, val)
@@ -58,12 +81,12 @@ export const EditorRecipeScreen = () => {
 			})
 	}, [categories, loadCategory])
 
-	const successAlert = useCallback(() => {
+	const successAlert = useCallback((message: string) => {
 		return appEvents.emit('alert', {
 			onPress: () => nav.navigate(UserRouteKey.Home),
 			btnText: 'Ok',
 			buttonType: 'primary',
-			message: 'Recipe successfuly create',
+			message,
 		})
 	}, [])
 
@@ -84,16 +107,34 @@ export const EditorRecipeScreen = () => {
 			}
 			await recipesService.createRecipe(dataToSave)
 			resetForm()
-			successAlert()
+
+			successAlert('Recipe successfuly create')
 		} catch (error) {
 			errorAlert()
 		}
 	}
 
-	const submit = async () => {
-		createRecipe()
+	const updateRecipe = async (id: string) => {
+		try {
+			const dataToSave = {
+				...form.values,
+				isFavorite: false,
+			}
+			await recipesService.updateRecipe(id, dataToSave)
+			resetForm()
+			successAlert('Recipe successfuly update')
+			gcService.set('recipeId', null)
+		} catch (error) {
+			errorAlert()
+		}
 	}
 
+	const submit = () => {
+		if (recipeId) updateRecipe(recipeId)
+		else createRecipe()
+	}
+
+	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout
 			needScroll={true}

@@ -4,6 +4,7 @@ import { SetRecipesAction } from '~modules/store/recipes/actions'
 import { recipeApi } from '../api'
 import _ from 'lodash'
 import { IRecipe } from '../typing'
+import { IStoreRecipePayload, IUpdateRecipePayload } from '../api/interfaces'
 
 class RecipesService extends Service {
 	public async loadRecipesByCategory(categoryId: string) {
@@ -20,8 +21,16 @@ class RecipesService extends Service {
 		await this.loadRecipesByCategory(categoryId)
 	}
 
-	public async createRecipe(payload: IRecipe) {
+	public async createRecipe(payload: IStoreRecipePayload) {
 		await recipeApi.createRecipeReq(payload)
+	}
+
+	public async updateRecipe(id: string, payload: IUpdateRecipePayload) {
+		await recipeApi.updateRecipeReq(id, payload)
+	}
+
+	public async getDetailedRecipe(id: string) {
+		return await recipeApi.getOneRecipeReq(id)
 	}
 
 	public async loadFavoriteRecipe() {
