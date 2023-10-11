@@ -1,15 +1,16 @@
 import _ from 'lodash'
 import React, { FC, useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, Txt, useNav } from '~modules/common'
+import { Button, ErrorTxt, Txt, useNav } from '~modules/common'
 import { IIngradient } from '~modules/recipes/typing'
 import { UserRouteKey } from '~modules/root/typing'
 
 interface IProps {
 	ingradients: IIngradient[]
+	error: string
 }
 
-export const PreviewIngradients: FC<IProps> = ({ ingradients }) => {
+export const PreviewIngradients: FC<IProps> = ({ ingradients, error }) => {
 	const nav = useNav()
 	const labelButton = _.isEmpty(ingradients)
 		? 'Add ingradient'
@@ -66,6 +67,7 @@ export const PreviewIngradients: FC<IProps> = ({ ingradients }) => {
 					style={{ height: 40, width: 180 }}
 				/>
 			</View>
+			{error ? <ErrorTxt error={error} /> : null}
 			{memoIngradientsList}
 		</View>
 	)

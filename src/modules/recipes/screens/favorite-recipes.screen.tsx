@@ -28,9 +28,12 @@ export const FavoriteRecipes = () => {
 			console.log('error')
 		}
 	}
+
 	useEffect(() => {
 		loadFavoriteRecipes()
 	}, [])
+
+	console.log('favorites', favorites)
 
 	const swipeRef: Array<any> = []
 	let prevOpenedRow

@@ -74,7 +74,7 @@ const UserTabNavigator = () => (
 			component={MyIngradientsScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Profile}
-			component={ComingSoonScreen}></Tab.Screen>
+			component={UIKitScreen}></Tab.Screen>
 	</Tab.Navigator>
 )
 

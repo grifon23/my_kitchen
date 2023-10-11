@@ -4,7 +4,9 @@ import { StyleSheet, View, ViewStyle } from 'react-native'
 import {
 	colors,
 	ErrorTxt,
+	FormControllSelect,
 	Icon,
+	SearchFormControll,
 	SelectAutoComplete,
 	Txt,
 	TxtInput,
@@ -40,13 +42,17 @@ export const IngradientRowForm: FC<IProps> = ({
 	return (
 		<View style={[styles.container, style]}>
 			<View style={styles.row}>
-				<SelectAutoComplete
-					onChange={val => onChangeIngradient(index, 'name', val)}
-					value={ingradient.name}
+				<FormControllSelect
+					onSelect={val =>
+						onChangeIngradient(index, 'name', val.value)
+					}
+					selected={ingradient.name}
 					options={ingradientsData.map(it => {
 						return { label: it, value: it }
 					})}
-					placeholder="Enter ingradient"
+					placeholder="Select ingradient"
+					style={{ maxWidth: '45%' }}
+					mb={0}
 				/>
 
 				<TxtInput

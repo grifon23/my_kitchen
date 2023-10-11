@@ -2,6 +2,8 @@ import { Service } from '~modules/common/service'
 import { SetFavoriteRecipesAction } from '~modules/store/favorite/actions'
 import { SetRecipesAction } from '~modules/store/recipes/actions'
 import { recipeApi } from '../api'
+import _ from 'lodash'
+import { IRecipe } from '../typing'
 
 class RecipesService extends Service {
 	public async loadRecipesByCategory(categoryId: string) {
@@ -10,13 +12,16 @@ class RecipesService extends Service {
 		collection.forEach(it => {
 			recipes.push({ id: it.id, ...it.data() })
 		})
-
 		this.dispatch(new SetRecipesAction(recipes))
 		return recipes
 	}
 	public async removeRecipe(categoryId: string, id: string) {
 		await recipeApi.removeRecipeReq(id)
 		await this.loadRecipesByCategory(categoryId)
+	}
+
+	public async createRecipe(payload: IRecipe) {
+		await recipeApi.createRecipeReq(payload)
 	}
 
 	public async loadFavoriteRecipe() {
