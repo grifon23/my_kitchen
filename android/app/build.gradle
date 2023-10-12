@@ -257,6 +257,10 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }
@@ -312,3 +316,4 @@ def isNewArchitectureEnabled() {
     // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
+apply plugin: 'com.google.gms.google-services'
