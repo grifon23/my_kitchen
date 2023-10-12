@@ -4,13 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { UIKitScreen } from '../../common/ua-kit/screens/ui-kit.screen'
 import { UserRouteKey } from '../typing/enums/route-key.enum'
-import { ComingSoonScreen } from '../screens'
 import { TabBarWidget } from '../widgets'
 import { CategoriesScreen } from '~modules/categories'
 import {
 	EditorRecipeScreen,
 	FavoriteRecipes,
-	IngradientsRecipeScreen,
 	RecipesScreen,
 } from '~modules/recipes'
 import { MyIngradientsScreen } from '~modules/ingradients/screens'
@@ -18,7 +16,6 @@ import { MyIngradientsScreen } from '~modules/ingradients/screens'
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const HomeStack = createStackNavigator()
-const EditorRecipe = createStackNavigator()
 
 const HomeStackNavigator = () => {
 	return (
@@ -34,22 +31,6 @@ const HomeStackNavigator = () => {
 				component={RecipesScreen}
 			/>
 		</HomeStack.Navigator>
-	)
-}
-const EditorRecipeGroup = () => {
-	return (
-		<EditorRecipe.Navigator
-			screenOptions={{ headerShown: false }}
-			initialRouteName={UserRouteKey.EditorRecipe}>
-			<EditorRecipe.Screen
-				name={UserRouteKey.EditorRecipe}
-				component={EditorRecipeScreen}
-			/>
-			<EditorRecipe.Screen
-				name={UserRouteKey.IngradientsRecipe}
-				component={IngradientsRecipeScreen}
-			/>
-		</EditorRecipe.Navigator>
 	)
 }
 
@@ -68,7 +49,7 @@ const UserTabNavigator = () => (
 			component={FavoriteRecipes}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.EditorRecipe}
-			component={EditorRecipeGroup}></Tab.Screen>
+			component={EditorRecipeScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.MyIngredients}
 			component={MyIngradientsScreen}></Tab.Screen>
@@ -87,10 +68,6 @@ export const UserNavigationGroup = () => {
 				component={UserTabNavigator}
 				name={UserRouteKey.Tabs}
 			/>
-			{/* <Stack.Screen
-				component={EditorRecipeScreen}
-				name={UserRouteKey.CreateRecipe}
-			/> */}
 		</Stack.Navigator>
 	)
 }

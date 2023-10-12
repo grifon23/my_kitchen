@@ -13,7 +13,6 @@ import { UserRouteKey } from '~modules/root/typing'
 export const ActionBtnAtom: FC = () => {
 	const nav = useNav()
 	const openEditorRecipe = () => {
-		gcService.set('recipeId', null)
 		nav.navigate(UserRouteKey.EditorRecipe)
 	}
 	return (

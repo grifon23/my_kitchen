@@ -13,8 +13,9 @@ interface IForm {
 
 interface IProps {
 	ingradients: IIngradient[]
+	onChange?: (ings: IIngradient[]) => void
 }
-export const IngradientsListForm: FC<IProps> = ({ ingradients }) => {
+export const IngradientsListForm: FC<IProps> = ({ ingradients, onChange }) => {
 	const nav = useNav()
 	const form = useForm<IForm>(
 		{
@@ -22,10 +23,11 @@ export const IngradientsListForm: FC<IProps> = ({ ingradients }) => {
 		},
 		ingradientValidator,
 	)
-
 	useEffect(() => {
-		if (!_.isEmpty(ingradients)) {
+		if (!_.isEmpty(ingradients) && ingradients) {
 			form.setFormField('ingradients', ingradients)
+		} else {
+			form.setForm({ ingradients: [] })
 		}
 	}, [ingradients])
 
@@ -58,9 +60,7 @@ export const IngradientsListForm: FC<IProps> = ({ ingradients }) => {
 	}
 
 	const saveIngradients = () => {
-		nav.navigate(UserRouteKey.EditorRecipe, {
-			ingradients: form.values.ingradients,
-		})
+		onChange(form.values.ingradients)
 	}
 
 	const resetErros = (index: number) => {

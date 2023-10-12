@@ -81,9 +81,9 @@ export const RecipesScreen = () => {
 	}
 
 	const editRecipe = (id: string) => {
-		gcService.set('recipeId', id)
-		nav.navigate(UserRouteKey.EditorRecipe, { id })
+		nav.navigate(UserRouteKey.EditorRecipe, { recipeId: id })
 	}
+
 	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout

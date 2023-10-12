@@ -8,9 +8,14 @@ import { UserRouteKey } from '~modules/root/typing'
 interface IProps {
 	ingradients: IIngradient[]
 	error: string
+	openDrawer: () => void
 }
 
-export const PreviewIngradients: FC<IProps> = ({ ingradients, error }) => {
+export const PreviewIngradients: FC<IProps> = ({
+	ingradients,
+	error,
+	openDrawer,
+}) => {
 	const nav = useNav()
 	const labelButton = _.isEmpty(ingradients)
 		? 'Add ingradient'
@@ -59,11 +64,7 @@ export const PreviewIngradients: FC<IProps> = ({ ingradients, error }) => {
 					<Button
 						height={40}
 						mod="primary"
-						onPress={() =>
-							nav.navigate(UserRouteKey.IngradientsRecipe, {
-								ingradients,
-							})
-						}
+						onPress={() => openDrawer()}
 						txtContent={labelButton}
 						style={{ height: 40, width: 180 }}
 					/>
