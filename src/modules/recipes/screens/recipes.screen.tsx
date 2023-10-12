@@ -62,7 +62,6 @@ export const RecipesScreen = () => {
 	}
 
 	const updateFavorite = async (id: string, isFavorite: boolean) => {
-		console.log('id', id, 'idFavorite', isFavorite)
 		if (!isFavorite) {
 			await recipesService.updateFavorite(id, false)
 		} else await recipesService.updateFavorite(id, true)
@@ -78,7 +77,6 @@ export const RecipesScreen = () => {
 			onPressCancelBtn: () => {},
 		})
 	}
-	console.log('params.categoryId', params.categoryId)
 	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout

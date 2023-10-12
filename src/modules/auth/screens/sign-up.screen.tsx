@@ -75,7 +75,6 @@ export const SignUpScreen = () => {
 					onPress={() => form.onSubmit(submit)}
 					mod="primary"
 					txtContent="Create account"
-					style={{ width: 200 }}
 				/>
 				<View
 					style={{

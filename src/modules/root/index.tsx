@@ -15,7 +15,6 @@ const modules = {
 
 export const Navigation = () => {
 	const activeModule = useSelector(selectNavGroup)
-	console.log('activeModule', activeModule)
 	const navigation = useMemo(() => modules[activeModule], [activeModule])
 	return (
 		<>

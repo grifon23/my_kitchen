@@ -1,9 +1,8 @@
 import { IIngradient } from './ingradient.interface'
 
-export interface IRecipe {
-	name: string
+export interface ICreateRecipeForm {
 	categoryId: string
-	id?: string
-	isFavorite: boolean
+	name: string
+	description: string
 	ingradients: IIngradient[]
 }

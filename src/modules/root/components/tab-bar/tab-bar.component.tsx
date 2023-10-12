@@ -14,7 +14,7 @@ export const TabBarComponent = (props: ITabBarProps) => {
 		const isActive = props.activeIndex === index
 		const onPress = () => props.onPressItem(index, route)
 		if (UserRouteKey.CreateRecipe === route) {
-			return <ActionBtnAtom />
+			return <ActionBtnAtom key={`${route}-${index}`} />
 		}
 		return (
 			<TabBarItemAtom
