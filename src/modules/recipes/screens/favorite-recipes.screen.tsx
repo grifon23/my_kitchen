@@ -33,8 +33,6 @@ export const FavoriteRecipes = () => {
 		loadFavoriteRecipes()
 	}, [])
 
-	console.log('favorites', favorites)
-
 	const swipeRef: Array<any> = []
 	let prevOpenedRow
 	const falseDeletePlant = (id: number) => {
