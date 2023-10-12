@@ -1,6 +1,6 @@
 import { useRoute } from '@react-navigation/native'
 import _ from 'lodash'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
 	appEvents,
@@ -40,12 +40,15 @@ export const RecipesScreen = () => {
 
 	const swipeRef: Array<any> = []
 	let prevOpenedRow
-	const falseDeletePlant = (id: number) => {
-		prevOpenedRow = swipeRef[id]
-		if (prevOpenedRow && prevOpenedRow === swipeRef[id]) {
+
+	const falseDeletePlant = (ind: number) => {
+		console.log('index', ind)
+		prevOpenedRow = swipeRef[ind]
+		if (prevOpenedRow && prevOpenedRow === swipeRef[ind]) {
 			prevOpenedRow.close()
 		}
 	}
+
 	const memoFilteringRecipe = useMemo(() => {
 		if (data) {
 			const fitlterList = data.filter((it: IRecipe) =>
@@ -55,9 +58,14 @@ export const RecipesScreen = () => {
 		}
 	}, [searchString, data])
 
-	const removeRecipe = async (categoryId: string, id: string) => {
+	const removeRecipe = async (
+		categoryId: string,
+		id: string,
+		index: number,
+	) => {
 		try {
 			await recipesService.removeRecipe(categoryId, id)
+			falseDeletePlant(index)
 		} catch (error) {
 			console.log('error remove category')
 		}
@@ -69,19 +77,24 @@ export const RecipesScreen = () => {
 		} else await recipesService.updateFavorite(id, true)
 	}
 
-	const alertRemoveRecipe = (categoryId: string, id: string) => {
+	const alertRemoveRecipe = (
+		categoryId: string,
+		id: string,
+		index?: number,
+	) => {
 		appEvents.emit('alert', {
-			onPress: async () => removeRecipe(categoryId, id),
+			onPress: async () => await removeRecipe(categoryId, id, index),
 			btnText: 'Ok',
 			icon: 'trash',
 			buttonType: 'primary',
 			message: 'Are you sure delete recipe?',
-			onPressCancelBtn: () => {},
+			onPressCancelBtn: () => falseDeletePlant(index),
 		})
 	}
 
-	const editRecipe = (id: string) => {
+	const editRecipe = (id: string, index: number) => {
 		nav.navigate(UserRouteKey.EditorRecipe, { recipeId: id })
+		falseDeletePlant(index)
 	}
 
 	if (isLoading) return <Loader />
@@ -109,8 +122,8 @@ export const RecipesScreen = () => {
 				updateFavorite={updateFavorite}
 				swipeRef={swipeRef}
 				list={memoFilteringRecipe}
-				openEditor={_.noop}
-				goDetailRecipe={editRecipe}
+				openEditor={editRecipe}
+				goDetailRecipe={() => {}}
 				removeRecipe={alertRemoveRecipe}
 			/>
 		</ScreenLayout>

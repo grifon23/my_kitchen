@@ -5,17 +5,19 @@ import { colors } from '~modules/common/theme'
 import { Icon } from '../../elements'
 
 interface IProps {
-	item: any
+	itemIndex: any
 	swipeRef: any
 	openPopup: () => void
 	children: JSX.Element
+	openEdit: () => void
 }
 
 export const SwipableRow: FC<IProps> = ({
-	item,
+	itemIndex,
 	swipeRef,
 	openPopup,
 	children,
+	openEdit,
 }) => {
 	const rightSwipe = (progress: any, dragX: any) => {
 		const progr = progress
@@ -40,16 +42,46 @@ export const SwipableRow: FC<IProps> = ({
 			</View>
 		)
 	}
+
+	const leftSwipe = (progress: any, dragX: any) => {
+		const progr = progress
+		const trans = dragX.interpolate({
+			inputRange: [0, 80, 100, 101],
+			outputRange: [0, 10, 0, 1],
+		})
+		return (
+			<View style={{ paddingLeft: 0 }}>
+				<Animated.View
+					style={[
+						styles.leftSwipe,
+						{ transform: [{ translateX: trans }] },
+					]}>
+					<Icon
+						name="info"
+						size={25}
+						color={colors.primary}
+						style={{ height: 30 }}
+					/>
+				</Animated.View>
+			</View>
+		)
+	}
+
+	const acrionDirectionSwipe = (direction: 'left' | 'right') => {
+		if (direction === 'left') openEdit()
+		else openPopup()
+	}
 	return (
 		<Swipeable
 			useNativeAnimations
-			ref={ref => (swipeRef[item.id] = ref)}
+			ref={ref => (swipeRef[itemIndex] = ref)}
 			childrenContainerStyle={{ overflow: 'hidden' }}
 			renderRightActions={rightSwipe}
+			renderLeftActions={leftSwipe}
 			overshootRight={false}
 			overshootLeft={false}
-			onSwipeableRightOpen={openPopup}
 			friction={3}
+			onSwipeableOpen={acrionDirectionSwipe}
 			rightThreshold={40}>
 			{children}
 		</Swipeable>
@@ -68,5 +100,17 @@ const styles = StyleSheet.create({
 		paddingRight: 20,
 		borderWidth: 1,
 		borderColor: colors.errorTxt,
+	},
+	leftSwipe: {
+		backgroundColor: colors.secondary,
+		paddingVertical: 15,
+		width: 80,
+		justifyContent: 'center',
+		alignItems: 'flex-start',
+		borderTopLeftRadius: 10,
+		borderBottomLeftRadius: 10,
+		paddingLeft: 20,
+		borderWidth: 1,
+		borderColor: colors.primary,
 	},
 })

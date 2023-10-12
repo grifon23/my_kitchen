@@ -63,10 +63,7 @@ export const AlertWidget = () => {
 	}
 
 	const onCancel = () => {
-		if (settingsRef.current?.onPressCancelBtn) {
-			settingsRef.current?.onPressCancelBtn()
-			close()
-		}
+		settingsRef.current?.onPressCancelBtn()
 		close()
 	}
 	return (
