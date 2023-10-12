@@ -1,8 +1,5 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import {
-	Service,
-	storageService,
-} from '~modules/common/service'
+import { Service, storageService } from '~modules/common/service'
 import { StorageKey } from '~modules/common/typing'
 import { NavGroupKey } from '~modules/root/typing'
 import { Reset, SetNavGroupAction } from '~modules/store/navigation/actions'
@@ -18,12 +15,20 @@ export class AuthService extends Service {
 
 	public async signUp(payload: ISignUpPayload) {
 		const resp = await authApiService.signUpReq(payload)
+		await authApiService.createUser({
+			email: payload.email,
+			uuid: resp.user.uid,
+		})
+		const isSignedInWithGoogle = await GoogleSignin.hasPlayServices()
+		if (isSignedInWithGoogle) {
+			await authApiService.signUpWithGoogle()
+		}
 		const token = await resp.user.getIdToken()
 		this.saveSession(token)
 		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
 	}
 
-	public async signUpWithGoogle() {
+	public async signInWithGoogle() {
 		const resp = await authApiService.signInGoogleReq()
 		const token = await resp.user.getIdToken()
 		this.saveSession(token)
@@ -36,7 +41,8 @@ export class AuthService extends Service {
 
 	public async logOut() {
 		await authApiService.logOutReq()
-		await authService.revokeGoogleAccess()
+		// Remove Google account
+		// await authService.revokeGoogleAccess()
 		await storageService.set(StorageKey.AccessToken, null)
 		this.dispatch(new Reset())
 	}

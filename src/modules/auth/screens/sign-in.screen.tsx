@@ -52,7 +52,7 @@ export const SignInScreen = () => {
 
 	const signInWithGoogle = async () => {
 		try {
-			await authService.signUpWithGoogle()
+			await authService.signInWithGoogle()
 		} catch (error: any) {
 			error.name = ''
 			const message = exeptionsConfig[error?.toString()]
