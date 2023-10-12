@@ -13,7 +13,6 @@ import {
 import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignUpForm } from '../components/sign-up-form.component'
 import { exeptionsConfig } from '../config'
-import { authApiService } from '../api'
 import { ISignUpForm } from '../typing'
 import { signUpValidator } from '../validators'
 import { authService } from '../services'

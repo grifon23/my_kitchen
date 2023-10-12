@@ -7,7 +7,6 @@ import {
 	LinkTxt,
 	ScreenLayout,
 	Txt,
-	TxtInput,
 	useForm,
 	useNav,
 } from '~modules/common'
@@ -15,7 +14,6 @@ import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignInForm } from '../components'
 import { ISignInForm } from '../typing'
 import { signInValidator } from '../validators'
-import { authApiService } from '../api'
 import { exeptionsConfig } from '../config'
 import { authService } from '../services'
 
@@ -52,6 +50,25 @@ export const SignInScreen = () => {
 		}
 	}
 
+	const signInWithGoogle = async () => {
+		try {
+			await authService.signInWithGoogle()
+		} catch (error: any) {
+			error.name = ''
+			const message = exeptionsConfig[error?.toString()]
+			if (message) {
+				appEvents.emit('alert', {
+					onPress: () => {},
+					buttonType: 'primary',
+					btnText: 'Close',
+					message: message,
+					icon: 'cancel-1',
+					colorIcon: colors.errorTxt,
+				})
+			}
+		}
+	}
+
 	return (
 		<ScreenLayout
 			scrollStyle={styles.container}
@@ -69,11 +86,23 @@ export const SignInScreen = () => {
 					errors={form.errors}
 				/>
 			</View>
-			<Button
-				onPress={() => form.onSubmit(submit)}
-				mod="primary"
-				txtContent="Login"
-			/>
+			<View style={styles.buttonsGroup}>
+				<Button
+					onPress={() => form.onSubmit(submit)}
+					mod="primary"
+					txtContent="Login"
+					style={styles.btn}
+				/>
+				<Button
+					onPress={signInWithGoogle}
+					mod="outline"
+					txtContent="Login with Google"
+					style={styles.btn}
+					icon="google"
+					iconColor={colors.primary}
+				/>
+			</View>
+
 			<View style={styles.linkContainer}>
 				<Txt>Dont have account go to </Txt>
 				<LinkTxt onPress={() => nav.navigate(AuthRouteKey.SignUp)}>
@@ -96,5 +125,12 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginVertical: 20,
+	},
+	btn: {
+		marginBottom: 20,
+		width: '100%',
+	},
+	buttonsGroup: {
+		alignItems: 'center',
 	},
 })

@@ -12,7 +12,20 @@
           "package_name": "com.my_kitchen"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "876282652641-gbq3qdekfm59i1gavr4k3t7ubo42c8d4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.my_kitchen",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "876282652641-sjb2i8ifpio3on381lmu84a1une5iggt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB3ltdX4giEUFtYnKmFZ6XYGIO_JBTcbw4"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876282652641-sjb2i8ifpio3on381lmu84a1une5iggt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "876282652641-qbeuuu31l378f06f6h3ih40ahmmb0ju1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.my-kitchen"
+              }
+            }
+          ]
         }
       }
     }
