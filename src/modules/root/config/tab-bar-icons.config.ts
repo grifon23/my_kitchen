@@ -5,5 +5,5 @@ export const tabBarIconsConfig: any = {
 	[UserRouteKey.Favorite]: 'heart-empty',
 	[UserRouteKey.EditorRecipe]: 'plus',
 	[UserRouteKey.MyIngredients]: 'menu',
-	[UserRouteKey.Profile]: 'cog',
+	[UserRouteKey.Settings]: 'cog',
 }

@@ -62,7 +62,7 @@ export const ScreenLayout = ({
 							background,
 							colors.bgLayout,
 						),
-						paddingTop: 0,
+						paddingTop: 10,
 						paddingBottom: bottomSafeArea ? insets.bottom + 5 : 0,
 					},
 				]}>
