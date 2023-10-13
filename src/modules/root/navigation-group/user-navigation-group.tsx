@@ -12,10 +12,12 @@ import {
 	RecipesScreen,
 } from '~modules/recipes'
 import { MyIngradientsScreen } from '~modules/ingradients/screens'
+import { SettingsScreen } from '~modules/settings/screens'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const HomeStack = createStackNavigator()
+const UserSettingsStack = createStackNavigator()
 
 const HomeStackNavigator = () => {
 	return (
@@ -54,10 +56,22 @@ const UserTabNavigator = () => (
 			name={UserRouteKey.MyIngredients}
 			component={MyIngradientsScreen}></Tab.Screen>
 		<Tab.Screen
-			name={UserRouteKey.Profile}
-			component={UIKitScreen}></Tab.Screen>
+			name={UserRouteKey.Settings}
+			component={UserSettingsNavigator}></Tab.Screen>
 	</Tab.Navigator>
 )
+
+const UserSettingsNavigator = () => { return (
+<UserSettingsStack.Navigator
+		screenOptions={{ headerShown: false }}
+		initialRouteName={UserRouteKey.Settings}>
+		<UserSettingsStack.Screen
+			name={UserRouteKey.Settings}
+			component={SettingsScreen}/>
+	</UserSettingsStack.Navigator>
+)}
+	
+
 
 export const UserNavigationGroup = () => {
 	return (
