@@ -1,1 +1,1 @@
-export * from './my-ingradient.screen'
+export {}

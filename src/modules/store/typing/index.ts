@@ -1,3 +1,4 @@
+import { IUser } from '~modules/acount/typing'
 import { ICategory } from '~modules/categories/typing'
 import { IRecipe } from '~modules/recipes/typing'
 import { NavGroupKey } from '~modules/root/typing'
@@ -23,6 +24,7 @@ export namespace Store {
 		categorise: States.Categories
 		recipes: States.Recipes
 		favorite: States.FavoriteRecipes
+		account: States.Account
 	}
 	export namespace States {
 		export interface Nav {
@@ -31,6 +33,10 @@ export namespace Store {
 		}
 		export interface Categories {
 			info: StoreData<ICategory[]>
+		}
+
+		export interface Account {
+			info: StoreData<IUser>
 		}
 
 		export interface Recipes {

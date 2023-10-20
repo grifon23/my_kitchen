@@ -2,7 +2,6 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { UIKitScreen } from '../../common/ua-kit/screens/ui-kit.screen'
 import { UserRouteKey } from '../typing/enums/route-key.enum'
 import { TabBarWidget } from '../widgets'
 import { CategoriesScreen } from '~modules/categories'
@@ -11,8 +10,8 @@ import {
 	FavoriteRecipes,
 	RecipesScreen,
 } from '~modules/recipes'
-import { MyIngradientsScreen } from '~modules/ingradients/screens'
 import { SettingsScreen } from '~modules/settings/screens'
+import { MyProductScreen } from '~modules/products/screens'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -54,24 +53,25 @@ const UserTabNavigator = () => (
 			component={EditorRecipeScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.MyIngredients}
-			component={MyIngradientsScreen}></Tab.Screen>
+			component={MyProductScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Settings}
 			component={UserSettingsNavigator}></Tab.Screen>
 	</Tab.Navigator>
 )
 
-const UserSettingsNavigator = () => { return (
-<UserSettingsStack.Navigator
-		screenOptions={{ headerShown: false }}
-		initialRouteName={UserRouteKey.Settings}>
-		<UserSettingsStack.Screen
-			name={UserRouteKey.Settings}
-			component={SettingsScreen}/>
-	</UserSettingsStack.Navigator>
-)}
-	
-
+const UserSettingsNavigator = () => {
+	return (
+		<UserSettingsStack.Navigator
+			screenOptions={{ headerShown: false }}
+			initialRouteName={UserRouteKey.Settings}>
+			<UserSettingsStack.Screen
+				name={UserRouteKey.Settings}
+				component={SettingsScreen}
+			/>
+		</UserSettingsStack.Navigator>
+	)
+}
 
 export const UserNavigationGroup = () => {
 	return (

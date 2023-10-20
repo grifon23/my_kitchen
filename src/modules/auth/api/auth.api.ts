@@ -4,6 +4,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { ISignInPayload, ISignUpPayload } from './interfaces'
 import { appEvents } from '~modules/common'
 import _ from 'lodash'
+import { IProduct } from '~modules/ingradients/typing'
 
 export class AuthRequestsService {
 	public async signInReq(payload: ISignInPayload) {
@@ -32,7 +33,11 @@ export class AuthRequestsService {
 		}
 	}
 
-	public async createUser(payload: { email: string; uuid: string }) {
+	public async createUser(payload: {
+		email: string
+		uuid: string
+		myProducts: IProduct[]
+	}) {
 		await firestore().collection('users').add(payload)
 	}
 
