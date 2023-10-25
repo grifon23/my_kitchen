@@ -11,7 +11,7 @@ export const SettingsScreen: FC = () => {
 
 	const openLogOutConfirm = () => {
 		appEvents.emit('alert', {
-			onPress: async () => authService.logOut(),
+			onPress: async () => await authService.logOut(),
 			btnText: 'Ok',
 			icon: 'logout',
 			buttonType: 'primary',

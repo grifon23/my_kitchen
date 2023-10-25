@@ -1,17 +1,18 @@
 import React, { FC, useMemo } from 'react'
 import { IProduct } from '../typing'
 import { ProductEditor } from './product-form'
-import { TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { Txt } from '~modules/common'
 
 interface IProps {
 	isOpen: boolean
 	isActive: boolean
-	editProduct: { value: string; isOpen: boolean }
+	editProduct: { product: IProduct; isOpen: boolean }
 	createProduct: (val: string) => void
 	updateProduct: (val: string) => void
 	getEditProduct: () => void
 	item: string
+	deleteProduct: () => void
 }
 
 export const ProductItem: FC<IProps> = ({
@@ -21,6 +22,7 @@ export const ProductItem: FC<IProps> = ({
 	createProduct,
 	updateProduct,
 	getEditProduct,
+	deleteProduct,
 	item,
 }) => {
 	const memoProductItem = useMemo(() => {
@@ -30,12 +32,15 @@ export const ProductItem: FC<IProps> = ({
 					editProduct={editProduct}
 					create={createProduct}
 					saveEditProduct={updateProduct}
+					removeProduct={deleteProduct}
 				/>
 			)
 		} else {
 			return (
-				<TouchableOpacity onPress={getEditProduct}>
-					<Txt>{item}</Txt>
+				<TouchableOpacity
+					onPress={getEditProduct}
+					style={styles.itemProduct}>
+					<Txt mod="lg">{item}</Txt>
 				</TouchableOpacity>
 			)
 		}
@@ -43,3 +48,9 @@ export const ProductItem: FC<IProps> = ({
 
 	return <>{memoProductItem}</>
 }
+
+const styles = StyleSheet.create({
+	itemProduct: {
+		paddingVertical: 4,
+	},
+})

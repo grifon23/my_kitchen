@@ -11,8 +11,8 @@ import {
 	Txt,
 	TxtInput,
 } from '~modules/common'
+import { IProduct } from '~modules/products/typing'
 import { IIngradient } from '~modules/recipes/typing'
-import { ingradientsData } from '../config'
 
 interface IProps {
 	onChangeIngradient: (
@@ -23,6 +23,7 @@ interface IProps {
 	ingradient: IIngradient
 	index: number
 	remove: () => void
+	myProduct: IProduct[]
 	style?: ViewStyle
 	errors: any
 }
@@ -33,6 +34,7 @@ export const IngradientRowForm: FC<IProps> = ({
 	remove,
 	style,
 	errors,
+	myProduct,
 }) => {
 	const getErrors = () => {
 		const _errors = _.cloneDeep(errors)
@@ -47,8 +49,8 @@ export const IngradientRowForm: FC<IProps> = ({
 						onChangeIngradient(index, 'name', val.value)
 					}
 					selected={ingradient.name}
-					options={ingradientsData.map(it => {
-						return { label: it, value: it }
+					options={myProduct.map(it => {
+						return { label: it.name, value: it.name }
 					})}
 					placeholder="Select ingradient"
 					style={{ maxWidth: '45%' }}

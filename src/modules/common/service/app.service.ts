@@ -5,10 +5,15 @@ import { accountService } from '~modules/acount/service'
 
 export class AppService extends Service {
 	public async init() {
-		const account = await accountService.loadAcount()
-		if (account) {
-			this.dispatch(new SetNavGroupAction(NavGroupKey.User))
-		} else {
+		try {
+			const account = await accountService.loadAcount()
+			console.log('account', account)
+			if (account) {
+				this.dispatch(new SetNavGroupAction(NavGroupKey.User))
+			} else {
+				this.dispatch(new SetNavGroupAction(NavGroupKey.Auth))
+			}
+		} catch (error) {
 			this.dispatch(new SetNavGroupAction(NavGroupKey.Auth))
 		}
 	}

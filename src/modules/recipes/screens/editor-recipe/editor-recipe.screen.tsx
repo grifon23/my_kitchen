@@ -42,7 +42,7 @@ export const EditorRecipeScreen = () => {
 	const { data, isLoading } = useSelector((state: Store.Root) =>
 		selectRecipeById(state, route.params?.recipeId),
 	)
-
+	console.log('data', data)
 	const form = useForm<ICreateRecipeForm>({}, createRecipeValidator)
 
 	const openDrawer = () => {
@@ -73,7 +73,7 @@ export const EditorRecipeScreen = () => {
 			const prepareData: any = _.omit(data, ['id'])
 			form.setForm(prepareData)
 		}
-	}, [!route.params?.recipeId, isFocused, isLoading])
+	}, [!route.params?.recipeId, isFocused, isLoading, data])
 
 	const onChange = (key: keyof ICreateRecipeForm, val: string) => {
 		form.setFormField(key, val)
@@ -143,8 +143,7 @@ export const EditorRecipeScreen = () => {
 		if (route.params?.recipeId) return 'Edit recipe'
 		else return 'Create recipe'
 	}, [route.params?.recipeId])
-
-	if (isLoading) return <Loader />
+	console.log('form.values.ingradients', form.values.ingradients)
 
 	return (
 		<Drawer

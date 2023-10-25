@@ -1,10 +1,12 @@
+import { NavActions } from './../../store/navigation/actions'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { Service, storageService } from '~modules/common/service'
 import { StorageKey } from '~modules/common/typing'
 import { NavGroupKey } from '~modules/root/typing'
 import { Reset, SetNavGroupAction } from '~modules/store/navigation/actions'
 import { authApiService, ISignInPayload, ISignUpPayload } from '../api'
-import { defaultProductsData } from '~modules/ingradients/config'
+import { defaultProductsData } from '~modules/products/config'
+import { accountService } from '~modules/acount/service'
 
 export class AuthService extends Service {
 	public async signIn(payload: ISignInPayload) {
@@ -16,11 +18,13 @@ export class AuthService extends Service {
 
 	public async signUp(payload: ISignUpPayload) {
 		const resp = await authApiService.signUpReq(payload)
+		console.log('signUp service', resp.user.uid)
 		await authApiService.createUser({
 			email: payload.email,
 			uuid: resp.user.uid,
 			myProducts: defaultProductsData,
 		})
+
 		const isSignedInWithGoogle = await GoogleSignin.hasPlayServices()
 		if (isSignedInWithGoogle) {
 			await authApiService.signUpWithGoogle()
@@ -28,6 +32,7 @@ export class AuthService extends Service {
 		const token = await resp.user.getIdToken()
 		this.saveSession(token, resp.user.uid)
 		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
+		await accountService.loadAcount()
 	}
 
 	public async signInWithGoogle() {
@@ -38,16 +43,22 @@ export class AuthService extends Service {
 	}
 
 	public async saveSession(token: string, uuid: string) {
-		await storageService.set(StorageKey.AccessToken, token)
+		console.log('save uuid', uuid)
 		await storageService.set(StorageKey.UUID, uuid)
 	}
 
 	public async logOut() {
-		await authApiService.logOutReq()
-		// Remove Google account
-		// await authService.revokeGoogleAccess()
-		await storageService.set(StorageKey.AccessToken, null)
-		this.dispatch(new Reset())
+		try {
+			await authApiService.logOutReq()
+			await accountService.resetAccount()
+			console.log('logout')
+			// Remove Google account
+			// await authService.revokeGoogleAccess()
+
+			this.dispatch(new Reset())
+		} catch (error) {
+			this.dispatch(new Reset())
+		}
 	}
 
 	private async revokeGoogleAccess() {
