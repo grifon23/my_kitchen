@@ -27,7 +27,6 @@ export class AuthRequestsService {
 			)
 			return resp
 		} catch (error: any) {
-			console.log('dgfhjuji', error)
 			const code = await error.code
 			throw new Error(code)
 		}
