@@ -12,6 +12,7 @@ import {
 } from '~modules/recipes'
 import { SettingsScreen } from '~modules/settings/screens'
 import { MyProductScreen } from '~modules/products/screens'
+import { ComingSoonScreen } from '../screens'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -52,8 +53,8 @@ const UserTabNavigator = () => (
 			name={UserRouteKey.EditorRecipe}
 			component={EditorRecipeScreen}></Tab.Screen>
 		<Tab.Screen
-			name={UserRouteKey.MyIngredients}
-			component={MyProductScreen}></Tab.Screen>
+			name={UserRouteKey.Generate}
+			component={ComingSoonScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Settings}
 			component={UserSettingsNavigator}></Tab.Screen>
@@ -68,6 +69,11 @@ const UserSettingsNavigator = () => {
 			<UserSettingsStack.Screen
 				name={UserRouteKey.Settings}
 				component={SettingsScreen}
+			/>
+
+			<UserSettingsStack.Screen
+				name={UserRouteKey.MyProducts}
+				component={MyProductScreen}
 			/>
 		</UserSettingsStack.Navigator>
 	)

@@ -4,6 +4,7 @@ import { Service, storageService } from '~modules/common/service'
 import { StorageKey } from '~modules/common/typing'
 import { NavGroupKey } from '~modules/root/typing'
 import { Reset, SetNavGroupAction } from '~modules/store/navigation/actions'
+import { ResetAccount } from '~modules/store/account/actions'
 import { authApiService, ISignInPayload, ISignUpPayload } from '../api'
 import { defaultProductsData } from '~modules/products/config'
 import { accountService } from '~modules/acount/service'
@@ -14,11 +15,11 @@ export class AuthService extends Service {
 		const token = await resp.user.getIdToken()
 		this.saveSession(token, resp.user.uid)
 		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
+		await accountService.loadAcount()
 	}
 
 	public async signUp(payload: ISignUpPayload) {
 		const resp = await authApiService.signUpReq(payload)
-		console.log('signUp service', resp.user.uid)
 		await authApiService.createUser({
 			email: payload.email,
 			uuid: resp.user.uid,
@@ -40,25 +41,20 @@ export class AuthService extends Service {
 		const token = await resp.user.getIdToken()
 		this.saveSession(token, resp.user.uid)
 		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
+		await accountService.loadAcount()
 	}
 
 	public async saveSession(token: string, uuid: string) {
-		console.log('save uuid', uuid)
 		await storageService.set(StorageKey.UUID, uuid)
 	}
 
 	public async logOut() {
-		try {
-			await authApiService.logOutReq()
-			await accountService.resetAccount()
-			console.log('logout')
-			// Remove Google account
-			// await authService.revokeGoogleAccess()
-
-			this.dispatch(new Reset())
-		} catch (error) {
-			this.dispatch(new Reset())
-		}
+		await authApiService.logOutReq()
+		await storageService.set(StorageKey.UUID, null)
+		this.dispatch(new Reset())
+		this.dispatch(new ResetAccount())
+		// Remove Google account
+		// await authService.revokeGoogleAccess()
 	}
 
 	private async revokeGoogleAccess() {

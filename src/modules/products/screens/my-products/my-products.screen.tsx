@@ -5,6 +5,8 @@ import {
 	ScreenLayout,
 	Txt,
 	appEvents,
+	colors,
+	useNav,
 } from '~modules/common'
 import { Keyboard, TouchableOpacity, View } from 'react-native'
 import _ from 'lodash'
@@ -18,6 +20,7 @@ import { IProduct } from '~modules/products/typing'
 import randomstring from 'randomstring'
 import { accountService } from '~modules/acount/service'
 export const MyProductScreen = () => {
+	const nav = useNav()
 	const { data: account } = useSelector(selectAccount)
 	const [products, setProducts] = useState<IProduct[]>([])
 	const [showForm, setShowForm] = useState(false)
@@ -102,7 +105,14 @@ export const MyProductScreen = () => {
 	return (
 		<ScreenLayout
 			needScroll={true}
-			headerComponent={<PrimaryHeader label="My products" />}>
+			headerComponent={
+				<PrimaryHeader
+					label="My products"
+					onPressLeftIcon={() => nav.goBack()}
+					leftIcon="left-open-big"
+					colorLeftIcon={colors.secondaryTxt}
+				/>
+			}>
 			<Button
 				style={{ marginBottom: 20 }}
 				onPress={saveAllChanges}

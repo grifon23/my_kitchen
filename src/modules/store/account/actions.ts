@@ -7,8 +7,8 @@ export class SetAccountAction implements Store.Action {
 	constructor(public readonly payload: IUser) {}
 }
 
-export class Reset implements Store.Action {
+export class ResetAccount implements Store.Action {
 	readonly type = Store.StoreActionKey.RESET
 }
 
-export type AccountActions = SetAccountAction | Reset
+export type AccountActions = SetAccountAction | ResetAccount

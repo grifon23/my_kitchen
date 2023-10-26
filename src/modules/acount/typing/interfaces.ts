@@ -1,4 +1,4 @@
-import { IProduct } from '~modules/ingradients/typing'
+import { IProduct } from '~modules/products/typing'
 
 export interface IUser {
 	name?: string

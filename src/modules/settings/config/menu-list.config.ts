@@ -6,6 +6,7 @@ interface IPropsMenuList {
 	shareUs: () => void
 	connectGoogle: () => void
 	passwordChange: () => void
+	myProducts: () => void
 }
 export const menuListConfig = ({
 	logout,
@@ -13,7 +14,14 @@ export const menuListConfig = ({
 	shareUs,
 	connectGoogle,
 	passwordChange,
+	myProducts,
 }: IPropsMenuList): IMenuListItemsProps[] => [
+	{
+		onPress: myProducts,
+		text: 'My products',
+		arrow: true,
+		leftIcon: 'menu',
+	},
 	{
 		onPress: aboutUs,
 		text: 'About Us',
