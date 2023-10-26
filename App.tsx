@@ -8,7 +8,7 @@ import {
 	SafeAreaProvider,
 } from 'react-native-safe-area-context'
 import { Provider } from 'react-redux'
-import { store } from '~modules/store'
+import { store } from './src/modules/store'
 import { NavigationContainer } from '@react-navigation/native'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 GoogleSignin.configure({
