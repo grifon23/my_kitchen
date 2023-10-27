@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import { Button, ErrorTxt, Txt, useNav } from '~modules/common'
 import { IIngradient } from '~modules/recipes/typing'
 import { UserRouteKey } from '~modules/root/typing'
+import { PreviewIngradient } from './preview-ingradient.component'
 
 interface IProps {
 	ingradients: IIngradient[]
@@ -27,31 +28,17 @@ export const PreviewIngradients: FC<IProps> = ({
 				<View>
 					{ingradients.map(it => {
 						return (
-							<View
-								style={{
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-									marginBottom: 10,
-								}}>
-								<Txt>{it.name}</Txt>
-								<View
-									style={{
-										borderBottomWidth: 1,
-										flex: 1,
-										borderStyle: 'solid',
-										paddingBottom: 10,
-									}}
-								/>
-								<View style={{ flexDirection: 'row' }}>
-									<Txt>{it.count} </Txt>
-									<Txt>{it.metric}</Txt>
-								</View>
-							</View>
+							<PreviewIngradient
+								name={it.name}
+								count={it.count}
+								metric={it.metric}
+							/>
 						)
 					})}
 				</View>
 			)
 	}, [ingradients])
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.ingradientsHeader}>

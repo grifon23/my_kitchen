@@ -18,4 +18,5 @@ export enum UserRouteKey {
 	ContactUs = 'contactUs',
 	AboutUs = 'aboutUs',
 	Generate = 'Generate',
+	DetailedRecipe = 'DetailedRecipe',
 }
