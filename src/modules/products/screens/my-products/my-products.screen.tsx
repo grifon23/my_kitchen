@@ -37,7 +37,7 @@ export const MyProductScreen = () => {
 		setProducts(account.myProducts)
 	}, [account])
 
-	const saveProduct = (val: string) => {
+	const createProduct = (val: string) => {
 		setProducts([{ name: val, id: generateId() }, ...products])
 		setShowForm(false)
 	}
@@ -99,7 +99,7 @@ export const MyProductScreen = () => {
 		}
 		return (
 			<ProductEditor
-				create={saveProduct}
+				create={createProduct}
 				closeEditor={() => setShowForm(false)}
 			/>
 		)
@@ -134,7 +134,7 @@ export const MyProductScreen = () => {
 			<ProductsList
 				items={products}
 				editProduct={editProduct}
-				saveProduct={saveProduct}
+				saveProduct={createProduct}
 				setEditValue={val => saveEditProduct(val)}
 				getEditProduct={getEditProduct}
 				deleteProductAlert={deleteProductAlert}
