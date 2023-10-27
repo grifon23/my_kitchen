@@ -11,7 +11,7 @@ export const SettingsScreen: FC = () => {
 
 	const openLogOutConfirm = () => {
 		appEvents.emit('alert', {
-			onPress: async () => authService.logOut(),
+			onPress: async () => await authService.logOut(),
 			btnText: 'Ok',
 			icon: 'logout',
 			buttonType: 'primary',
@@ -43,12 +43,17 @@ export const SettingsScreen: FC = () => {
 	const passwordChange = () => {
 		openNextVersionAlert()
 	}
+
+	const myProducts = () => {
+		nav.navigate(UserRouteKey.MyProducts)
+	}
 	const menuConfig = menuListConfig({
 		logout,
 		aboutUs,
 		shareUs,
 		connectGoogle,
 		passwordChange,
+		myProducts,
 	})
 	return (
 		<ScreenLayout

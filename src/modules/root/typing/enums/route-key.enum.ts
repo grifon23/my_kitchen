@@ -9,7 +9,7 @@ export enum UserRouteKey {
 	Home = 'Home',
 	Favorite = 'Favorite',
 	Recipes = 'recipes',
-	MyIngredients = 'MyIngredients',
+	MyProducts = 'MyProducts',
 	Profile = 'Profile ',
 	Tabs = 'Tabs',
 	EditorRecipe = 'EditorRecipe',
@@ -17,4 +17,5 @@ export enum UserRouteKey {
 	Settings = 'settings',
 	ContactUs = 'contactUs',
 	AboutUs = 'aboutUs',
+	Generate = 'Generate',
 }
