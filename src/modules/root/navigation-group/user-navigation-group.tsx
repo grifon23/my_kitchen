@@ -13,11 +13,13 @@ import {
 } from '~modules/recipes'
 import { MyIngradientsScreen } from '~modules/ingradients/screens'
 import { SettingsScreen } from '~modules/settings/screens'
+import { AccountScreen } from '~modules/account'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const HomeStack = createStackNavigator()
 const UserSettingsStack = createStackNavigator()
+const CreateAccountStack = createStackNavigator()
 
 const HomeStackNavigator = () => {
 	return (
@@ -62,15 +64,36 @@ const UserTabNavigator = () => (
 )
 
 const UserSettingsNavigator = () => { return (
-<UserSettingsStack.Navigator
+	<UserSettingsStack.Navigator
 		screenOptions={{ headerShown: false }}
 		initialRouteName={UserRouteKey.Settings}>
 		<UserSettingsStack.Screen
 			name={UserRouteKey.Settings}
-			component={SettingsScreen}/>
+			component={SettingsScreen}
+		/>
+		<UserSettingsStack.Screen
+			name={UserRouteKey.Account}
+			component={AccountScreen}
+		/>
 	</UserSettingsStack.Navigator>
 )}
 	
+export const CreateAccountNavigator = () => {
+	return (
+		<CreateAccountStack.Navigator
+			screenOptions={{ headerShown: false }}
+			initialRouteName={UserRouteKey.Account}>
+			<CreateAccountStack.Screen
+				name={UserRouteKey.Account}
+				component={AccountScreen}
+			/>
+			<CreateAccountStack.Screen
+				name={UserRouteKey.MyIngredients}
+				component={MyIngradientsScreen}
+			/>
+		</CreateAccountStack.Navigator>
+	)
+}
 
 
 export const UserNavigationGroup = () => {

@@ -43,12 +43,16 @@ export const SettingsScreen: FC = () => {
 	const passwordChange = () => {
 		openNextVersionAlert()
 	}
+	const account = () => {
+		nav.navigate(UserRouteKey.Account)
+	}
 	const menuConfig = menuListConfig({
 		logout,
 		aboutUs,
 		shareUs,
 		connectGoogle,
 		passwordChange,
+		account
 	})
 	return (
 		<ScreenLayout

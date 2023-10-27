@@ -1,9 +1,10 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import { OnboardingScreen, SignInScreen, SignUpScreen } from '../../auth'
 import { UIKitScreen } from './../../common/ua-kit/screens/ui-kit.screen'
 import { AuthRouteKey } from '../typing/enums/route-key.enum'
+import { CreateAccountNavigator } from './user-navigation-group'
 
 const Stack = createStackNavigator()
 
@@ -19,7 +20,10 @@ export const AuthNavigationGroup = () => {
 
 			<Stack.Screen component={SignInScreen} name={AuthRouteKey.SignIn} />
 			<Stack.Screen component={SignUpScreen} name={AuthRouteKey.SignUp} />
+			<Stack.Screen
+				component={CreateAccountNavigator}
+				name={AuthRouteKey.Account}
+			/>
 		</Stack.Navigator>
 	)
 }
-  
