@@ -3,26 +3,23 @@ import {
 	Button,
 	PrimaryHeader,
 	ScreenLayout,
-	Txt,
 	appEvents,
 	colors,
 	useNav,
 } from '~modules/common'
-import { Keyboard, TouchableOpacity, View } from 'react-native'
+import { Keyboard } from 'react-native'
 import _ from 'lodash'
-import { storageService } from '~modules/common/service'
-import { StorageKey } from '~modules/common/typing'
-import { ProductEditor, ProductItem } from '~modules/products/components'
-import { defaultProductsData } from '~modules/products/config'
+import { ProductEditor, ProductsList } from '~modules/products/components'
 import { useSelector } from 'react-redux'
 import { selectAccount } from '~modules/store/account/selector'
 import { IProduct } from '~modules/products/typing'
 import randomstring from 'randomstring'
 import { accountService } from '~modules/acount/service'
+
 export const MyProductScreen = () => {
 	const nav = useNav()
 	const { data: account } = useSelector(selectAccount)
-	const [products, setProducts] = useState<IProduct[]>([])
+	const [products, setProducts] = useState<IProduct[]>(account.myProducts)
 	const [showForm, setShowForm] = useState(false)
 	const [editProduct, setEditProduct] = useState<{
 		isOpen: boolean
@@ -31,6 +28,7 @@ export const MyProductScreen = () => {
 		isOpen: false,
 		product: null,
 	})
+
 	const generateId = () => {
 		return randomstring.generate(7)
 	}
@@ -49,44 +47,37 @@ export const MyProductScreen = () => {
 		setEditProduct({ isOpen: true, product: productUpdate })
 	}
 
-	const resetRditProduct = () => {
+	const resetEditProduct = () => {
 		setEditProduct({ isOpen: false, product: null })
 	}
+
+	const shortAlert = useCallback((message: string) => {
+		return appEvents.emit('alert', {
+			onPress: () => _.noop,
+			btnText: 'Ok',
+			buttonType: 'primary',
+			message,
+		})
+	}, [])
 
 	const saveAllChanges = async () => {
 		try {
 			await accountService.updateMyProducts(account.uuid, products)
+			shortAlert('Products successfully saved')
 		} catch (error) {
-			console.log('error update products', error)
+			shortAlert('Oops! Somethig wrong. Try again')
 		}
 	}
 
-	const saveEditProduct = (val: string, index: number) => {
-		const copyProducts = _.cloneDeep(products)
-		copyProducts[index] = { id: editProduct.product.id, name: val }
-		setProducts(copyProducts)
-		resetRditProduct()
+	const saveEditProduct = (val: string) => {
+		if (!editProduct.product) return
+		accountService.updatePruduct({ name: val, id: editProduct.product.id })
+		resetEditProduct()
 	}
-
-	const memoFormCreateProduct = useMemo(() => {
-		if (!showForm) {
-			return null
-		}
-		return (
-			<ProductEditor
-				create={saveProduct}
-				closeEditor={() => setShowForm(false)}
-			/>
-		)
-	}, [showForm])
 
 	const deleteProduct = (id: string) => {
-		const copyProducts = _.cloneDeep(account.myProducts)
-
-		const templ = copyProducts.filter(it => id !== it.id)
-		console.log('copyProducts', copyProducts.length)
-		setProducts(templ)
-		resetRditProduct()
+		accountService.removeProduct(id)
+		resetEditProduct()
 	}
 
 	const deleteProductAlert = useCallback((id: string) => {
@@ -101,6 +92,18 @@ export const MyProductScreen = () => {
 		})
 		Keyboard.dismiss()
 	}, [])
+
+	const formCreateProduct = useMemo(() => {
+		if (!showForm) {
+			return null
+		}
+		return (
+			<ProductEditor
+				create={saveProduct}
+				closeEditor={() => setShowForm(false)}
+			/>
+		)
+	}, [showForm])
 
 	return (
 		<ScreenLayout
@@ -119,29 +122,23 @@ export const MyProductScreen = () => {
 				mod="primary"
 				txtContent="Save all producst"
 			/>
+
 			<Button
 				style={{ marginBottom: 20 }}
 				onPress={() => setShowForm(true)}
 				mod="primary"
 				txtContent="Add product"
 			/>
-			{memoFormCreateProduct}
-			<View>
-				{products.map((it, index) => {
-					return (
-						<ProductItem
-							item={it.name}
-							isActive={it.id === editProduct?.product?.id}
-							isOpen={editProduct.isOpen}
-							editProduct={editProduct}
-							createProduct={saveProduct}
-							updateProduct={val => saveEditProduct(val, index)}
-							getEditProduct={() => getEditProduct(it.id)}
-							deleteProduct={() => deleteProductAlert(it.id)}
-						/>
-					)
-				})}
-			</View>
+
+			{formCreateProduct}
+			<ProductsList
+				items={products}
+				editProduct={editProduct}
+				saveProduct={saveProduct}
+				setEditValue={val => saveEditProduct(val)}
+				getEditProduct={getEditProduct}
+				deleteProductAlert={deleteProductAlert}
+			/>
 		</ScreenLayout>
 	)
 }
