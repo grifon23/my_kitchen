@@ -13,6 +13,7 @@ import {
 	useNav,
 } from '~modules/common'
 import { selectAccount } from '~modules/store/account/selector'
+import { TextRow } from '../text-row'
 
 interface IProps {
 	values: IAccountForm
@@ -38,14 +39,7 @@ export const AccountForm: FC<IProps> = ({
 				styleContainer={{ marginBottom: 24 }}
 				placeholder="Enter Full name"
 			/>
-			<View style={styles.emailContainer}>
-				<Txt mod="sm" style={styles.label}>
-					Email
-				</Txt>
-				<Txt style={styles.emailTxt}>
-					{email}
-				</Txt>
-			</View>
+			<TextRow label='Email' value={email}/>
 			<FormControllSelect
 				label="Gender"
 				selected={values.gender}

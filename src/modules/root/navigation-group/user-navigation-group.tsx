@@ -14,7 +14,7 @@ import {
 import { SettingsScreen } from '~modules/settings/screens'
 import { MyProductScreen } from '~modules/products/screens'
 import { ComingSoonScreen } from '../screens'
-import { AccountScreen } from '~modules/acount'
+import { AccountEditScreen } from '~modules/acount'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -80,7 +80,7 @@ const UserSettingsNavigator = () => {
 			/>
 			<UserSettingsStack.Screen
 				name={UserRouteKey.Account}
-				component={AccountScreen}
+				component={AccountEditScreen}
 			/>
 		</UserSettingsStack.Navigator>
 	)
@@ -93,7 +93,7 @@ export const CreateAccountNavigator = () => {
 			initialRouteName={UserRouteKey.Account}>
 			<CreateAccountStack.Screen
 				name={UserRouteKey.Account}
-				component={AccountScreen}
+				component={AccountEditScreen}
 			/>
 			<CreateAccountStack.Screen
 				name={UserRouteKey.MyProducts}
