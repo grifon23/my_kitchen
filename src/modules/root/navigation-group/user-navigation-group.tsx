@@ -8,12 +8,13 @@ import { CategoriesScreen } from '~modules/categories'
 import {
 	EditorRecipeScreen,
 	FavoriteRecipes,
+	IngradientsRecipeScreen,
 	RecipesScreen,
 } from '~modules/recipes'
 import { SettingsScreen } from '~modules/settings/screens'
 import { MyProductScreen } from '~modules/products/screens'
 import { ComingSoonScreen } from '../screens'
-import { AccountScreen } from '~modules/account'
+import { AccountScreen } from '~modules/acount'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -65,7 +66,7 @@ const UserTabNavigator = () => (
 
 const UserSettingsNavigator = () => {
 	return (
-			<UserSettingsStack.Navigator
+		<UserSettingsStack.Navigator
 			screenOptions={{ headerShown: false }}
 			initialRouteName={UserRouteKey.Settings}>
 			<UserSettingsStack.Screen
@@ -76,12 +77,11 @@ const UserSettingsNavigator = () => {
 			<UserSettingsStack.Screen
 				name={UserRouteKey.MyProducts}
 				component={MyProductScreen}
-			
-		/>
-		<UserSettingsStack.Screen
-			name={UserRouteKey.Account}
-			component={AccountScreen}
-		/>
+			/>
+			<UserSettingsStack.Screen
+				name={UserRouteKey.Account}
+				component={AccountScreen}
+			/>
 		</UserSettingsStack.Navigator>
 	)
 }
@@ -96,8 +96,8 @@ export const CreateAccountNavigator = () => {
 				component={AccountScreen}
 			/>
 			<CreateAccountStack.Screen
-				name={UserRouteKey.MyIngredients}
-				component={MyIngradientsScreen}
+				name={UserRouteKey.MyProducts}
+				component={MyProductScreen}
 			/>
 		</CreateAccountStack.Navigator>
 	)

@@ -2,14 +2,27 @@
 use_modular_headers!
 
 # The rest of your Podfile remains the same
-require Pod::Executable.execute_command('node', ['-p',
-  'require.resolve(
-    "react-native/scripts/react_native_pods.rb",
-    {paths: [process.argv[1]]},
-  )', __dir__]).strip
+def node_require(script)
+   # Resolve script with node to allow for hoisting
+   require Pod::Executable.execute_command('node', ['-p',
+     "require.resolve(
+       '#{script}',
+       {paths: [process.argv[1]]},
+     )", __dir__]).strip
+end
+
+node_require('react-native/scripts/react_native_pods.rb')
+node_require('react-native-permissions/scripts/setup.rb')
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
+
+setup_permissions([
+   'Camera',
+   'Contacts',
+   'Microphone',
+   'Notifications',
+])
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
 # because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
@@ -54,6 +67,10 @@ target 'my_kitchen' do
   end
 
   post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings["CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES"] = true
+    end
+    
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,

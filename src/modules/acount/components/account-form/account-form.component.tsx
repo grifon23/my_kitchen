@@ -1,24 +1,32 @@
 import _ from 'lodash'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { StyleSheet, View, ViewStyle } from 'react-native'
-import { IAccountForm } from '~modules/account/typing'
+import { useSelector } from 'react-redux'
+import { IAccountForm } from '~modules/acount'
+
 import {
+	$size,
 	DatePickerControl,
 	FormControllSelect,
+	Txt,
 	TxtInput,
+	useNav,
 } from '~modules/common'
+import { selectAccount } from '~modules/store/account/selector'
 
 interface IProps {
 	values: IAccountForm
 	onChange: (key: keyof IAccountForm, val: string) => void
 	errors?: any
 	style?: ViewStyle
+	email: string
 }
 export const AccountForm: FC<IProps> = ({
 	values,
 	onChange,
 	errors,
 	style,
+	email
 }) => {
 	return (
 		<View style={[styles.container, style]}>
@@ -30,12 +38,14 @@ export const AccountForm: FC<IProps> = ({
 				styleContainer={{ marginBottom: 24 }}
 				placeholder="Enter Full name"
 			/>
-			<TxtInput
-				label="Email"
-				value={'admin@email.com'}
-				onChange={_.noop}
-				styleContainer={{ marginBottom: 24 }}
-			/>
+			<View style={styles.emailContainer}>
+				<Txt mod="sm" style={styles.label}>
+					Email
+				</Txt>
+				<Txt style={styles.emailTxt}>
+					{email}
+				</Txt>
+			</View>
 			<FormControllSelect
 				label="Gender"
 				selected={values.gender}
@@ -48,6 +58,7 @@ export const AccountForm: FC<IProps> = ({
 				error={errors.gender}
 				mb={20}
 			/>
+
 			<DatePickerControl
 				value={values.dateOfBirth}
 				label={'Select Birthday'}
@@ -60,4 +71,20 @@ export const AccountForm: FC<IProps> = ({
 
 const styles = StyleSheet.create({
 	container: {},
+	emailTxt: {
+		padding: $size(15),
+		borderRadius: $size(10),
+		borderWidth: 1,
+		borderColor: '#7832EA',
+		alignItems: 'flex-start',
+		justifyContent: 'flex-start',
+		textAlign: 'left',
+	},
+	emailContainer:{
+		marginBottom: 20
+	},
+	label: {
+		marginBottom: 10,
+		color: '#7832EA',
+	},
 })
