@@ -52,7 +52,6 @@ export const PreviewIngradients: FC<IProps> = ({
 				</View>
 			)
 	}, [ingradients])
-
 	return (
 		<View style={styles.container}>
 			<View style={styles.ingradientsHeader}>

@@ -6,6 +6,8 @@ import { IngradientRowForm } from './ingradient-row-form.component'
 import { StyleSheet, View } from 'react-native'
 import { UserRouteKey } from '~modules/root/typing'
 import { ingradientValidator } from '../validators'
+import { useSelector } from 'react-redux'
+import { selectAccount } from '~modules/store/account/selector'
 
 interface IForm {
 	ingradients: IIngradient[]
@@ -16,6 +18,7 @@ interface IProps {
 	onChange?: (ings: IIngradient[]) => void
 }
 export const IngradientsListForm: FC<IProps> = ({ ingradients, onChange }) => {
+	const { data: account } = useSelector(selectAccount)
 	const nav = useNav()
 	const form = useForm<IForm>(
 		{
@@ -81,6 +84,7 @@ export const IngradientsListForm: FC<IProps> = ({ ingradients, onChange }) => {
 				{form.values.ingradients.map((it, index) => {
 					return (
 						<IngradientRowForm
+							myProduct={account.myProducts}
 							ingradient={it}
 							onChangeIngradient={onChangeIngradient}
 							remove={() => remove(index)}
