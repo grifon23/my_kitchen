@@ -11,6 +11,7 @@ import { recipesService } from '~modules/recipes/service'
 import { IRecipe } from '~modules/recipes/typing'
 import { StyleSheet, View } from 'react-native'
 import { PreviewIngradient } from '~modules/ingradients/components'
+import { DetailedHeader } from '~modules/recipes/components'
 
 export const DetailedRecipeScreen = () => {
 	const nav = useNav()
@@ -50,11 +51,11 @@ export const DetailedRecipeScreen = () => {
 	return (
 		<ScreenLayout
 			headerComponent={
-				<PrimaryHeader
-					leftIcon="left-open-big"
-					colorLeftIcon={colors.secondaryTxt}
-					onPressLeftIcon={() => nav.goBack()}
-					label={recipe?.name}
+				<DetailedHeader
+					isFavorite={false}
+					shareRecipe={() => {}}
+					updateFavorite={() => {}}
+					changeRating={() => {}}
 				/>
 			}>
 			<View>
