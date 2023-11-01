@@ -1,4 +1,4 @@
-import { IUser } from '~modules/acount/typing'
+import { IUser } from '~modules/account/typing'
 import { ICategory } from '~modules/categories/typing'
 import { IRecipe } from '~modules/recipes/typing'
 import { NavGroupKey } from '~modules/root/typing'

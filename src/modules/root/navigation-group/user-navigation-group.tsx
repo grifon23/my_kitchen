@@ -14,13 +14,13 @@ import {
 import { SettingsScreen } from '~modules/settings/screens'
 import { MyProductScreen } from '~modules/products/screens'
 import { ComingSoonScreen } from '../screens'
-import { AccountEditScreen } from '~modules/acount'
+import { AccountEditScreen } from '~modules/account'
+import { AccountScreen } from '~modules/account/screens/account.screen'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const HomeStack = createStackNavigator()
 const UserSettingsStack = createStackNavigator()
-const CreateAccountStack = createStackNavigator()
 
 const HomeStackNavigator = () => {
 	return (
@@ -80,28 +80,12 @@ const UserSettingsNavigator = () => {
 			/>
 			<UserSettingsStack.Screen
 				name={UserRouteKey.Account}
-				component={AccountEditScreen}
+				component={AccountScreen}
 			/>
 		</UserSettingsStack.Navigator>
 	)
 }
 
-export const CreateAccountNavigator = () => {
-	return (
-		<CreateAccountStack.Navigator
-			screenOptions={{ headerShown: false }}
-			initialRouteName={UserRouteKey.Account}>
-			<CreateAccountStack.Screen
-				name={UserRouteKey.Account}
-				component={AccountEditScreen}
-			/>
-			<CreateAccountStack.Screen
-				name={UserRouteKey.MyProducts}
-				component={MyProductScreen}
-			/>
-		</CreateAccountStack.Navigator>
-	)
-}
 export const UserNavigationGroup = () => {
 	return (
 		<Stack.Navigator

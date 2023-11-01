@@ -66,8 +66,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Access to the camera is required</string>
 	<key>NSContactsUsageDescription</key>

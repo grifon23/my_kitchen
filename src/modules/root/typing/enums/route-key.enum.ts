@@ -1,8 +1,13 @@
 export enum AuthRouteKey {
 	SignIn = 'sign-in',
-	SignUp = 'sign-up',
+	SignUpStack = 'signUpStack',
 	Onboarding = 'onboarding',
-	Account= 'account',
+}
+
+export enum SignUpRouteKey {
+	SignUp = 'signUp',
+	Account = 'account',
+	MyProducts = 'myProducts',
 }
 
 export enum UserRouteKey {

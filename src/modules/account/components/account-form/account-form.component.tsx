@@ -1,18 +1,14 @@
 import _ from 'lodash'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { StyleSheet, View, ViewStyle } from 'react-native'
-import { useSelector } from 'react-redux'
-import { IAccountForm } from '~modules/acount'
+import { GendersEnum, IAccountForm } from '~modules/account'
 
 import {
 	$size,
 	DatePickerControl,
 	FormControllSelect,
-	Txt,
 	TxtInput,
-	useNav,
 } from '~modules/common'
-import { selectAccount } from '~modules/store/account/selector'
 import { TextRow } from '../text-row'
 
 interface IProps {
@@ -27,7 +23,7 @@ export const AccountForm: FC<IProps> = ({
 	onChange,
 	errors,
 	style,
-	email
+	email,
 }) => {
 	return (
 		<View style={[styles.container, style]}>
@@ -39,14 +35,14 @@ export const AccountForm: FC<IProps> = ({
 				styleContainer={{ marginBottom: 24 }}
 				placeholder="Enter Full name"
 			/>
-			<TextRow label='Email' value={email}/>
+			<TextRow label="Email" value={email} />
 			<FormControllSelect
 				label="Gender"
 				selected={values.gender}
 				onSelect={val => onChange('gender', val.value)}
 				options={[
-					{ value: 'male', label: 'Male' },
-					{ value: 'female', label: 'Female' },
+					{ value: GendersEnum.Male, label: 'Male' },
+					{ value: GendersEnum.Female, label: 'Female' },
 				]}
 				placeholder="Select gender"
 				error={errors.gender}
@@ -74,8 +70,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		textAlign: 'left',
 	},
-	emailContainer:{
-		marginBottom: 20
+	emailContainer: {
+		marginBottom: 20,
 	},
 	label: {
 		marginBottom: 10,

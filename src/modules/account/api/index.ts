@@ -1,8 +1,6 @@
-import { IFile } from './../../common/typing/interfaces/file.interface';
 import firestore from '@react-native-firebase/firestore'
-import { Service } from '~modules/common/service'
 import { IProduct } from '~modules/products/typing'
-import { IPayloadUpdateAccount } from './interfaces'
+import storage from '@react-native-firebase/storage'
 
 class AccountApi {
 	public async getAccountReq(uuid: string) {
@@ -21,12 +19,8 @@ class AccountApi {
 			.update({ myProducts: products })
 	}
 
-	public async updateAccountMainInfoReq(data: IPayloadUpdateAccount) {
-		console.log('TRY UPDATE ACCOUNT INFO')
-	}
-
-	public async updateProfileImageReq(file: IFile) {
-		console.log('TRY UPDATE PROFILE IMAGE')
+	public async getUploadLink(imageName: string) {
+		return storage().ref(`avatars/${imageName}`)
 	}
 }
 

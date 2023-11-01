@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 import { selectAccount } from '~modules/store/account/selector'
 import { IProduct } from '~modules/products/typing'
 import randomstring from 'randomstring'
-import { accountService } from '~modules/acount/service'
+import { accountService } from '~modules/account/service'
 
 export const MyProductScreen = () => {
 	const nav = useNav()

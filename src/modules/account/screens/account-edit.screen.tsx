@@ -1,12 +1,12 @@
 import _ from 'lodash'
 import React, { FC, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import { accountService } from '~modules/acount/service'
+import { accountService } from '~modules/account/service'
+import { authService } from '~modules/auth/services'
 import {
-	appEvents,
 	Button,
-	colors,
+	Loader,
 	messageToast,
 	PrimaryHeader,
 	RemoteImage,
@@ -15,19 +15,24 @@ import {
 	useNav,
 } from '~modules/common'
 import { openGalleryPicker } from '~modules/common/service'
-import {
-	AuthRouteKey,
-	UserRouteKey,
-} from '~modules/root/typing/enums/route-key.enum'
+import { UserRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { selectAccount } from '~modules/store/account/selector'
 import { AccountForm } from '../components'
 import { IAccountForm } from '../typing'
 import { accountFormValidate } from '../validations'
 
-export const AccountEditScreen: FC = () => {
-	const form = useForm<IAccountForm>({}, accountFormValidate)
+interface IProps {
+	onPressLeftIcon?: () => void
+}
+
+export const AccountEditScreen: FC<IProps> = ({ onPressLeftIcon }) => {
+	const { data, isLoading } = useSelector(selectAccount)
+	const { avatar, name, dateOfBirth, gender, uuid } = data
 	const nav = useNav()
-	const { data } = useSelector(selectAccount)
+	const form = useForm<IAccountForm>(
+		{ avatar, name, dateOfBirth, gender },
+		accountFormValidate,
+	)
 	const [file, setFile] = useState(null)
 
 	const onChoseImageFromLibbrary = async () => {
@@ -44,71 +49,59 @@ export const AccountEditScreen: FC = () => {
 		}
 	}
 
-	const resetForm = () =>
-		form.setForm({
-			email: 'email.com.',
-			name: null,
-			dateOfBirth: null,
-			gender: null,
-			avatar: null,
-		})
-
-	const resetErrors = () =>
-		form.setFormErrors({
-			email: 'email.com.',
-			name: null,
-			dateOfBirth: null,
-			gender: null,
-			avatar: null,
-		})
-
-	const submit = async () => {
-		try {
-			resetErrors()
-			resetForm()
-		} catch (error: any) {
-			appEvents.emit('alert', {
-				onPress: () => {},
-				buttonType: 'primary',
-				btnText: 'Close',
-				message: error,
-				icon: 'cancel-1',
-				colorIcon: colors.errorTxt,
-			})
-		}
-	}
-
-	const uploadAvatar = async () => {
-		if (!file.backgroundImg) {
-			return
-		} else {
-			await accountService.uploadAvatar(file.backgroundImg)
-			console.error('ifghlij;')
-		}
-	}
-
 	const saveMainInfo = async () => {
 		try {
-			await uploadAvatar()
-			await accountService.updateAccountInfo(form.values)
+			
+			if (file?.avatar) {
+				const downloadImgUrl = await accountService.uploadAvatar(
+					`${file.avatar.fileName}_avatar.jpg`,
+					file.avatar.uri,
+				)
+				await authService.updateAccountInfo({
+					...form.values,
+					avatar: downloadImgUrl,
+					uuid: uuid,
+				})
+				
+			} else {
+				await authService.updateAccountInfo({
+					...form.values,
+					uuid: uuid,
+				})
+			}
 			messageToast('success', 'Account update successfully')
-		} catch (error) {
+		} catch (error: any) {
 			console.log('Save main info', error)
+			messageToast('error', error.message)
 		}
 	}
 
+	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout
 			scrollStyle={styles.container}
 			bottomSafeArea={false}
 			needScroll={true}
 			horizontalPadding={20}
-			headerComponent={<PrimaryHeader label="Profile" />}>
+			headerComponent={
+				<PrimaryHeader
+					label="EditProfile"
+					onPressLeftIcon={
+						onPressLeftIcon ? onPressLeftIcon : () => nav.goBack()
+					}
+					leftIcon="left-open-big"
+				/>
+			}>
 			<View style={styles.formContainer}>
 				<TouchableOpacity
 					onPress={onChoseImageFromLibbrary}
 					style={styles.image}>
 					<RemoteImage
+						url={
+							form.values.avatar
+								? form.values.avatar
+								: file?.avatar.uri
+						}
 						source={require('~assets/images/user.png')}
 						styleImg={{
 							height: 200,

@@ -1,4 +1,3 @@
-import { NavActions } from './../../store/navigation/actions'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { Service, storageService } from '~modules/common/service'
 import { StorageKey } from '~modules/common/typing'
@@ -7,7 +6,7 @@ import { Reset, SetNavGroupAction } from '~modules/store/navigation/actions'
 import { ResetAccount } from '~modules/store/account/actions'
 import { authApiService, ISignInPayload, ISignUpPayload } from '../api'
 import { defaultProductsData } from '~modules/products/config'
-import { accountService } from '~modules/acount/service'
+import { accountService } from '~modules/account/service'
 
 export class AuthService extends Service {
 	public async signIn(payload: ISignInPayload) {
@@ -18,22 +17,33 @@ export class AuthService extends Service {
 		await accountService.loadAcount()
 	}
 
-	public async signUp(payload: ISignUpPayload) {
-		const resp = await authApiService.signUpReq(payload)
-		await authApiService.createUser({
-			email: payload.email,
-			uuid: resp.user.uid,
-			myProducts: defaultProductsData,
-		})
-
-		const isSignedInWithGoogle = await GoogleSignin.hasPlayServices()
-		if (isSignedInWithGoogle) {
-			await authApiService.signUpWithGoogle()
+	private async connectGoogleAccount() {
+		try {
+			const isSignedInWithGoogle = await GoogleSignin.hasPlayServices()
+			if (isSignedInWithGoogle) {
+				await authApiService.signUpWithGoogle()
+			} 
+		} catch (error) {
+			console.log('connectGoogleAccount', error)
 		}
-		const token = await resp.user.getIdToken()
-		this.saveSession(token, resp.user.uid)
-		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
-		await accountService.loadAcount()
+	}
+
+	public async signUp(payload: ISignUpPayload) {
+		try {
+			const resp = await authApiService.signUpReq(payload)
+			await authApiService.createUser({
+				email: payload.email,
+				uuid: resp.user.uid,
+				myProducts: defaultProductsData,
+			})
+			await this.connectGoogleAccount()
+			const token = await resp.user.getIdToken()
+			this.saveSession(token, resp.user.uid)
+		} catch (error) {
+			console.log('signUp', error)
+		} finally {
+			await accountService.loadAcount()
+		}
 	}
 
 	public async signInWithGoogle() {
@@ -46,6 +56,18 @@ export class AuthService extends Service {
 
 	public async saveSession(token: string, uuid: string) {
 		await storageService.set(StorageKey.UUID, uuid)
+	}
+
+	public async updateAccountInfo(payload: any) {
+		await authApiService.updateUserInfo({
+			uuid: payload.uuid,
+			dateOfBirth: payload.dateOfBirth,
+			gender: payload.gender,
+			avatar: payload.avatar,
+			name: payload.name,
+		})
+		await accountService.loadAcount()
+		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
 	}
 
 	public async logOut() {

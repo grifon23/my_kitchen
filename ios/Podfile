@@ -43,6 +43,7 @@ $RNFirebaseAsStaticFramework = true
 
 target 'my_kitchen' do
   config = use_native_modules!
+  pod 'Firebase/Storage'
   pod 'Firebase/Core', :modular_headers => true
   # Flags change depending on the env values.
   flags = get_default_flags()

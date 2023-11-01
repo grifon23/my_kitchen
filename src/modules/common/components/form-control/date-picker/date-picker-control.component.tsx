@@ -10,7 +10,7 @@ import _ from 'lodash'
 import { Txt } from '../../typography'
 import { $size } from '~modules/common/helpers'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
-import { colors } from '~modules/common'
+import { colors, Icon } from '~modules/common'
 
 interface IProps {
 	value: string
@@ -75,6 +75,7 @@ export const DatePickerControl: FC<IProps> = ({
 				<Txt style={styles.calendarButtonText}>
 					{renderDateOfBirth()}
 				</Txt>
+				<Icon name={'calendar'} size={$size(20)} />
 			</TouchableOpacity>
 			<DateTimePickerModal
 				minimumDate={minDate}
@@ -98,7 +99,8 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#7832EA',
 		alignItems: 'flex-start',
-		justifyContent: 'flex-start',
+		justifyContent: 'space-between',
+		flexDirection: 'row',
 		textAlign: 'left',
 	},
 	calendarButtonText: {},
