@@ -10,7 +10,7 @@ import {
 	useForm,
 	useNav,
 } from '~modules/common'
-import { AuthRouteKey } from '~modules/root/typing/enums/route-key.enum'
+import { AuthRouteKey, SignUpRouteKey } from '~modules/root/typing/enums/route-key.enum'
 import { SignUpForm } from '../components/sign-up-form.component'
 import { exeptionsConfig } from '../config'
 import { ISignUpForm } from '../typing'
@@ -34,8 +34,10 @@ export const SignUpScreen = () => {
 	const submit = async () => {
 		try {
 			await authService.signUp(form.values)
+			nav.navigate(SignUpRouteKey.Account)
 			resetForm()
 			resetErrors()
+			
 		} catch (error: any) {
 			error.name = ''
 			const message = exeptionsConfig[error?.toString()]

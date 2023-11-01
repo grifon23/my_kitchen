@@ -42,7 +42,6 @@ export const EditorRecipeScreen = () => {
 	const { data, isLoading } = useSelector((state: Store.Root) =>
 		selectRecipeById(state, route.params?.recipeId),
 	)
-	console.log('data', data)
 	const form = useForm<ICreateRecipeForm>({}, createRecipeValidator)
 
 	const openDrawer = () => {
@@ -143,7 +142,6 @@ export const EditorRecipeScreen = () => {
 		if (route.params?.recipeId) return 'Edit recipe'
 		else return 'Create recipe'
 	}, [route.params?.recipeId])
-	console.log('form.values.ingradients', form.values.ingradients)
 
 	return (
 		<Drawer

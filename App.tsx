@@ -11,6 +11,9 @@ import { Provider } from 'react-redux'
 import { store } from './src/modules/store'
 import { NavigationContainer } from '@react-navigation/native'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import Toast from 'react-native-toast-message'
+import { toastConfig } from '~config'
+
 GoogleSignin.configure({
 	webClientId:
 		'876282652641-sjb2i8ifpio3on381lmu84a1une5iggt.apps.googleusercontent.com',
@@ -23,7 +26,10 @@ const App = () => {
 			<SafeAreaProvider initialMetrics={initialWindowMetrics}>
 				<Provider store={store}>
 					<NavigationContainer>
-						<Navigation />
+						<>
+							<Navigation />
+							<Toast config={toastConfig} />
+						</>
 					</NavigationContainer>
 				</Provider>
 			</SafeAreaProvider>

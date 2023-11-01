@@ -33,7 +33,7 @@ export const OnboardingScreen = () => {
 
 				<Button
 					txtContent="Sign up"
-					onPress={() => nav.navigate(AuthRouteKey.SignUp)}
+					onPress={() => nav.navigate(AuthRouteKey.SignUpStack)}
 					mod="primary"
 				/>
 			</View>

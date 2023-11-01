@@ -41,6 +41,16 @@ export class AuthRequestsService {
 		await firestore().collection('users').doc(payload.uuid).set(payload)
 	}
 
+	public async updateUserInfo(payload: {
+		uuid: string
+		dateOfBirth: string
+		name: string
+		gender: string
+		avatar: string
+	}) {
+		await firestore().collection('users').doc(payload.uuid).update(payload)
+	}
+
 	public async signInGoogleReq() {
 		try {
 			await GoogleSignin.hasPlayServices()

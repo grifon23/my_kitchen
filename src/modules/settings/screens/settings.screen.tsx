@@ -47,6 +47,9 @@ export const SettingsScreen: FC = () => {
 	const myProducts = () => {
 		nav.navigate(UserRouteKey.MyProducts)
 	}
+	const account = () => {
+		nav.navigate(UserRouteKey.Account)
+	}
 	const menuConfig = menuListConfig({
 		logout,
 		aboutUs,
@@ -54,6 +57,7 @@ export const SettingsScreen: FC = () => {
 		connectGoogle,
 		passwordChange,
 		myProducts,
+		account
 	})
 	return (
 		<ScreenLayout

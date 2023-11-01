@@ -1,5 +1,5 @@
 {
-	"editor.accessibilitySupport": "on",
+	"editor.accessibilitySupport": "off",
 	"editor.defaultFormatter": "vscode.typescript-language-features",
 	"editor.formatOnPaste": true,
 	"editor.formatOnSave": true,

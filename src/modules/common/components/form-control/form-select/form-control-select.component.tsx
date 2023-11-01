@@ -62,7 +62,7 @@ export const FormControllSelect: FC<IProps> = ({
 		if (!label) return null
 		return (
 			<View style={styles.labelWrap}>
-				<Txt mod="md" style={styles.label}>
+				<Txt mod="es" style={styles.label}>
 					{label}
 				</Txt>
 			</View>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 		marginBottom: 8,
 	},
 	label: {
-		marginBottom: $size(8),
-		color: colors.primaryTxt,
+		marginBottom: 10,
+		color: colors.primary,
 	},
 })
