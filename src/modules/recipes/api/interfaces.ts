@@ -8,3 +8,9 @@ export interface IUpdateRecipePayload {
 }
 
 export interface IStoreRecipePayload extends IRecipe {}
+
+export interface ICreateUserRateRecipePayload {
+	userId: string
+	recipeId: string
+	value: number
+}

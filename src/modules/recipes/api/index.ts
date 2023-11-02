@@ -1,6 +1,9 @@
-import firestore, { Filter } from '@react-native-firebase/firestore'
-import { IRecipe } from '../typing'
-import { IStoreRecipePayload, IUpdateRecipePayload } from './interfaces'
+import firestore from '@react-native-firebase/firestore'
+import {
+	ICreateUserRateRecipePayload,
+	IStoreRecipePayload,
+	IUpdateRecipePayload,
+} from './interfaces'
 
 class RecipeApi {
 	public async getRecipeReq(categoryId: string) {
@@ -40,6 +43,25 @@ class RecipeApi {
 			.collection('recipes')
 			.doc(id)
 			.update({ isFavorite: payload })
+	}
+
+	public async updateRecipeRating(id: string, rating: number) {
+		await firestore()
+			.collection('recipes')
+			.doc(id)
+			.update({ rating: rating })
+	}
+
+	public async getUserRateRecipe(userId: string, recipeId: string) {
+		return await firestore()
+			.collection('ratings')
+			.where('userId', '==', userId)
+			.where('recipeId', '==', recipeId)
+			.get()
+	}
+
+	public async createUserRateRecipe(payload: ICreateUserRateRecipePayload) {
+		await firestore().collection('ratings').add(payload)
 	}
 }
 
