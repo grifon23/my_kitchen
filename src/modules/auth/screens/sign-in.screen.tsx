@@ -105,7 +105,7 @@ export const SignInScreen = () => {
 
 			<View style={styles.linkContainer}>
 				<Txt>Dont have account go to </Txt>
-				<LinkTxt onPress={() => nav.navigate(AuthRouteKey.SignUp)}>
+				<LinkTxt onPress={() => nav.navigate(AuthRouteKey.SignUpStack)}>
 					Sign Up
 				</LinkTxt>
 			</View>

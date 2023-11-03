@@ -66,5 +66,15 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Access to the camera is required</string>
+	<key>NSContactsUsageDescription</key>
+	<string>The application needs this permission.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The application needs this permission.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The application needs this permission.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

@@ -46,6 +46,35 @@ class RecipesService extends Service {
 		await recipeApi.updateFvoriteReq(id, payload)
 		await this.loadFavoriteRecipe()
 	}
+
+	public async updateRecipeRating(
+		rating: number,
+		stars: number,
+		id: string,
+		userId: string,
+	) {
+		this.newRecipeRate(rating, stars, id)
+		await recipeApi.createUserRateRecipe({
+			value: stars,
+			userId,
+			recipeId: id,
+		})
+	}
+
+	public async checkRateRecipe(userId: string, recipeId: string) {
+		const isRateRecipe = await recipeApi.getUserRateRecipe(userId, recipeId)
+		return isRateRecipe.empty
+	}
+
+	private async newRecipeRate(rating: number, stars: number, id: string) {
+		const newRating = () => {
+			if (rating > 0) {
+				return (rating + stars) / 2
+			}
+			return stars
+		}
+		await recipeApi.updateRecipeRating(id, newRating())
+	}
 }
 
 export const recipesService = new RecipesService()

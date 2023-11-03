@@ -1,7 +1,7 @@
 import { NavGroupKey } from '~modules/root/typing'
 import { SetNavGroupAction } from '~modules/store/navigation/actions'
 import { Service } from './service'
-import { accountService } from '~modules/acount/service'
+import { accountService } from '~modules/account/service'
 import { storageService } from './storage.service'
 import { StorageKey } from '../typing'
 

@@ -1,6 +1,6 @@
 import { ICategory } from '~modules/categories/typing'
 import { Store } from '../typing'
-import { IUser } from '~modules/acount/typing'
+import { IUser } from '~modules/account/typing'
 import { IProduct } from '~modules/products/typing'
 
 export class SetAccountAction implements Store.Action {

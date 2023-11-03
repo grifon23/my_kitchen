@@ -1,19 +1,19 @@
 import React, { FC, useMemo, useState } from 'react'
-import { LayoutAnimation, StyleSheet, View } from 'react-native'
+import { LayoutAnimation, Platform, StyleSheet, View } from 'react-native'
 import StarRating from 'react-native-star-rating-widget'
 import { colors, Icon, Txt, useNav } from '~modules/common'
 
 interface IProps {
 	shareRecipe: () => void
-	updateFavorite: () => void
 	changeRating: (val: number) => void
 	isFavorite: boolean
+	nameRecipe: string
 }
 export const DetailedHeader: FC<IProps> = ({
 	shareRecipe,
-	updateFavorite,
 	changeRating,
 	isFavorite,
+	nameRecipe,
 }) => {
 	const [rating, setRating] = useState(0)
 	const [activeFavorite, setActive] = useState(false)
@@ -36,7 +36,7 @@ export const DetailedHeader: FC<IProps> = ({
 				onPress={toggleUpdateFavorite}
 			/>
 		)
-	}, [isFavorite, updateFavorite, activeFavorite])
+	}, [isFavorite, activeFavorite])
 
 	return (
 		<View style={styles.container}>
@@ -46,17 +46,19 @@ export const DetailedHeader: FC<IProps> = ({
 				color={colors.secondaryTxt}
 				onPress={() => nav.goBack()}
 			/>
-
-			<View style={styles.action}>
+			<Txt mod="lg" style={styles.title}>
+				{nameRecipe}
+			</Txt>
+			<View>
 				<View style={styles.rating}>
-					<Txt>{rating}</Txt>
+					{/* <Txt>{rating}</Txt>
 
 					<StarRating
 						rating={rating}
 						starStyle={{ marginRight: -5 }}
 						starSize={25}
 						onChange={handleChangeRating}
-					/>
+					/> */}
 
 					<Icon
 						name="share"
@@ -66,7 +68,7 @@ export const DetailedHeader: FC<IProps> = ({
 						buttonStyle={styles.paddingHorizonatl}
 					/>
 
-					{favoriteIcon}
+					{/* {favoriteIcon} */}
 				</View>
 			</View>
 		</View>
@@ -78,7 +80,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		paddingTop: 30,
+		paddingTop: Platform.select({
+			ios: 50,
+			android: 30,
+		}),
 		paddingHorizontal: 16,
 	},
 	rating: {
@@ -89,5 +94,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 	},
 
-	action: {},
+	title: {
+		fontWeight: '500',
+		maxWidth: '70%',
+	},
 })

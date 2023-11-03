@@ -50,19 +50,28 @@ export const DetailedRecipeScreen = () => {
 	}, [params, recipe])
 	return (
 		<ScreenLayout
+			needScroll={true}
 			headerComponent={
 				<DetailedHeader
+					nameRecipe={recipe?.name}
 					isFavorite={false}
 					shareRecipe={() => {}}
-					updateFavorite={() => {}}
 					changeRating={() => {}}
 				/>
 			}>
+			<View style={{ marginBottom: 30 }}>
+				<Txt mod="lg" style={{ fontWeight: '500', marginBottom: 20 }}>
+					Ingradients
+				</Txt>
+				<View>{inradients}</View>
+			</View>
+
 			<View>
-				<Txt mod="es">Description</Txt>
+				<Txt mod="lg" style={{ fontWeight: '500', marginBottom: 20 }}>
+					Description
+				</Txt>
 				<Txt mod="md">{recipe?.description}</Txt>
 			</View>
-			<View>{inradients}</View>
 		</ScreenLayout>
 	)
 }

@@ -9,49 +9,49 @@
     {
       "uid": "bbd66ef66bb8fa9edde54d9a90b89150",
       "css": "user",
-      "code": 59392,
+      "code": 57359,
       "src": "entypo"
     },
     {
       "uid": "7222571caa5c15f83dcfd447c58d68d9",
       "css": "search",
-      "code": 59393,
+      "code": 57581,
       "src": "entypo"
     },
     {
       "uid": "25b34dea4784f72c710454f32ff8fa2b",
       "css": "star",
-      "code": 59394,
+      "code": 10002,
       "src": "entypo"
     },
     {
       "uid": "0e3f1335f83cca67329b2c4bcb3aaec5",
       "css": "star-empty",
-      "code": 59395,
+      "code": 57442,
       "src": "entypo"
     },
     {
       "uid": "0eabe5f8d71cc838484ff39436426d2d",
       "css": "heart",
-      "code": 59396,
+      "code": 128197,
       "src": "entypo"
     },
     {
       "uid": "d18071bbf8f0a8cec8d1f556c91c6af0",
       "css": "heart-empty",
-      "code": 59397,
+      "code": 57387,
       "src": "entypo"
     },
     {
       "uid": "5e9f01871d44e56b45ecbfd00f4dbc3a",
       "css": "layout",
-      "code": 59398,
+      "code": 59413,
       "src": "entypo"
     },
     {
       "uid": "2cfb3f2b46b34a1790aec0aa846297b6",
       "css": "menu",
-      "code": 59399,
+      "code": 57382,
       "src": "entypo"
     },
     {
@@ -135,7 +135,7 @@
     {
       "uid": "884cfc3e6e2d456dd2a2ca0dbb9e6337",
       "css": "left-open-big",
-      "code": 59413,
+      "code": 59398,
       "src": "entypo"
     },
     {
@@ -307,6 +307,78 @@
       "search": [
         "robot-outline"
       ]
+    },
+    {
+      "uid": "2aeb4987b469d22fcb8b471b6d2cdfff",
+      "css": "pencil",
+      "code": 59392,
+      "src": "linecons"
+    },
+    {
+      "uid": "6059b7737287728091ce7e4c600cca56",
+      "css": "edit-alt",
+      "code": 59393,
+      "src": "elusive"
+    },
+    {
+      "uid": "134af7f39e491515cc1a6d1eb94d9d8a",
+      "css": "vector-pencil",
+      "code": 59394,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "jqzwo6i8oicjbn049sh2856d8anrqoli",
+      "css": "edit",
+      "code": 59395,
+      "src": "typicons"
+    },
+    {
+      "uid": "531bc468eecbb8867d822f1c11f1e039",
+      "css": "calendar",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ead4c82d04d7758db0f076584893a8c1",
+      "css": "calendar-empty",
+      "code": 61747,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "43e4647c57186b5e06874621b5e665be",
+      "css": "calendar-1",
+      "code": 59397,
+      "src": "linecons"
+    },
+    {
+      "uid": "30b79160618d99ce798e4bd11cafe3fe",
+      "css": "food",
+      "code": 61685,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d27bcf5c8638e4078aaadae1d49b6909",
+      "css": "fast-food",
+      "code": 59398,
+      "src": "maki"
+    },
+    {
+      "uid": "b08f8c33777cd6b512d9576fc6e7f405",
+      "css": "food-1",
+      "code": 59399,
+      "src": "linecons"
+    },
+    {
+      "uid": "754557fa790629b8df53349af508af41",
+      "css": "link",
+      "code": 59438,
+      "src": "iconic"
+    },
+    {
+      "uid": "794d73c3a5fcf710265679700e470578",
+      "css": "pin",
+      "code": 59439,
+      "src": "iconic"
     }
   ]
 }

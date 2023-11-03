@@ -1,3 +1,4 @@
+import { GendersEnum } from '~modules/account'
 import { IProduct } from '~modules/products/typing'
 
 export interface IUser {
@@ -6,4 +7,7 @@ export interface IUser {
 	uuid: string
 	age?: number
 	myProducts: IProduct[]
+	dateOfBirth: string
+	gender: GendersEnum
+	avatar: string
 }

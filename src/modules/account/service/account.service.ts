@@ -7,7 +7,6 @@ import {
 	SetAccountAction,
 	UpdateProductAction,
 } from '~modules/store/account/actions'
-import { IUser } from '../typing'
 import { IProduct } from '~modules/products/typing'
 
 class AccountService extends Service {
@@ -33,6 +32,17 @@ class AccountService extends Service {
 
 	public removeProduct(id: string) {
 		this.dispatch(new RemoveProductAction({ id }))
+	}
+
+	public async uploadAvatar(fileName: string, fileDate: string) {
+		try {
+			const imageRef = await accountApi.getUploadLink(fileName)
+			await imageRef.putFile(fileDate)
+			return await imageRef.getDownloadURL()
+		} catch (error) {
+			console.error('Firebase Storage:', error)
+			throw error
+		}
 	}
 }
 

@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore'
-import { Service } from '~modules/common/service'
 import { IProduct } from '~modules/products/typing'
+import storage from '@react-native-firebase/storage'
 
 class AccountApi {
 	public async getAccountReq(uuid: string) {
@@ -17,6 +17,10 @@ class AccountApi {
 			.collection('users')
 			.doc(uuid)
 			.update({ myProducts: products })
+	}
+
+	public async getUploadLink(imageName: string) {
+		return storage().ref(`avatars/${imageName}`)
 	}
 }
 
