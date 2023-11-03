@@ -6,6 +6,7 @@ import { UserRouteKey } from '../typing/enums/route-key.enum'
 import { TabBarWidget } from '../widgets'
 import { CategoriesScreen } from '~modules/categories'
 import {
+	DashboardRecipesScreen,
 	DetailedRecipeScreen,
 	EditorRecipeScreen,
 	FavoriteRecipes,
@@ -55,8 +56,8 @@ const UserTabNavigator = () => (
 			name={UserRouteKey.HomeStack}
 			component={HomeStackNavigator}></Tab.Screen>
 		<Tab.Screen
-			name={UserRouteKey.Favorite}
-			component={FavoriteRecipes}></Tab.Screen>
+			name={UserRouteKey.DashboardRecipes}
+			component={DashboardRecipesScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.EditorRecipe}
 			component={EditorRecipeScreen}></Tab.Screen>

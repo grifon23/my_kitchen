@@ -22,7 +22,7 @@ export const menuListConfig = ({
 		onPress: favoriteRecipe,
 		text: 'Favorite recipe',
 		arrow: true,
-		leftIcon: 'empty-heart',
+		leftIcon: 'heart-empty',
 	},
 	{
 		onPress: account,

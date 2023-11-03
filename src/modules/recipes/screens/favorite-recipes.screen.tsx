@@ -7,6 +7,7 @@ import {
 	PrimaryHeader,
 	ScreenLayout,
 	Txt,
+	useNav,
 } from '~modules/common'
 import { Loader } from '~modules/common/components/elements/loader.element'
 import { SearchFormControll } from '~modules/common/components/form-control/search-form-controll'
@@ -14,8 +15,10 @@ import { selectFavoriteRecipes } from '~modules/store/favorite/selector'
 import { RecilesList } from '../components'
 import { recipesService } from '../service'
 import { IRecipe } from '../typing'
+import { UserRouteKey } from '~modules/root/typing'
 
 export const FavoriteRecipes = () => {
+	const nav = useNav()
 	const { data: favorites } = useSelector(selectFavoriteRecipes)
 	const [isLoading, setIsLoading] = useState(false)
 	const [searchString, setSearchString] = useState<string>('')
@@ -35,12 +38,27 @@ export const FavoriteRecipes = () => {
 
 	const swipeRef: Array<any> = []
 	let prevOpenedRow
+
 	const falseDeletePlant = (id: number) => {
 		prevOpenedRow = swipeRef[id]
 		if (prevOpenedRow && prevOpenedRow === swipeRef[id]) {
 			prevOpenedRow.close()
 		}
 	}
+
+	const removeFromFavorines = async (
+		categoryId: string,
+		id: string,
+		index: number,
+	) => {
+		try {
+			await recipesService.updateFavorite(id, false)
+			falseDeletePlant(index)
+		} catch (error) {
+			console.log('error remove category')
+		}
+	}
+
 	const memoFilteringRecipe = useMemo(() => {
 		if (favorites) {
 			const fitlterList = favorites.filter((it: IRecipe) =>
@@ -50,16 +68,13 @@ export const FavoriteRecipes = () => {
 		}
 	}, [searchString, favorites])
 
-	if (isLoading) return <Loader />
-
-	const removeFromFavorines = async (categoryId: string, id: string) => {
-		await recipesService.removeRecipe(categoryId, id)
-		await recipesService.loadFavoriteRecipe()
-	}
-
-	const alertRemoveRecipe = (categoryId: string, id: string) => {
+	const alertRemoveRecipe = (
+		categoryId: string,
+		id: string,
+		index: number,
+	) => {
 		appEvents.emit('alert', {
-			onPress: async () => removeFromFavorines(categoryId, id),
+			onPress: async () => removeFromFavorines(categoryId, id, index),
 			btnText: 'Ok',
 			icon: 'trash',
 			buttonType: 'primary',
@@ -68,11 +83,23 @@ export const FavoriteRecipes = () => {
 		})
 	}
 
+	const goDetailedRecipe = (id: string) =>
+		nav.navigate(UserRouteKey.DetailedRecipe, { id })
+
+	if (isLoading) return <Loader />
+
 	return (
 		<ScreenLayout
 			horizontalPadding={0}
 			needScroll={false}
-			headerComponent={<PrimaryHeader label="Favorite recipes" />}>
+			headerComponent={
+				<PrimaryHeader
+					label="Favorite recipes"
+					leftIcon="left-open-big"
+					colorLeftIcon={colors.secondaryTxt}
+					onPressLeftIcon={() => nav.navigate(UserRouteKey.Settings)}
+				/>
+			}>
 			<SearchFormControll
 				value={searchString}
 				onChange={setSearchString}
@@ -86,7 +113,7 @@ export const FavoriteRecipes = () => {
 				swipeRef={swipeRef}
 				list={memoFilteringRecipe}
 				openEditor={_.noop}
-				goDetailRecipe={_.noop}
+				goDetailRecipe={goDetailedRecipe}
 				removeRecipe={alertRemoveRecipe}
 			/>
 		</ScreenLayout>
