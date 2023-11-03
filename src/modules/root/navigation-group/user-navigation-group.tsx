@@ -87,6 +87,10 @@ const UserSettingsNavigator = () => {
 				name={UserRouteKey.Account}
 				component={AccountScreen}
 			/>
+			<UserSettingsStack.Screen
+				name={UserRouteKey.Favorite}
+				component={FavoriteRecipes}
+			/>
 		</UserSettingsStack.Navigator>
 	)
 }
