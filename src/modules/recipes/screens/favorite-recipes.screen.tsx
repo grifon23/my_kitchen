@@ -67,6 +67,7 @@ export const FavoriteRecipes = () => {
 			onPressCancelBtn: () => {},
 		})
 	}
+
 	return (
 		<ScreenLayout
 			horizontalPadding={0}

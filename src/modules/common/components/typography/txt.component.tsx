@@ -1,22 +1,23 @@
 import React, { FC } from 'react'
+import { DimensionValue } from 'react-native'
 import { Text, StyleSheet, TextStyle, TextProps } from 'react-native'
 import { $size } from '../../helpers'
 const sizes = {
-  s: $size(10, 8),
-  es: $size(12, 10),
-  sm: $size(14, 12),
-  md: $size(16, 14),
-  lg: $size(18, 16),
-  xl: $size(20, 18),
-};
+	s: $size(10, 8),
+	es: $size(12, 10),
+	sm: $size(14, 12),
+	md: $size(16, 14),
+	lg: $size(18, 16),
+	xl: $size(20, 18),
+}
 const lineHeights = {
-  s: $size(12, 10),
-  es: $size(14, 12),
-  sm: $size(16, 14),
-  md: $size(18, 16),
-  lg: $size(20, 18),
-  xl: $size(22, 20),
-};
+	s: $size(12, 10),
+	es: $size(14, 12),
+	sm: $size(16, 14),
+	md: $size(18, 16),
+	lg: $size(20, 18),
+	xl: $size(22, 20),
+}
 export interface TxtProps extends TextProps {
 	children: any
 	style?: any
@@ -24,6 +25,7 @@ export interface TxtProps extends TextProps {
 	mod?: keyof typeof sizes
 	hide?: Boolean
 	numberOfLines?: number
+	mb?: DimensionValue
 }
 export const Txt: FC<TxtProps> = ({
 	children,
@@ -31,6 +33,7 @@ export const Txt: FC<TxtProps> = ({
 	mod = 'md',
 	hide,
 	color,
+	mb,
 	...props
 }) => {
 	if (hide === true) return null
@@ -43,6 +46,7 @@ export const Txt: FC<TxtProps> = ({
 					color: color ? color : '#121212',
 					fontSize: sizes[mod],
 					lineHeight: lineHeights[mod],
+					marginBottom: mb,
 				},
 				style,
 			]}>

@@ -97,6 +97,9 @@ export const RecipesScreen = () => {
 		falseDeletePlant(index)
 	}
 
+	const goDetailedRecipe = (id: string) =>
+		nav.navigate(UserRouteKey.DetailedRecipe, { id })
+
 	if (isLoading) return <Loader />
 	return (
 		<ScreenLayout
@@ -123,7 +126,7 @@ export const RecipesScreen = () => {
 				swipeRef={swipeRef}
 				list={memoFilteringRecipe}
 				openEditor={editRecipe}
-				goDetailRecipe={() => {}}
+				goDetailRecipe={goDetailedRecipe}
 				removeRecipe={alertRemoveRecipe}
 			/>
 		</ScreenLayout>

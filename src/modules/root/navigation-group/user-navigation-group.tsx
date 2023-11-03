@@ -6,6 +6,7 @@ import { UserRouteKey } from '../typing/enums/route-key.enum'
 import { TabBarWidget } from '../widgets'
 import { CategoriesScreen } from '~modules/categories'
 import {
+	DetailedRecipeScreen,
 	EditorRecipeScreen,
 	FavoriteRecipes,
 	IngradientsRecipeScreen,
@@ -34,6 +35,10 @@ const HomeStackNavigator = () => {
 			<HomeStack.Screen
 				name={UserRouteKey.Recipes}
 				component={RecipesScreen}
+			/>
+			<HomeStack.Screen
+				name={UserRouteKey.DetailedRecipe}
+				component={DetailedRecipeScreen}
 			/>
 		</HomeStack.Navigator>
 	)

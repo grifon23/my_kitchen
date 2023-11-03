@@ -8,9 +8,9 @@ interface IProps {
 	name: string
 	size: number
 	color?: ColorValue
-	style?: ViewStyle
+	style?: any
 	onPress?: () => void
-	buttonStyle?: ViewStyle
+	buttonStyle?: any
 }
 export const Icon: FC<IProps> = props => {
 	if (props.onPress)
