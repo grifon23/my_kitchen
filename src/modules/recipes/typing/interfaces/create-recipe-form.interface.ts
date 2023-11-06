@@ -5,4 +5,5 @@ export interface ICreateRecipeForm {
 	name: string
 	description: string
 	ingradients: IIngradient[]
+	isPublic?: boolean
 }

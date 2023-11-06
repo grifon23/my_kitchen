@@ -49,32 +49,31 @@ export const AccountEditScreen: FC<IProps> = ({ onPressLeftIcon }) => {
 		}
 	}
 
-	const saveMainInfo = async () => {
-		try {
-			
-			if (file?.avatar) {
-				const downloadImgUrl = await accountService.uploadAvatar(
-					`${file.avatar.fileName}_avatar.jpg`,
-					file.avatar.uri,
-				)
-				await authService.updateAccountInfo({
-					...form.values,
-					avatar: downloadImgUrl,
-					uuid: uuid,
-				})
-				
-			} else {
-				await authService.updateAccountInfo({
-					...form.values,
-					uuid: uuid,
-				})
+		const saveMainInfo = async () => {
+			try {
+				if (file?.avatar) {
+					const downloadImgUrl = await accountService.uploadAvatar(
+						`${file.avatar.fileName}_avatar.jpg`,
+						file.avatar.uri,
+					)
+					await authService.updateAccountInfo({
+						...form.values,
+						avatar: downloadImgUrl,
+						uuid: uuid,
+					})
+				} else {
+					await authService.updateAccountInfo({
+						...form.values,
+						uuid: uuid,
+					})
+				}
+
+				messageToast('success', 'Account update successfully')
+			} catch (error: any) {
+				console.log('Save main info', error)
+				messageToast('error', error.message)
 			}
-			messageToast('success', 'Account update successfully')
-		} catch (error: any) {
-			console.log('Save main info', error)
-			messageToast('error', error.message)
 		}
-	}
 
 	if (isLoading) return <Loader />
 	return (

@@ -53,7 +53,9 @@ export const AccountForm: FC<IProps> = ({
 				value={values.dateOfBirth}
 				label={'Select Birthday'}
 				placeholder={'Enter date of Birthday'}
-				onChange={(val: any) => onChange('dateOfBirth', val.toString())}
+				onChange={(val: any) => {
+					onChange('dateOfBirth', val)
+				}}
 			/>
 		</View>
 	)

@@ -12,6 +12,7 @@ import {
 	gcService,
 	useForm,
 	useNav,
+	Checkbox,
 } from '~modules/common'
 import { Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
@@ -28,6 +29,7 @@ import { UserRouteKey } from '~modules/root/typing'
 import { createRecipeValidator } from '~modules/recipes/validators'
 import { selectRecipeById } from '~modules/store/recipes/selector'
 import { Store } from '~modules/store/typing'
+import { StyleSheet } from 'react-native'
 
 export const EditorRecipeScreen = () => {
 	const route: any = useRoute()
@@ -143,6 +145,13 @@ export const EditorRecipeScreen = () => {
 		else return 'Create recipe'
 	}, [route.params?.recipeId])
 
+	const onChangeIsPublic = () => {
+		if (form.values.isPublic) {
+			form.setFormField('isPublic', false)
+		} else {
+			form.setFormField('isPublic', true)
+		}
+	}
 	return (
 		<Drawer
 			side="right"
@@ -174,13 +183,16 @@ export const EditorRecipeScreen = () => {
 						onPressLeftIcon={() => nav.goBack()}
 					/>
 				}
-				scrollStyle={{
-					flexGrow: 1,
-					flexDirection: 'column',
-					justifyContent: 'space-between',
-					paddingBottom: 30,
-				}}>
+				scrollStyle={styles.container}>
 				<View>
+					<View style={styles.publicCheckbox}>
+						<Checkbox
+							onChange={onChangeIsPublic}
+							label={'Public recipe'}
+							isActive={form.values.isPublic}
+						/>
+					</View>
+
 					<FormControllSelect
 						label="Category"
 						selected={form.values.categoryId}
@@ -229,3 +241,15 @@ export const EditorRecipeScreen = () => {
 		</Drawer>
 	)
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flexGrow: 1,
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		paddingBottom: 30,
+	},
+	publicCheckbox: {
+		marginLeft: 'auto',
+	},
+})
