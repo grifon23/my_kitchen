@@ -45,7 +45,7 @@
     {
       "uid": "5e9f01871d44e56b45ecbfd00f4dbc3a",
       "css": "layout",
-      "code": 59413,
+      "code": 59437,
       "src": "entypo"
     },
     {
@@ -69,7 +69,7 @@
     {
       "uid": "a66cdc7278e6b33b8bd44a141f5e1a8d",
       "css": "plus-circled",
-      "code": 59402,
+      "code": 57596,
       "src": "entypo"
     },
     {
@@ -135,7 +135,7 @@
     {
       "uid": "884cfc3e6e2d456dd2a2ca0dbb9e6337",
       "css": "left-open-big",
-      "code": 59398,
+      "code": 59413,
       "src": "entypo"
     },
     {
@@ -297,7 +297,7 @@
     {
       "uid": "e8c3daf6a8b76eedc35017a43f8f5efe",
       "css": "robot-outline",
-      "code": 59437,
+      "code": 59440,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -379,6 +379,12 @@
       "css": "pin",
       "code": 59439,
       "src": "iconic"
+    },
+    {
+      "uid": "lu2wqmd7v9zp21knhy4eifo41wjp4cnx",
+      "css": "th-list-1",
+      "code": 59402,
+      "src": "typicons"
     }
   ]
 }

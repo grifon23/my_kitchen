@@ -75,6 +75,16 @@ class RecipesService extends Service {
 		}
 		await recipeApi.updateRecipeRating(id, newRating())
 	}
+
+	public async loadRecipesDashboard() {
+		const recipes: any[] = []
+		const collection = await recipeApi.getRecipesDashboard()
+		collection.forEach(it => {
+			recipes.push({ id: it.id, ...it.data() })
+		})
+
+		return recipes
+	}
 }
 
 export const recipesService = new RecipesService()

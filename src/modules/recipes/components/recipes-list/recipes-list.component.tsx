@@ -7,8 +7,8 @@ import { Recipe } from '../recipe/recipe.component'
 
 interface IProps {
 	list: any[]
-	openEditor: (id: string, index: number) => void
-	removeRecipe: (id: string, categoryId: string, inde?: number) => void
+	openEditor?: (id: string, index: number) => void
+	removeRecipe: (id: string, categoryId: string, index?: number) => void
 	goDetailRecipe: (id: string) => void
 	swipeRef: any
 	updateFavorite?: (id: string, isFavorite?: boolean) => void

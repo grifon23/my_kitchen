@@ -7,7 +7,7 @@ interface IPropsMenuList {
 	connectGoogle: () => void
 	passwordChange: () => void
 	account: () => void
-	myProducts: () => void
+	favoriteRecipe: () => void
 }
 export const menuListConfig = ({
 	logout,
@@ -15,14 +15,14 @@ export const menuListConfig = ({
 	shareUs,
 	connectGoogle,
 	passwordChange,
-	myProducts,
+	favoriteRecipe,
 	account,
 }: IPropsMenuList): IMenuListItemsProps[] => [
 	{
-		onPress: myProducts,
-		text: 'My products',
+		onPress: favoriteRecipe,
+		text: 'Favorite recipe',
 		arrow: true,
-		leftIcon: 'menu',
+		leftIcon: 'heart-empty',
 	},
 	{
 		onPress: account,

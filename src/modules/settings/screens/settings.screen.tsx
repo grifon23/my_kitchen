@@ -44,8 +44,8 @@ export const SettingsScreen: FC = () => {
 		openNextVersionAlert()
 	}
 
-	const myProducts = () => {
-		nav.navigate(UserRouteKey.MyProducts)
+	const favoriteRecipe = () => {
+		nav.navigate(UserRouteKey.Favorite)
 	}
 	const account = () => {
 		nav.navigate(UserRouteKey.Account)
@@ -56,8 +56,8 @@ export const SettingsScreen: FC = () => {
 		shareUs,
 		connectGoogle,
 		passwordChange,
-		myProducts,
-		account
+		favoriteRecipe,
+		account,
 	})
 	return (
 		<ScreenLayout

@@ -46,7 +46,7 @@ export const CategoryEditor: FC<IProps> = ({ isOpen, close, categoryId }) => {
 					name: form.values.name,
 				})
 			} else {
-				await categoryService.createCategory({ name: form.values.name })
+				await categoryService.createCategory(form.values.name)
 			}
 			close()
 			form.setForm({ name: '' })

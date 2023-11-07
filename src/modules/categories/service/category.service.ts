@@ -12,16 +12,21 @@ import _ from 'lodash'
 
 class CategoryService extends Service {
 	public async loadCategories() {
+		const state: any = this.getState('account')
+		const account = state.info.data
+
 		const categories: any = []
-		const collection = await categoriesApi.getCategoriesReq()
+		const collection = await categoriesApi.getCategoriesReq(account.uuid)
 		collection.forEach(it => {
 			categories.push({ id: it.id, ...it.data() })
 		})
 		this.dispatch(new SetCategoriesAction(categories))
 	}
 
-	public async createCategory(payload: IStoreCategoryPayload) {
-		await categoriesApi.createCategoryReq(payload)
+	public async createCategory(name: string) {
+			const state: any = this.getState('account')
+			const account = state.info.data
+		await categoriesApi.createCategoryReq({ name, uuid: account.uuid })
 		await this.loadCategories()
 	}
 

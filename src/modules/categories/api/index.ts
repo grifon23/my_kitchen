@@ -2,8 +2,11 @@ import firestore from '@react-native-firebase/firestore'
 import { IStoreCategoryPayload, IUpdateCategoryPayload } from './interfaces'
 
 class CategoriesApi {
-	public async getCategoriesReq() {
-		const collection = await firestore().collection('categories').get()
+	public async getCategoriesReq(uuid: string) {
+		const collection = await firestore()
+			.collection('categories')
+			.where('uuid', '==', uuid)
+			.get()
 		return collection.docs
 	}
 

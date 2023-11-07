@@ -63,6 +63,15 @@ class RecipeApi {
 	public async createUserRateRecipe(payload: ICreateUserRateRecipePayload) {
 		await firestore().collection('ratings').add(payload)
 	}
+
+	public async getRecipesDashboard() {
+	const resp = await firestore()
+		.collection('recipes')
+		.where('isPublic', '==', true)
+		.get()
+	return resp.docs
+	}
 }
+
 
 export const recipeApi = new RecipeApi()

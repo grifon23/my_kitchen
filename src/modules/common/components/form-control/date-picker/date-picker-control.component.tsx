@@ -59,6 +59,7 @@ export const DatePickerControl: FC<IProps> = ({
 
 	const handleConfirm = (date: any) => {
 		setSelectedDate(date)
+		onChange(String(date))
 		hideDatePicker()
 	}
 
@@ -85,7 +86,7 @@ export const DatePickerControl: FC<IProps> = ({
 				mode="date"
 				onConfirm={handleConfirm}
 				onCancel={hideDatePicker}
-				onChange={onChange}
+				onChange={date => onChange(date.toString())}
 				display="spinner"
 			/>
 		</>
