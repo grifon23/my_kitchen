@@ -65,10 +65,11 @@ class RecipeApi {
 	}
 
 	public async getRecipesDashboard() {
-		await firestore()
-			.collection('recipes')
-			.where('isPublic', '==', true)
-			.get()
+	const resp = await firestore()
+		.collection('recipes')
+		.where('isPublic', '==', true)
+		.get()
+	return resp.docs
 	}
 }
 
