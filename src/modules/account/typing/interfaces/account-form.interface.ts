@@ -4,5 +4,5 @@ export interface IAccountForm {
 	email: string
 	dateOfBirth: string
 	gender: GendersEnum
-	avatar: string
+	avatar?: string
 }

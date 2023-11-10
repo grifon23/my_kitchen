@@ -4,6 +4,7 @@ import {
 	StyleSheet,
 	TextStyle,
 	TouchableOpacity,
+	View,
 	ViewStyle,
 } from 'react-native'
 import _ from 'lodash'
@@ -13,7 +14,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { colors, Icon } from '~modules/common'
 
 interface IProps {
-	value: string
+	value: string | Date
 	onChange: any
 	minDate?: Date
 	maxDate?: Date
@@ -22,6 +23,8 @@ interface IProps {
 	styleBtn?: ViewStyle
 	styleLabel?: TextStyle
 	placeholderColor?: string
+	error?: string
+	mb?: number
 }
 
 export const DatePickerControl: FC<IProps> = ({
@@ -33,10 +36,12 @@ export const DatePickerControl: FC<IProps> = ({
 	placeholder,
 	styleBtn,
 	styleLabel,
+	error,
 	placeholderColor = 'rgba(85, 85, 85, 0.5)',
+	mb,
 }) => {
 	const [datePickerVisible, setDatePickerVisible] = useState(false)
-	const [selectedDate, setSelectedDate] = useState(value)
+	const [selectedDate, setSelectedDate] = useState<Date>(value as Date)
 
 	const renderDateOfBirth = () => {
 		if (!selectedDate) {
@@ -57,14 +62,14 @@ export const DatePickerControl: FC<IProps> = ({
 		setDatePickerVisible(false)
 	}
 
-	const handleConfirm = (date: any) => {
+	const handleConfirm = (date: Date) => {
 		setSelectedDate(date)
-		onChange(String(date))
+		onChange(date.toISOString())
 		hideDatePicker()
 	}
 
 	return (
-		<>
+		<View style={{ marginBottom: mb }}>
 			{label && (
 				<Txt mod="sm" style={[styles.label, styleLabel]}>
 					{label}
@@ -89,7 +94,12 @@ export const DatePickerControl: FC<IProps> = ({
 				onChange={date => onChange(date.toString())}
 				display="spinner"
 			/>
-		</>
+			{error && (
+				<Txt color="red" mod="es">
+					{error}
+				</Txt>
+			)}
+		</View>
 	)
 }
 
