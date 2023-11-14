@@ -7,6 +7,8 @@ import { ResetAccount } from '~modules/store/account/actions'
 import { authApiService, ISignInPayload, ISignUpPayload } from '../api'
 import { defaultProductsData } from '~modules/products/config'
 import { accountService } from '~modules/account/service'
+import { IAccountForm } from '~modules/account'
+import { IUpdateUserInfo } from '../typing'
 
 export class AuthService extends Service {
 	public async signIn(payload: ISignInPayload) {
@@ -22,7 +24,7 @@ export class AuthService extends Service {
 			const isSignedInWithGoogle = await GoogleSignin.hasPlayServices()
 			if (isSignedInWithGoogle) {
 				await authApiService.signUpWithGoogle()
-			} 
+			}
 		} catch (error) {
 			console.log('connectGoogleAccount', error)
 		}
@@ -58,13 +60,10 @@ export class AuthService extends Service {
 		await storageService.set(StorageKey.UUID, uuid)
 	}
 
-	public async updateAccountInfo(payload: any) {
+	public async updateAccountInfo(payload: IUpdateUserInfo) {
+		const date = payload.dateOfBirth
 		await authApiService.updateUserInfo({
-			uuid: payload.uuid,
-			dateOfBirth: payload.dateOfBirth,
-			gender: payload.gender,
-			avatar: payload.avatar,
-			name: payload.name,
+			...payload,
 		})
 		await accountService.loadAcount()
 		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
