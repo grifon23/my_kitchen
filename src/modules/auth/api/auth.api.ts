@@ -46,7 +46,7 @@ export class AuthRequestsService {
 		dateOfBirth: string
 		name: string
 		gender: string
-		avatar: string
+		avatar?: string
 	}) {
 		await firestore().collection('users').doc(payload.uuid).update(payload)
 	}

@@ -25,6 +25,9 @@ export const AccountForm: FC<IProps> = ({
 	style,
 	email,
 }) => {
+	const maxDate = new Date()
+	maxDate.setDate(maxDate.getDate() - 1)
+
 	return (
 		<View style={[styles.container, style]}>
 			<TxtInput
@@ -52,10 +55,13 @@ export const AccountForm: FC<IProps> = ({
 			<DatePickerControl
 				value={values.dateOfBirth}
 				label={'Select Birthday'}
+				error={errors.dateOfBirth}
 				placeholder={'Enter date of Birthday'}
+				mb={20}
 				onChange={(val: any) => {
 					onChange('dateOfBirth', val)
 				}}
+				maxDate={maxDate}
 			/>
 		</View>
 	)
