@@ -385,6 +385,12 @@
       "css": "th-list-1",
       "code": 59402,
       "src": "typicons"
+    },
+    {
+      "uid": "b08cfe8039de2ce815686aced2caef06",
+      "css": "download",
+      "code": 59441,
+      "src": "entypo"
     }
   ]
 }

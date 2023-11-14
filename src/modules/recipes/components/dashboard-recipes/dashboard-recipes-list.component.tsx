@@ -2,11 +2,11 @@ import React, { FC, useCallback } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { ListRenderItem } from 'react-native'
 import { RefreshControl } from 'react-native-gesture-handler'
-import { IDashboardRecipeItem } from '~modules/recipes/typing'
+import { IDashboardRecipeItem, IRecipe } from '~modules/recipes/typing'
 import { DashboardRecipeItem } from '../dashboard-recipe-item'
 
 interface IProps {
-	recipes: any[]
+	recipes: IDashboardRecipeItem[]
 	isLoading: boolean
 	goDetailed: (id: string) => void
 	reload: () => void
