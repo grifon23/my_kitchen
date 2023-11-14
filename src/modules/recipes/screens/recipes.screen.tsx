@@ -93,7 +93,7 @@ export const RecipesScreen = () => {
 	}
 
 	const editRecipe = (id: string, index: number) => {
-		nav.navigate(UserRouteKey.EditorRecipe, { recipeId: id })
+		nav.navigate(UserRouteKey.EditorRecipe, { id })
 		falseDeletePlant(index)
 	}
 

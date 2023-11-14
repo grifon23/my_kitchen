@@ -27,4 +27,6 @@ export enum UserRouteKey {
 	Generate = 'Generate',
 	DetailedRecipe = 'DetailedRecipe',
 	DashboardRecipes = 'DashboardRecipes',
+	DashboardDetailed = 'DashboardDetailed',
+	DashboardStack = 'DashboardStack',
 }

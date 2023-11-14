@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Drawer from 'react-native-drawer'
 import {
 	Button,
@@ -18,7 +18,11 @@ import { Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectCategories } from '~modules/store/categories/selector'
 import _ from 'lodash'
-import { ICreateRecipeForm, IIngradient } from '~modules/recipes/typing'
+import {
+	ICreateRecipeForm,
+	IIngradient,
+	IRecipe,
+} from '~modules/recipes/typing'
 import { useIsFocused, useRoute } from '@react-navigation/native'
 import {
 	IngradientsListForm,
@@ -32,19 +36,34 @@ import { Store } from '~modules/store/typing'
 import { StyleSheet } from 'react-native'
 
 export const EditorRecipeScreen = () => {
-	const route: any = useRoute()
+	const { params }: any = useRoute()
 	const nav = useNav()
 	const drawerRef = useRef(null)
-
 	const isFocused = useIsFocused()
 
+	const [recipe, setRecipe] = useState<IRecipe>(null)
+	const [isLoading, setIsLoading] = useState(false)
 	const { data: categories, isLoading: loadCategory } =
 		useSelector(selectCategories)
 
-	const { data, isLoading } = useSelector((state: Store.Root) =>
-		selectRecipeById(state, route.params?.recipeId),
-	)
 	const form = useForm<ICreateRecipeForm>({}, createRecipeValidator)
+
+	const loadRecipe = async (id: string) => {
+		setIsLoading(true)
+		try {
+			const resp: any = await recipesService.getDetailedRecipe(id)
+			setRecipe(resp)
+		} catch (error) {
+			console.log('error', error)
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
+	useEffect(() => {
+		if (!params?.id) return
+		loadRecipe(params?.id)
+	}, [params])
 
 	const openDrawer = () => {
 		drawerRef.current?.open()
@@ -67,14 +86,14 @@ export const EditorRecipeScreen = () => {
 	}
 
 	useEffect(() => {
-		if (!route.params?.recipeId) {
+		if (!params?.id) {
 			resetForm()
 			return
 		} else {
-			const prepareData: any = _.omit(data, ['id'])
+			const prepareData: any = _.omit(recipe, ['id'])
 			form.setForm(prepareData)
 		}
-	}, [!route.params?.recipeId, isFocused, isLoading, data])
+	}, [params?.id, isFocused, isLoading, recipe])
 
 	const onChange = (key: keyof ICreateRecipeForm, val: string) => {
 		form.setFormField(key, val)
@@ -136,14 +155,14 @@ export const EditorRecipeScreen = () => {
 	}
 
 	const submit = () => {
-		if (route.params?.recipeId) updateRecipe(route.params?.recipeId)
+		if (params?.id) updateRecipe(params?.id)
 		else createRecipe()
 	}
 
 	const memoTitleScreen = useMemo(() => {
-		if (route.params?.recipeId) return 'Edit recipe'
+		if (params?.id) return 'Edit recipe'
 		else return 'Create recipe'
-	}, [route.params?.recipeId])
+	}, [params?.id])
 
 	const onChangeIsPublic = () => {
 		if (form.values.isPublic) {
@@ -152,6 +171,8 @@ export const EditorRecipeScreen = () => {
 			form.setFormField('isPublic', true)
 		}
 	}
+	if (isLoading) return <Loader />
+
 	return (
 		<Drawer
 			side="right"

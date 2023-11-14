@@ -6,6 +6,7 @@ import { UserRouteKey } from '../typing/enums/route-key.enum'
 import { TabBarWidget } from '../widgets'
 import { CategoriesScreen } from '~modules/categories'
 import {
+	DashboardDetailedScreen,
 	DashboardRecipesScreen,
 	DetailedRecipeScreen,
 	EditorRecipeScreen,
@@ -23,7 +24,7 @@ const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const HomeStack = createStackNavigator()
 const UserSettingsStack = createStackNavigator()
-
+const DashboardStack = createStackNavigator()
 const HomeStackNavigator = () => {
 	return (
 		<HomeStack.Navigator
@@ -45,6 +46,21 @@ const HomeStackNavigator = () => {
 	)
 }
 
+const DashboardStackNavigator = () => {
+	return (
+		<DashboardStack.Navigator
+			screenOptions={{ headerShown: false }}
+			initialRouteName={UserRouteKey.DashboardRecipes}>
+			<DashboardStack.Screen
+				name={UserRouteKey.DashboardRecipes}
+				component={DashboardRecipesScreen}></DashboardStack.Screen>
+
+			<DashboardStack.Screen
+				name={UserRouteKey.DashboardDetailed}
+				component={DashboardDetailedScreen}></DashboardStack.Screen>
+		</DashboardStack.Navigator>
+	)
+}
 const UserTabNavigator = () => (
 	<Tab.Navigator
 		screenOptions={{ headerShown: false }}
@@ -56,8 +72,8 @@ const UserTabNavigator = () => (
 			name={UserRouteKey.HomeStack}
 			component={HomeStackNavigator}></Tab.Screen>
 		<Tab.Screen
-			name={UserRouteKey.DashboardRecipes}
-			component={DashboardRecipesScreen}></Tab.Screen>
+			name={UserRouteKey.DashboardStack}
+			component={DashboardStackNavigator}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.EditorRecipe}
 			component={EditorRecipeScreen}></Tab.Screen>

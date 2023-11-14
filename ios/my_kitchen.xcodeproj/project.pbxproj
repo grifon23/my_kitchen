@@ -15,7 +15,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		76E43FDD314AC6B096D51C2D /* Pods_my_kitchen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A037FC27B8A10B86C90B6E3D /* Pods_my_kitchen.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		C5E88A0FBC70435F95FE141F /* fontello.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4D8FBA9D4A44A999B224A0C /* fontello.ttf */; };
+		FBD750C1484C4327B7BA4172 /* fontello.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9561488FFE1F441984C45DB6 /* fontello.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,9 +45,9 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = my_kitchen/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97EB0CB06CF60FFA572A71D3 /* Pods_my_kitchen_my_kitchenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_kitchen_my_kitchenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A037FC27B8A10B86C90B6E3D /* Pods_my_kitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_kitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4D8FBA9D4A44A999B224A0C /* fontello.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = fontello.ttf; path = ../src/assets/fonts/fontello.ttf; sourceTree = "<group>"; };
 		D5A81C00EE5B5C8E7BD4FCC3 /* Pods-my_kitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-my_kitchen.release.xcconfig"; path = "Target Support Files/Pods-my_kitchen/Pods-my_kitchen.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		9561488FFE1F441984C45DB6 /* fontello.ttf */ = {isa = PBXFileReference; name = "fontello.ttf"; path = "../src/assets/fonts/fontello.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +146,7 @@
 		BA7A1AC5316440198A1DED98 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C4D8FBA9D4A44A999B224A0C /* fontello.ttf */,
+				9561488FFE1F441984C45DB6 /* fontello.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				04A4B1032AEC1F7300BD023D /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				C5E88A0FBC70435F95FE141F /* fontello.ttf in Resources */,
+				FBD750C1484C4327B7BA4172 /* fontello.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
