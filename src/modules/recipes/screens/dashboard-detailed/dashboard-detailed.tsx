@@ -17,6 +17,7 @@ import ViewShot from 'react-native-view-shot'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 import { DashboardHeader } from '~modules/recipes/components'
 import { UserRouteKey } from '~modules/root/typing'
+import { CommentsWidget } from '~modules/comments/widgets'
 
 export const DashboardDetailedScreen = () => {
 	const nav = useNav()
@@ -87,7 +88,7 @@ export const DashboardDetailedScreen = () => {
 				/>
 			}
 			horizontalPadding={0}
-			needScroll={false}>
+			needScroll={true}>
 			<ViewShot
 				ref={viewShootRef}
 				captureMode={'mount'}
@@ -121,6 +122,7 @@ export const DashboardDetailedScreen = () => {
 					</View>
 				</ScrollView>
 			</ViewShot>
+			<CommentsWidget />
 		</ScreenLayout>
 	)
 }

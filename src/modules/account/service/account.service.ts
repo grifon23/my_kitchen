@@ -8,12 +8,16 @@ import {
 	UpdateProductAction,
 } from '~modules/store/account/actions'
 import { IProduct } from '~modules/products/typing'
+import { SetNavGroupAction } from '~modules/store/navigation/actions'
+import { NavGroupKey } from '~modules/root/typing'
 
 class AccountService extends Service {
 	public async loadAcount() {
 		const uuid = await storageService.get(StorageKey.UUID)
 		const account: any = await accountApi.getAccountReq(uuid)
 		this.dispatch(new SetAccountAction(account))
+		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
+
 		return account
 	}
 

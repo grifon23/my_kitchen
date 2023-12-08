@@ -10,7 +10,6 @@ export class AppService extends Service {
 		const uuid = await storageService.get(StorageKey.UUID)
 		if (uuid) {
 			await accountService.loadAcount()
-			this.dispatch(new SetNavGroupAction(NavGroupKey.User))
 		} else {
 			this.dispatch(new SetNavGroupAction(NavGroupKey.Auth))
 		}

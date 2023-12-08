@@ -43,11 +43,11 @@
 		70A4664451E4434D44598D46 /* Pods-my_kitchen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-my_kitchen.debug.xcconfig"; path = "Target Support Files/Pods-my_kitchen/Pods-my_kitchen.debug.xcconfig"; sourceTree = "<group>"; };
 		79E030C3D294ECED9891F883 /* Pods-my_kitchen-my_kitchenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-my_kitchen-my_kitchenTests.debug.xcconfig"; path = "Target Support Files/Pods-my_kitchen-my_kitchenTests/Pods-my_kitchen-my_kitchenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = my_kitchen/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9561488FFE1F441984C45DB6 /* fontello.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = fontello.ttf; path = ../src/assets/fonts/fontello.ttf; sourceTree = "<group>"; };
 		97EB0CB06CF60FFA572A71D3 /* Pods_my_kitchen_my_kitchenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_kitchen_my_kitchenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A037FC27B8A10B86C90B6E3D /* Pods_my_kitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_kitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5A81C00EE5B5C8E7BD4FCC3 /* Pods-my_kitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-my_kitchen.release.xcconfig"; path = "Target Support Files/Pods-my_kitchen/Pods-my_kitchen.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		9561488FFE1F441984C45DB6 /* fontello.ttf */ = {isa = PBXFileReference; name = "fontello.ttf"; path = "../src/assets/fonts/fontello.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
