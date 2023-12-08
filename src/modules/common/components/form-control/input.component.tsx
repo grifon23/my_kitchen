@@ -21,6 +21,7 @@ interface IProps {
 	inputProps?: Omit<TextInputProps, 'value' | 'onChange' | 'placeholder'>
 	rightElement?: JSX.Element
 	isTexterea?: boolean
+	minHeight?: number
 }
 export const TxtInput: FC<IProps> = ({
 	value,
@@ -32,6 +33,7 @@ export const TxtInput: FC<IProps> = ({
 	rightElement,
 	inputProps = {},
 	isTexterea,
+	minHeight = 120,
 }) => {
 	const [height, setHeight] = useState(0)
 	return (
@@ -56,7 +58,10 @@ export const TxtInput: FC<IProps> = ({
 					onChangeText={onChange}
 					style={[
 						styles.input,
-						isTexterea ? { height } : { height: 60 },
+
+						isTexterea
+							? { maxHeight: 250, minHeight }
+							: { height: 60 },
 					]}
 					{...inputProps}
 				/>

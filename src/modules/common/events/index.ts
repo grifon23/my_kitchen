@@ -7,6 +7,9 @@ export type AppEvents = {
 		route: string
 		payload: any
 	}
+	needScroll: {
+		isScrollable: boolean
+	}
 	alert: {
 		icon?: string
 		message: string
