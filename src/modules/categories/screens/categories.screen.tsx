@@ -19,7 +19,8 @@ import { Loader } from '~modules/common/components/elements/loader.element'
 
 export const CategoriesScreen = () => {
 	const nav = useNav()
-	const { data: list, isLoading } = useSelector(selectCategories)
+	const { data: list } = useSelector(selectCategories)
+	const [isLoading, setIsloading] = useState(false)
 	const [isOpenEditor, setIsOpenEditor] = useState(false)
 	const [categoryId, setCategoryId] = useState<string>(null)
 
@@ -36,17 +37,6 @@ export const CategoriesScreen = () => {
 		setCategoryId(id)
 		openEditor()
 	}
-	const getCategories = async () => {
-		try {
-			await categoryService.loadCategories()
-		} catch (error) {
-			console.log('error', error)
-		}
-	}
-
-	useEffect(() => {
-		getCategories()
-	}, [])
 
 	const removeCategory = async (id: string) => {
 		try {
@@ -70,8 +60,7 @@ export const CategoriesScreen = () => {
 	const goDetailCategory = (id: string) => {
 		nav.navigate(UserRouteKey.Recipes, { categoryId: id })
 	}
-
-	if (isLoading) return <Loader />
+	if (!list) return <Loader />
 	return (
 		<>
 			<ScreenLayout

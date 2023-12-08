@@ -10,6 +10,7 @@ import {
 import { IProduct } from '~modules/products/typing'
 import { SetNavGroupAction } from '~modules/store/navigation/actions'
 import { NavGroupKey } from '~modules/root/typing'
+import { categoryService } from '~modules/categories/service'
 
 class AccountService extends Service {
 	public async loadAcount() {
@@ -17,6 +18,7 @@ class AccountService extends Service {
 		const account: any = await accountApi.getAccountReq(uuid)
 		this.dispatch(new SetAccountAction(account))
 		this.dispatch(new SetNavGroupAction(NavGroupKey.User))
+		await categoryService.loadCategories()
 
 		return account
 	}
