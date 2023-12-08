@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react'
 import { FlatList, ListRenderItem, View } from 'react-native'
 import { CommentItem } from '../comment-item'
 import { IComment, ICommentsList } from '~modules/comments/typing/interfaces'
-import { ListEmptyComponent } from '~modules/common'
+import { CommentsEmpty, ListEmptyComponent } from '~modules/common'
 
 const stylePreview = (viewFull: boolean) => {
 	if (viewFull) {
@@ -42,14 +42,13 @@ export const CommentsList: FC<IProps> = ({ list, fullPreview }) => {
 				height: fullMode.height,
 			}}>
 			<FlatList
-				nestedScrollEnabled={true}
 				style={{ flex: 1 }}
-				scrollEnabled={fullMode.scroll}
+				scrollEnabled={false}
 				data={list}
 				renderItem={renderItem}
 				keyExtractor={item => String(item.comment)}
 				horizontal={false}
-				ListEmptyComponent={ListEmptyComponent}
+				ListEmptyComponent={CommentsEmpty}
 			/>
 		</View>
 	)
