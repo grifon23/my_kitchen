@@ -4,9 +4,9 @@ import {
 	$size,
 	colors,
 	Loader,
-	PrimaryHeader,
 	ScreenLayout,
 	Txt,
+	useEventsListener,
 	useNav,
 } from '~modules/common'
 import { PreviewIngradient } from '~modules/ingradients/components'
@@ -14,10 +14,11 @@ import { recipesService } from '~modules/recipes/service'
 import { IRecipe } from '~modules/recipes/typing'
 import Share from 'react-native-share'
 import ViewShot from 'react-native-view-shot'
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { DashboardHeader } from '~modules/recipes/components'
 import { UserRouteKey } from '~modules/root/typing'
 import { CommentsWidget } from '~modules/comments/widgets'
+import { CreateComments } from '~modules/comments/components'
 
 export const DashboardDetailedScreen = () => {
 	const nav = useNav()
@@ -72,7 +73,10 @@ export const DashboardDetailedScreen = () => {
 		})
 	}
 	const saveRecipe = () => {
-		nav.navigate(UserRouteKey.EditorRecipe, { id: recipe?.id })
+		nav.navigate(UserRouteKey.EditorRecipe, {
+			id: recipe?.id,
+			from: 'dashboard',
+		})
 	}
 
 	if (isLoading) {
@@ -81,6 +85,7 @@ export const DashboardDetailedScreen = () => {
 
 	return (
 		<ScreenLayout
+			extraHeight={100}
 			headerComponent={
 				<DashboardHeader
 					downloadLecipe={saveRecipe}
@@ -88,6 +93,7 @@ export const DashboardDetailedScreen = () => {
 				/>
 			}
 			horizontalPadding={0}
+			scrollStyle={{ paddingBottom: 20 }}
 			needScroll={true}>
 			<ViewShot
 				ref={viewShootRef}
@@ -97,7 +103,9 @@ export const DashboardDetailedScreen = () => {
 					format: 'jpg',
 					quality: 0.9,
 				}}>
-				<ScrollView contentContainerStyle={styles.shareContainer}>
+				<ScrollView
+					scrollEnabled={false}
+					contentContainerStyle={styles.shareContainer}>
 					<Txt mod="xl" style={styles.title}>
 						{recipe?.name}
 					</Txt>
@@ -122,7 +130,7 @@ export const DashboardDetailedScreen = () => {
 					</View>
 				</ScrollView>
 			</ViewShot>
-			<CommentsWidget />
+			<CreateComments recipeId={recipe?.id} />
 		</ScreenLayout>
 	)
 }

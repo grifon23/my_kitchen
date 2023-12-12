@@ -1306,6 +1306,8 @@ PODS:
     - Firebase/Storage (= 10.17.0)
     - React-Core
     - RNFBApp
+  - RNFlashList (1.6.3):
+    - React-Core
   - RNGestureHandler (2.13.2):
     - React-Core
   - RNGoogleSignin (10.0.1):
@@ -1385,6 +1387,7 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
+  - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNPermissions (from `../node_modules/react-native-permissions`)
@@ -1530,6 +1533,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/firestore"
   RNFBStorage:
     :path: "../node_modules/@react-native-firebase/storage"
+  RNFlashList:
+    :path: "../node_modules/@shopify/flash-list"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
@@ -1627,6 +1632,7 @@ SPEC CHECKSUMS:
   RNFBAuth: 944424c5ba04e250d35eccd3ee2033d6fd7150d7
   RNFBFirestore: 3eb1021700bc0842bd9425c239920ae70964b9ce
   RNFBStorage: 459ee1cb0c0a94ed496b00eb07e1af67f38389f3
+  RNFlashList: 4b4b6b093afc0df60ae08f9cbf6ccd4c836c667a
   RNGestureHandler: bb86e378287f7713baf3ca205423eb8109790022
   RNGoogleSignin: ccaa4a81582cf713eea562c5dd9dc1961a715fd0
   RNPermissions: 8938bc9cbb7ef0b54454c03cdd617cc8b7adc068

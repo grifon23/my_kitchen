@@ -20,12 +20,13 @@ class CategoryService extends Service {
 		collection.forEach(it => {
 			categories.push({ id: it.id, ...it.data() })
 		})
+
 		this.dispatch(new SetCategoriesAction(categories))
 	}
 
 	public async createCategory(name: string) {
-			const state: any = this.getState('account')
-			const account = state.info.data
+		const state: any = this.getState('account')
+		const account = state.info.data
 		await categoriesApi.createCategoryReq({ name, uuid: account.uuid })
 		await this.loadCategories()
 	}

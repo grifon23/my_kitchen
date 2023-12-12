@@ -7,6 +7,9 @@ export type AppEvents = {
 		route: string
 		payload: any
 	}
+	needScroll: {
+		isScrollable: boolean
+	}
 	alert: {
 		icon?: string
 		message: string
@@ -19,5 +22,6 @@ export type AppEvents = {
 		onPressCancelBtn?: () => void
 	}
 	editorRecipe: {}
+	reload: {}
 }
 export const appEvents = new Events<AppEvents>()

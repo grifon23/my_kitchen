@@ -38,6 +38,7 @@ import { StyleSheet } from 'react-native'
 export const EditorRecipeScreen = () => {
 	const { params }: any = useRoute()
 	const nav = useNav()
+	const fromDashboard = params?.from === 'dashboard'
 	const drawerRef = useRef(null)
 	const isFocused = useIsFocused()
 
@@ -171,6 +172,21 @@ export const EditorRecipeScreen = () => {
 			form.setFormField('isPublic', true)
 		}
 	}
+
+	const publicRecipe = useMemo(() => {
+		if (fromDashboard) {
+			return null
+		}
+		return (
+			<View style={styles.publicCheckbox}>
+				<Checkbox
+					onChange={onChangeIsPublic}
+					label={'Public recipe'}
+					isActive={form.values.isPublic}
+				/>
+			</View>
+		)
+	}, [params])
 	if (isLoading) return <Loader />
 
 	return (
@@ -206,13 +222,14 @@ export const EditorRecipeScreen = () => {
 				}
 				scrollStyle={styles.container}>
 				<View>
-					<View style={styles.publicCheckbox}>
+					<>{publicRecipe}</>
+					{/* <View style={styles.publicCheckbox}>
 						<Checkbox
 							onChange={onChangeIsPublic}
 							label={'Public recipe'}
 							isActive={form.values.isPublic}
 						/>
-					</View>
+					</View> */}
 
 					<FormControllSelect
 						label="Category"
@@ -243,6 +260,7 @@ export const EditorRecipeScreen = () => {
 						isTexterea={true}
 						inputProps={{
 							multiline: true,
+							maxLength: 1500,
 						}}
 					/>
 
