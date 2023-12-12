@@ -22,5 +22,6 @@ export type AppEvents = {
 		onPressCancelBtn?: () => void
 	}
 	editorRecipe: {}
+	reload: {}
 }
 export const appEvents = new Events<AppEvents>()

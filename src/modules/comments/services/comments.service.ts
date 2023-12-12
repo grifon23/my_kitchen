@@ -1,5 +1,3 @@
-import { Service } from '~modules/common/service'
-import { IComment } from '../typing'
 import { commentsApi } from '../api'
 
 class CommentsService {
@@ -9,7 +7,6 @@ class CommentsService {
 		collection.forEach(it => {
 			comments.push({ id: it.id, ...it.data() })
 		})
-
 		return comments
 	}
 }

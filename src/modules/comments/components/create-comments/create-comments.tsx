@@ -1,26 +1,38 @@
 import React, { FC, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { SheetManager } from 'react-native-actions-sheet'
-import { Icon, Txt, colors } from '~modules/common'
+import { Icon, Txt, appEvents, colors } from '~modules/common'
 import { CommentForm } from '../comment-form'
-import { CommentsList } from '../comments-list'
-import { mockComment } from '../comments-list/mock-comments'
 import { CommentsWidget } from '~modules/comments/widgets'
+import { IComment } from '~modules/comments/typing'
+import { useSelector } from 'react-redux'
+import { selectAccount } from '~modules/store/account/selector'
+import { commentsApi } from '~modules/comments/api'
 
 interface IProps {
 	recipeId: string
 }
 export const CreateComments: FC<IProps> = ({ recipeId }) => {
+	const { data: account } = useSelector(selectAccount)
 	const [comment, setComment] = useState('')
 	const onChange = (val: string) => {
 		setComment(val)
 	}
+
 	const showCommentsList = () => {
 		SheetManager.show('comments-sheet', { payload: { recipeId } })
 	}
+
 	const submit = async () => {
 		try {
-			console.log('create comment', comment)
+			const prepareSave: IComment = {
+				authorName: account.name,
+				comment,
+				recipeId,
+				avatarUrl: account.avatar,
+			}
+			await commentsApi.createComment(prepareSave)
+			appEvents.emit('reload', {})
 			setComment('')
 		} catch (error) {
 			console.log('error create comment', error)

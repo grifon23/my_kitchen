@@ -1,18 +1,9 @@
-import React, { FC, useEffect, useMemo, useState } from 'react'
-import { DimensionValue, LayoutAnimation, StyleSheet, View } from 'react-native'
-import { SheetManager } from 'react-native-actions-sheet'
-import { CommentForm, CommentsList } from '~modules/comments/components'
-import { mockComment } from '~modules/comments/components/comments-list/mock-comments'
+import React, { FC, useEffect, useState } from 'react'
+import { DimensionValue } from 'react-native'
+import { CommentsList } from '~modules/comments/components'
 import { commentsService } from '~modules/comments/services'
-import { IComment, ICommentsList } from '~modules/comments/typing'
-import {
-	Icon,
-	Loader,
-	Txt,
-	appEvents,
-	colors,
-	useEventsListener,
-} from '~modules/common'
+import { ICommentsList } from '~modules/comments/typing'
+import { Loader, useEventsListener } from '~modules/common'
 interface IProps {
 	recipeId?: string
 	scrollAnable?: boolean
@@ -26,11 +17,13 @@ export const CommentsWidget: FC<IProps> = ({
 	const [comments, setComments] = useState<ICommentsList>([])
 	const [isLoading, setIsLoading] = useState(false)
 
-	const loadComments = async (id: string) => {
+	const loadComments = async () => {
 		setIsLoading(true)
 		try {
-			const list = await commentsService.loadComments(id)
-			console.log('list', list)
+			if (!recipeId) {
+				return
+			}
+			const list = await commentsService.loadComments(recipeId)
 			setComments(list)
 		} catch (error) {
 			console.log('error load comments', error)
@@ -39,10 +32,15 @@ export const CommentsWidget: FC<IProps> = ({
 		}
 	}
 
+	useEventsListener(
+		'reload',
+		() => {
+			loadComments()
+		},
+		[recipeId],
+	)
 	useEffect(() => {
-		if (recipeId) {
-			loadComments(recipeId)
-		}
+		loadComments()
 	}, [recipeId])
 
 	if (isLoading) {
@@ -51,6 +49,8 @@ export const CommentsWidget: FC<IProps> = ({
 
 	return (
 		<CommentsList
+			isLoading={isLoading}
+			reload={loadComments}
 			scrollAnable={scrollAnable}
 			height={height}
 			list={comments}

@@ -5,10 +5,16 @@ import ActionSheet, {
 	SheetProps,
 } from 'react-native-actions-sheet'
 import { CommentForm } from '../comment-form'
-import { Icon, Txt, colors } from '~modules/common'
+import { Icon, Txt, appEvents, colors } from '~modules/common'
 import { CommentsWidget } from '~modules/comments/widgets'
+import { useSelector } from 'react-redux'
+import { selectAccount } from '~modules/store/account/selector'
+import { IComment } from '~modules/comments/typing'
+import { commentsApi } from '~modules/comments/api'
 
 export const CommentsSheet = (props: SheetProps) => {
+	const { data: account } = useSelector(selectAccount)
+	const recipeId = props.payload?.recipeId
 	const [comment, setComment] = useState('')
 	const onChange = (val: string) => {
 		setComment(val)
@@ -16,7 +22,14 @@ export const CommentsSheet = (props: SheetProps) => {
 
 	const submit = async () => {
 		try {
-			console.log('create comment', comment)
+			const prepareSave: IComment = {
+				authorName: account.name,
+				comment,
+				recipeId,
+				avatarUrl: account.avatar,
+			}
+			await commentsApi.createComment(prepareSave)
+			appEvents.emit('reload', {})
 			setComment('')
 		} catch (error) {
 			console.log('error create comment', error)

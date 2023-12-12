@@ -24,18 +24,18 @@ GoogleSignin.configure({
 const App = () => {
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
-			<SheetProvider>
-				<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-					<Provider store={store}>
+			<Provider store={store}>
+				<SheetProvider>
+					<SafeAreaProvider initialMetrics={initialWindowMetrics}>
 						<NavigationContainer>
 							<>
 								<Navigation />
 								<Toast config={toastConfig} />
 							</>
 						</NavigationContainer>
-					</Provider>
-				</SafeAreaProvider>
-			</SheetProvider>
+					</SafeAreaProvider>
+				</SheetProvider>
+			</Provider>
 		</GestureHandlerRootView>
 	)
 }
