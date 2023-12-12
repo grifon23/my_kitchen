@@ -9,21 +9,23 @@ import {
 	Txt,
 	useNav,
 } from '~modules/common'
+import { PreviewIngradient } from '~modules/ingradients/components'
 import { recipesService } from '~modules/recipes/service'
 import { IRecipe } from '~modules/recipes/typing'
-import { Dimensions, StyleSheet, View } from 'react-native'
-import { PreviewIngradient } from '~modules/ingradients/components'
-import { DetailedHeader } from '~modules/recipes/components'
 import Share from 'react-native-share'
 import ViewShot from 'react-native-view-shot'
-import { ScrollView } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import { DashboardHeader } from '~modules/recipes/components'
+import { UserRouteKey } from '~modules/root/typing'
+import { CommentsWidget } from '~modules/comments/widgets'
 
-export const DetailedRecipeScreen = () => {
+export const DashboardDetailedScreen = () => {
 	const nav = useNav()
+	const viewShootRef = useRef(null)
+
 	const { params }: any = useRoute()
 	const [recipe, setRecipe] = useState<IRecipe>(null)
 	const [isLoading, setIsLoading] = useState(false)
-	const viewShootRef = useRef(null)
 
 	const loadRecipe = async (id: string) => {
 		setIsLoading(true)
@@ -69,6 +71,9 @@ export const DetailedRecipeScreen = () => {
 			})
 		})
 	}
+	const saveRecipe = () => {
+		nav.navigate(UserRouteKey.EditorRecipe, { id: recipe?.id })
+	}
 
 	if (isLoading) {
 		return <Loader />
@@ -76,23 +81,21 @@ export const DetailedRecipeScreen = () => {
 
 	return (
 		<ScreenLayout
-			horizontalPadding={0}
-			needScroll={true}
 			headerComponent={
-				<DetailedHeader
-					nameRecipe={'Detailed recipe'}
-					isFavorite={false}
+				<DashboardHeader
+					downloadLecipe={saveRecipe}
 					shareRecipe={share}
-					changeRating={() => {}}
 				/>
-			}>
+			}
+			horizontalPadding={0}
+			needScroll={true}>
 			<ViewShot
 				ref={viewShootRef}
+				captureMode={'mount'}
 				options={{
 					fileName: 'My kitchen',
 					format: 'jpg',
 					quality: 0.9,
-					height: Dimensions.get('screen').height * 0.7,
 				}}>
 				<ScrollView contentContainerStyle={styles.shareContainer}>
 					<Txt mod="xl" style={styles.title}>
@@ -119,6 +122,7 @@ export const DetailedRecipeScreen = () => {
 					</View>
 				</ScrollView>
 			</ViewShot>
+			<CommentsWidget />
 		</ScreenLayout>
 	)
 }
@@ -135,5 +139,6 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.bgLayout,
 		padding: $size(16),
 		borderRadius: 10,
+		width: '100%',
 	},
 })

@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Loader, PrimaryHeader, ScreenLayout, Txt } from '~modules/common'
+import {
+	Loader,
+	PrimaryHeader,
+	ScreenLayout,
+	Txt,
+	useNav,
+} from '~modules/common'
 import { DashboardRecipeList } from '~modules/recipes/components'
 import { recipesService } from '~modules/recipes/service'
+import { IDashboardRecipeItem, IRecipe } from '~modules/recipes/typing'
+import { UserRouteKey } from '~modules/root/typing'
 
 export const DashboardRecipesScreen = () => {
+	const nav = useNav()
 	const [isLoading, setIsLoading] = useState(false)
-	const [recipes, setRecipes] = useState([])
+	const [recipes, setRecipes] = useState<IDashboardRecipeItem[]>([])
 
 	const loadRecipes = async () => {
 		setIsLoading(true)
@@ -23,6 +32,9 @@ export const DashboardRecipesScreen = () => {
 		loadRecipes()
 	}, [])
 
+	const goDetailedRecipe = (id: string) => {
+		nav.navigate(UserRouteKey.DashboardDetailed, { id })
+	}
 	if (isLoading) {
 		return <Loader />
 	}
@@ -34,7 +46,7 @@ export const DashboardRecipesScreen = () => {
 			<DashboardRecipeList
 				reload={loadRecipes}
 				isLoading={isLoading}
-				goDetailed={() => {}}
+				goDetailed={goDetailedRecipe}
 				recipes={recipes}
 			/>
 		</ScreenLayout>
