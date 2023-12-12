@@ -3,16 +3,17 @@ import React, { FC, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Icon, TxtInput, colors } from '~modules/common'
 
-export const CommentForm: FC = () => {
-	const [comment, setComment] = useState('')
-	const onChange = (val: string) => {
-		setComment(val)
-	}
+interface IProps {
+	value: string
+	onChange: (val: string) => void
+	submit: () => void
+}
+export const CommentForm: FC<IProps> = ({ value, onChange, submit }) => {
 	return (
 		<View style={styles.inputWrapper}>
 			<TxtInput
 				label="Add comment"
-				value={comment}
+				value={value}
 				onChange={val => onChange(_.trimStart(val))}
 				placeholder={'Write something '}
 				minHeight={40}
@@ -27,7 +28,7 @@ export const CommentForm: FC = () => {
 				size={25}
 				color={colors.primary}
 				buttonStyle={styles.sendButton}
-				onPress={() => _.noop}
+				onPress={submit}
 			/>
 		</View>
 	)

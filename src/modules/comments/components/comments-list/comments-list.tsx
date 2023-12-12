@@ -1,27 +1,15 @@
 import React, { FC, useCallback } from 'react'
-import { FlatList, ListRenderItem, View } from 'react-native'
+import { DimensionValue, FlatList, ListRenderItem, View } from 'react-native'
 import { CommentItem } from '../comment-item'
 import { IComment, ICommentsList } from '~modules/comments/typing/interfaces'
-import { CommentsEmpty, ListEmptyComponent } from '~modules/common'
+import { CommentsEmpty } from '~modules/common'
 
-const stylePreview = (viewFull: boolean) => {
-	if (viewFull) {
-		return {
-			scroll: true,
-			height: null,
-		}
-	} else {
-		return {
-			scroll: false,
-			height: 50,
-		}
-	}
-}
 interface IProps {
 	list: ICommentsList
-	fullPreview: boolean
+	height: DimensionValue
+	scrollAnable: boolean
 }
-export const CommentsList: FC<IProps> = ({ list, fullPreview }) => {
+export const CommentsList: FC<IProps> = ({ list, height, scrollAnable }) => {
 	const renderItem: ListRenderItem<IComment> = useCallback(
 		({ item: it, index }) => {
 			return (
@@ -35,20 +23,21 @@ export const CommentsList: FC<IProps> = ({ list, fullPreview }) => {
 		[list],
 	)
 
-	const fullMode = stylePreview(fullPreview)
 	return (
 		<View
 			style={{
-				height: fullMode.height,
+				height,
 			}}>
 			<FlatList
 				style={{ flex: 1 }}
-				scrollEnabled={false}
+				contentContainerStyle={{ flexGrow: 1 }}
+				scrollEnabled={scrollAnable}
 				data={list}
 				renderItem={renderItem}
 				keyExtractor={item => String(item.comment)}
 				horizontal={false}
 				ListEmptyComponent={CommentsEmpty}
+				showsVerticalScrollIndicator={false}
 			/>
 		</View>
 	)

@@ -45,9 +45,9 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = my_kitchen/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97EB0CB06CF60FFA572A71D3 /* Pods_my_kitchen_my_kitchenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_kitchen_my_kitchenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A037FC27B8A10B86C90B6E3D /* Pods_my_kitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_kitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4F4842C76C34788A8DE6A97 /* fontello.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = fontello.ttf; path = ../src/assets/fonts/fontello.ttf; sourceTree = "<group>"; };
 		D5A81C00EE5B5C8E7BD4FCC3 /* Pods-my_kitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-my_kitchen.release.xcconfig"; path = "Target Support Files/Pods-my_kitchen/Pods-my_kitchen.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		C4F4842C76C34788A8DE6A97 /* fontello.ttf */ = {isa = PBXFileReference; name = "fontello.ttf"; path = "../src/assets/fonts/fontello.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

@@ -13,7 +13,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import Toast from 'react-native-toast-message'
 import { toastConfig } from '~config'
-
+import { SheetProvider } from 'react-native-actions-sheet'
+import './src/modules/comments/components/comments-sheet/index'
 GoogleSignin.configure({
 	webClientId:
 		'876282652641-sjb2i8ifpio3on381lmu84a1une5iggt.apps.googleusercontent.com',
@@ -23,16 +24,18 @@ GoogleSignin.configure({
 const App = () => {
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
-			<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-				<Provider store={store}>
-					<NavigationContainer>
-						<>
-							<Navigation />
-							<Toast config={toastConfig} />
-						</>
-					</NavigationContainer>
-				</Provider>
-			</SafeAreaProvider>
+			<SheetProvider>
+				<SafeAreaProvider initialMetrics={initialWindowMetrics}>
+					<Provider store={store}>
+						<NavigationContainer>
+							<>
+								<Navigation />
+								<Toast config={toastConfig} />
+							</>
+						</NavigationContainer>
+					</Provider>
+				</SafeAreaProvider>
+			</SheetProvider>
 		</GestureHandlerRootView>
 	)
 }

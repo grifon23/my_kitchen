@@ -18,6 +18,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import { DashboardHeader } from '~modules/recipes/components'
 import { UserRouteKey } from '~modules/root/typing'
 import { CommentsWidget } from '~modules/comments/widgets'
+import { CreateComments } from '~modules/comments/components'
 
 export const DashboardDetailedScreen = () => {
 	const nav = useNav()
@@ -129,8 +130,7 @@ export const DashboardDetailedScreen = () => {
 					</View>
 				</ScrollView>
 			</ViewShot>
-
-			<CommentsWidget />
+			<CreateComments recipeId={recipe?.id} />
 		</ScreenLayout>
 	)
 }
