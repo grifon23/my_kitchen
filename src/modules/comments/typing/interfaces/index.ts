@@ -3,6 +3,7 @@ export interface IComment {
 	avatarUrl?: string
 	comment: string
 	createdAt?: string
+	recipeId: string
 }
 
 export interface ICommentsList extends Array<IComment> {}

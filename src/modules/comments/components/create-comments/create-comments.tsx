@@ -26,7 +26,6 @@ export const CreateComments: FC<IProps> = ({ recipeId }) => {
 			console.log('error create comment', error)
 		}
 	}
-	console.log('recipe Id', recipeId)
 	return (
 		<View style={[styles.container, {}]}>
 			<View style={styles.rowTitle}>
@@ -47,7 +46,11 @@ export const CreateComments: FC<IProps> = ({ recipeId }) => {
 				</View>
 			</View>
 			<CommentForm value={comment} onChange={onChange} submit={submit} />
-			<CommentsWidget scrollAnable={false} height={100} />
+			<CommentsWidget
+				scrollAnable={false}
+				height={100}
+				recipeId={recipeId}
+			/>
 		</View>
 	)
 }
