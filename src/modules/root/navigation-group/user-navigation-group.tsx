@@ -14,11 +14,12 @@ import {
 	IngradientsRecipeScreen,
 	RecipesScreen,
 } from '~modules/recipes'
-import { SettingsScreen } from '~modules/settings/screens'
+import { ChangePasswordScreen } from '~modules/settings/screens'
 import { MyProductScreen } from '~modules/products/screens'
 import { ComingSoonScreen } from '../screens'
 import { AccountEditScreen } from '~modules/account'
 import { AccountScreen } from '~modules/account/screens/account.screen'
+import { SettingsScreen } from '~modules/settings/screens/settings.screen'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -107,6 +108,10 @@ const UserSettingsNavigator = () => {
 			<UserSettingsStack.Screen
 				name={UserRouteKey.Favorite}
 				component={FavoriteRecipes}
+			/>
+			<UserSettingsStack.Screen
+				name={UserRouteKey.ChangePassword}
+				component={ChangePasswordScreen}
 			/>
 		</UserSettingsStack.Navigator>
 	)
