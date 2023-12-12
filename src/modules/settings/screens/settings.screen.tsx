@@ -40,9 +40,7 @@ export const SettingsScreen: FC = () => {
 	const connectGoogle = () => {
 		openNextVersionAlert()
 	}
-	const passwordChange = () => {
-		openNextVersionAlert()
-	}
+	const passwordChange = () => nav.navigate(UserRouteKey.ChangePassword)
 
 	const favoriteRecipe = () => {
 		nav.navigate(UserRouteKey.Favorite)
