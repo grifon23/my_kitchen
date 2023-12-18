@@ -223,13 +223,6 @@ export const EditorRecipeScreen = () => {
 				scrollStyle={styles.container}>
 				<View>
 					<>{publicRecipe}</>
-					{/* <View style={styles.publicCheckbox}>
-						<Checkbox
-							onChange={onChangeIsPublic}
-							label={'Public recipe'}
-							isActive={form.values.isPublic}
-						/>
-					</View> */}
 
 					<FormControllSelect
 						label="Category"
