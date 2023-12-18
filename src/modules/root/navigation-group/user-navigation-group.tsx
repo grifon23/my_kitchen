@@ -20,12 +20,18 @@ import { ComingSoonScreen } from '../screens'
 import { AccountEditScreen } from '~modules/account'
 import { AccountScreen } from '~modules/account/screens/account.screen'
 import { SettingsScreen } from '~modules/settings/screens/settings.screen'
+import { OnboardingScreen } from '~modules/auth'
+import {
+	GenerateByProductsScreen,
+	OnBoardingIOScreen,
+} from '~modules/generate-io'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const HomeStack = createStackNavigator()
 const UserSettingsStack = createStackNavigator()
 const DashboardStack = createStackNavigator()
+const IOStack = createStackNavigator()
 const HomeStackNavigator = () => {
 	return (
 		<HomeStack.Navigator
@@ -80,7 +86,7 @@ const UserTabNavigator = () => (
 			component={EditorRecipeScreen}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Generate}
-			component={ComingSoonScreen}></Tab.Screen>
+			component={IONavigator}></Tab.Screen>
 		<Tab.Screen
 			name={UserRouteKey.Settings}
 			component={UserSettingsNavigator}></Tab.Screen>
@@ -117,6 +123,23 @@ const UserSettingsNavigator = () => {
 	)
 }
 
+const IONavigator = () => {
+	return (
+		<IOStack.Navigator
+			initialRouteName={UserRouteKey.OnBoardingIO}
+			screenOptions={{ headerShown: false }}>
+			<IOStack.Screen
+				component={OnBoardingIOScreen}
+				name={UserRouteKey.OnBoardingIO}
+			/>
+
+			<IOStack.Screen
+				component={GenerateByProductsScreen}
+				name={UserRouteKey.GenerateByProducts}
+			/>
+		</IOStack.Navigator>
+	)
+}
 export const UserNavigationGroup = () => {
 	return (
 		<Stack.Navigator

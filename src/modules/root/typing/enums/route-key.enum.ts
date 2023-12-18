@@ -30,4 +30,8 @@ export enum UserRouteKey {
 	DashboardRecipes = 'DashboardRecipes',
 	DashboardDetailed = 'DashboardDetailed',
 	DashboardStack = 'DashboardStack',
+
+	OnBoardingIO = 'OnBoardingIO',
+	GenerateByProducts = 'GenerateByProducts',
+	GenerateRandomRecipe = 'GenerateRandomRecipe',
 }
