@@ -1,9 +1,6 @@
 import { Service } from '~modules/common/service'
 import { categoriesApi } from '../api'
-import {
-	IStoreCategoryPayload,
-	IUpdateCategoryPayload,
-} from '../api/interfaces'
+import { IUpdateCategoryPayload } from '../api/interfaces'
 import { SetCategoriesAction } from '~modules/store/categories/actions'
 import { recipesService } from '~modules/recipes/service'
 import { recipeApi } from '~modules/recipes/api'

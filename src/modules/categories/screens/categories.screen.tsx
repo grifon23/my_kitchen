@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
 import {
 	appEvents,
 	Button,
-	colors,
 	PrimaryHeader,
 	ScreenLayout,
 	useNav,
