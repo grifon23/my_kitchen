@@ -1,7 +1,7 @@
 export const colors = {
 	primary: '#7832EA',
 	secondary: '#FFFFFF',
-	bgLayout: '#F5F8FF',
+	bgLayout: '#F6FBF8',
 	errorTxt: 'red',
 	primaryTxt: '#121212',
 	secondaryTxt: '#555555',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ScreenLayout, useNav } from '~modules/common'
+import { Button, GradientButton, ScreenLayout, useNav } from '~modules/common'
 import { Image, View } from 'react-native'
 import { AuthRouteKey } from '~modules/root/typing/'
 export const OnboardingScreen = () => {
@@ -18,8 +18,8 @@ export const OnboardingScreen = () => {
 					justifyContent: 'center',
 				}}>
 				<Image
-					source={require('../../../assets/images/myKitche.png')}
-					style={{ height: '35%', width: '90%' }}
+					source={require('../../../assets/images/Logo.png')}
+					style={{ height: '25%', width: '50%' }}
 				/>
 			</View>
 
@@ -30,13 +30,11 @@ export const OnboardingScreen = () => {
 					mod="outline"
 					style={{ marginBottom: 20 }}
 				/>
-
-				<Button
-					txtContent="Sign up"
-					onPress={() => nav.navigate(AuthRouteKey.SignUpStack)}
-					mod="primary"
-				/>
 			</View>
+			<GradientButton
+				txtContent="Sign up"
+				onPress={() => nav.navigate(AuthRouteKey.SignUpStack)}
+			/>
 		</ScreenLayout>
 	)
 }

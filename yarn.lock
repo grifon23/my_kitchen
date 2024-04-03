@@ -6268,6 +6268,13 @@ react-native-gesture-handler@*, react-native-gesture-handler@^2.13.2, "react-nat
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-gradients@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/react-native-gradients/-/react-native-gradients-2.1.1.tgz"
+  integrity sha512-rDLtxPr9l1K/dStihTsSeljnsLbkhKCDjDnKGLPO3uo5b/05AajT/s2MsUIpx80uDH/eggEck705j/tuE7LE3Q==
+  dependencies:
+    react-native-svg ">=13.2.0"
+
 react-native-image-picker@^7.0.2:
   version "7.0.2"
   resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-7.0.2.tgz"
@@ -6285,6 +6292,11 @@ react-native-keyboard-aware-scroll-view@^0.9.5:
   dependencies:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
+
+react-native-linear-gradient@^2.8.3:
+  version "2.8.3"
+  resolved "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz"
+  integrity sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==
 
 react-native-modal-datetime-picker@^17.1.0:
   version "17.1.0"
@@ -6341,7 +6353,7 @@ react-native-star-rating-widget@^1.7.2:
   resolved "https://registry.npmjs.org/react-native-star-rating-widget/-/react-native-star-rating-widget-1.7.2.tgz"
   integrity sha512-FL0N5btdsarRcFqHrS9TkD+9jD5aadBkZJxF1O4KfhkNgAc1/ubquFodRTjwJHJb8JpCHs2FBUh1LQxcWZw7hw==
 
-react-native-svg@*, react-native-svg@^13.14.0:
+react-native-svg@*, react-native-svg@^13.14.0, react-native-svg@>=13.2.0:
   version "13.14.0"
   resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-13.14.0.tgz"
   integrity sha512-27ZnxUkHgWICimhuj6MuqBkISN53lVvgWJB7pIypjXysAyM+nqgQBPh4vXg+7MbqLBoYvR4PiBgKfwwGAqVxHg==
