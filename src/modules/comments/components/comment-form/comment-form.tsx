@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Icon, TxtInput, colors } from '~modules/common'
 

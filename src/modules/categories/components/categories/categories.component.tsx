@@ -1,11 +1,5 @@
 import React, { FC, useCallback } from 'react'
-import {
-	Dimensions,
-	FlatList,
-	ListRenderItem,
-	StyleSheet,
-	View,
-} from 'react-native'
+import { Dimensions, FlatList, ListRenderItem, StyleSheet } from 'react-native'
 import { ICategory } from '~modules/categories/typing'
 import { ListEmptyComponent } from '~modules/common'
 import { Category } from '../category'
