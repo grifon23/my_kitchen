@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Встановлення залежностей
+      - name: Install Dependencies
+        run: |
+          npm install
+          cd ios && pod install && cd ..
+
+      # Запуск полінтера
+      - name: Lint
+        run: npm run lint
+
+      # Запуск тестів
+      - name: Run Tests
+        run: npm test
+
+      # Запуск тестів на Android
+      - name: Android Test
+        run: |
+          npm run android:build
+          npm run android:test
+
+      # Запуск тестів на iOS
+      - name: iOS Test
+        run: |
+          npm run ios:build
+          npm run ios:test
+
+      # Перевірка відсутності помилок
+      - name: Final Checks
+        run: echo "No errors found"
+
