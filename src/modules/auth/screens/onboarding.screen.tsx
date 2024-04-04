@@ -18,8 +18,8 @@ export const OnboardingScreen = () => {
 					justifyContent: 'center',
 				}}>
 				<Image
-					source={require('../../../assets/images/Logo.png')}
-					style={{ height: '25%', width: '40%' }}
+					source={require('/assets/images/Logo.png')}
+					style={{ height: '25%', width: '40%' }};';';
 				/>
 			</View>
 
