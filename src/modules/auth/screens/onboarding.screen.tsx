@@ -19,7 +19,7 @@ export const OnboardingScreen = () => {
 				}}>
 				<Image
 					source={require('../../../assets/images/Logo.png')}
-					style={{ height: '25%', width: '50%' }}
+					style={{ height: '25%', width: '40%' }}
 				/>
 			</View>
 
